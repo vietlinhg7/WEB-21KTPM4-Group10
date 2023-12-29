@@ -11,7 +11,8 @@
 			<h3>Ads management</h3>
 			<hr>
 			<h1>Đăng nhập</h1>
-			<form action="/login/password" method="post">
+			<p class="mb-4 {{#if message}}alert-danger danger p-3{{/if}}">{{#if message}}{{message}}{{else}}Nhập tên tài khoản và mật khẩu bên dưới{{/if}}</p>
+			<form action="/login" method="POST">
 				<section>
 					<label for="username">Tên tài khoản</label>
 					<input id="username" name="username" type="text" autocomplete="username" required autofocus>

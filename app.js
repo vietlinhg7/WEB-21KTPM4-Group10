@@ -5,8 +5,10 @@ const User = require('./models/user');
 const app = express();
 const PORT = 4000;
 const expressHbs = require("express-handlebars");
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
-var authRouter = require('./routes/auth');
+var authRouter = require('./routes/authRouter');
 
 // Thiet lap thu muc Static
 app.use(express.static(__dirname + "/html"));
@@ -14,7 +16,13 @@ app.use(express.static(__dirname + "/html"));
 //Cau hinh su dung View Template
 app.engine(
   "hbs", 
-  expressHbs.engine()
+  expressHbs.engine({
+    layoutsDir: __dirname + '/views/layouts',
+    extname: 'hbs',
+    runtimeOptions: {
+        allowProtoPropertiesByDefault: true,
+    },
+})
 );
 app.set("view engine", "hbs");
 
@@ -43,6 +51,27 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 // };
 
 // addUser();
+
+// Cau hinh cho phep doc du lieu gui len bang phuong thuc POST
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// Thiết lập sử dụng cookies
+app.use(cookieParser('COOKIE_SECRET'));
+
+// Thiết lập sử dụng session và lưu trữ session trên Redis
+app.use(
+    session({
+        secret: 'SESSION_SECRET',
+        resave: false,
+        saveUninitialized: false,
+        cookie: {
+            secure: false, // if true only transmit cookie over https
+            httpOnly: true, // prevent client side JS from reading the cookie
+            maxAge: 20 * 60 * 1000, // 20m
+        },
+    })
+);
 
 app.use('/', authRouter);
 
