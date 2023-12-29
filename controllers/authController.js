@@ -3,8 +3,13 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 
 controller.showIndex = (req, res) => {
+    if (req.session.user.chucvu == 'phuong')
     res.render('Phuong-Map', {
         layout: 'Phuong',
+    });
+    if (req.session.user.chucvu == 'quan')
+    res.render('Phuong-Map', {
+        layout: 'Quan',
     });
 };
 
