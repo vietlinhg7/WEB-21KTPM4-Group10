@@ -1,2 +1,7 @@
+npm init -y
 
+Cài Đặt Thư Viện mongodb
+npm install mongodb
+
+npm install mongoose
 
