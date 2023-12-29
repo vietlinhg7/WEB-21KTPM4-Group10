@@ -1,0 +1,150 @@
+.header
+{
+  background: #0D0D36;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.header .left-section
+{
+  display: flex;
+  flex-flow: row nowrap;
+  position: relative;
+  align-items: center;
+  /* background-color: orange; */
+  margin-left: 2%;
+}
+.header .right-section
+{
+  display: flex;
+  flex-wrap: nowrap;
+  position: relative;
+  align-items: center;
+  /* background-color: orange; */
+}
+.website-logo
+{
+  display: inline;
+  position: relative;
+  width: 30px;
+  /* margin-right: -2px; */
+  /* top: -5px; */
+  flex-flow: nowrap;
+  flex-shrink: 0;
+  
+}
+.website-name
+{
+  display: inline;
+  color: white;
+  top: -2px;
+  font-family: Knewave;
+  font-size: 28px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  position: relative;
+  flex-shrink: 0;
+}
+.header .right-section > *
+{
+  display: inline;
+  color: white;
+  margin-right: 18px;
+  font-size: 20px;
+  flex-shrink: 1;
+} 
+
+.avatar
+{
+  width: 50px;
+}
+
+.main-content
+{
+  top: 52px;
+  display: grid;
+  grid-template-columns: 6fr 7fr;
+  position: fixed;
+  right: 0;
+  left: 0;
+}
+
+.main-content .left-section
+{
+  margin-right: 0.01%;
+  border-style:solid;
+  border-color: red;
+  border-width: 1px;
+  height: 100vh;
+}
+
+.right-section
+{
+  border-style:solid;
+  border-color: black;
+  border-width: 1px;
+}
+iframe
+{
+  width: 100%;
+  height: 95vh;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.district-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.district-select,
+.ward-select,
+.account-select {
+  width: 30%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.button-container {
+  margin-top: 10px;
+  text-align: left;
+}
+
+.button-container button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  margin-left: 15%;
+}
+
+.button-container button:hover {
+  background-color: #45a049;
+}
+
+.assignment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
