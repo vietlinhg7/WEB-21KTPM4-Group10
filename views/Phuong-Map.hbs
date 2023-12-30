@@ -14,7 +14,7 @@
     ></script>
     <div id="sidebar">
       <div id="section1">
-        <img src="images/location.png" width=25px height=25px>
+        <img src="assets/images/location.png" width=25px height=25px>
         <div id="locationInfo">
           <div class="line1">Thông tin địa điểm</div>
           <div class="line2">Coffee Anh Trí</div>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <div id="section2a">
-        <img src="images/ad.png" width=25px height=25px>
+        <img src="assets/images/ad.png" width=25px height=25px>
         <div id="adInfo">
           <div class="line1">Thông tin quảng cáo</div>
           <div class="line2">Bên thuê quảng cáo</div>
@@ -38,7 +38,7 @@
         </div>
       </div>
       <div id="section2b">
-        <img src="images/ad.png" width=25px height=25px>
+        <img src="assets/images/ad.png" width=25px height=25px>
         <div id="reportInfo">
           <div class="line1">Thông tin báo cáo</div>
           <div class="line2">Hình thức báo cáo</div>
@@ -67,32 +67,23 @@
         zoom: 19,
         mapTypeId: "roadmap",
       });
+      let currentQCIcon = "assets/img/QC.png";
+      {{#each locations}}
+        let marker = new google.maps.Marker({  
+          position: new google.maps.LatLng({{toadoX}}, {{toadoY}}),
+          icon: {
+            url: currentQCIcon,
+            scaledSize: new google.maps.Size(30, 30) // width and height in pixels
+          },
+          map: map,
+        });
+      {{/each}}
     }
-    const addUser = async () => {
-  const newUser = new Billboard({
-    billboardID: 'b01',
-    loaiID: 'l01',
-    kichthuoc: '2.5m x 10m',
-    hinhthuc: 'Cổ động chính trị',
-    hinhanh: 'https://cdnphoto.dantri.com.vn/vdDPWOVB1hcODVeyES8rD1GTLio=/zoom/1200_630/2019/04/23/truong-dh-khoa-hoc-tu-nhien-tphcm-1555986970839.jpg',
-    ngayhethan: new Date('2024-11-21'),
-    locationID: 'p4q5-1'
-  });
-
-  try {
-    const savedUser = await newUser.save();
-    console.log(`User ${savedUser.userID} has been added.`);
-  } catch (error) {
-    console.error(`Error occurred while adding user: ${error}`);
-  }
-};
-
-addUser();
     window.initAutocomplete = initAutocomplete;
   </script>
 </body>
 
-{{!-- let currentQCIcon = "images/QC.png";
+{{!-- let currentQCIcon = "assets/images/QC.png";
   const QC = new google.maps.Marker({
     position: new google.maps.LatLng(10.7623944, 106.6872566),
     icon: {
@@ -110,35 +101,35 @@ addUser();
     var btn1a = document.querySelector('.btn1a');
     var btn1b = document.querySelector('.btn1b');
    
-    if (currentQCIcon === "images/QC.png") {
+    if (currentQCIcon === "assets/images/QC.png") {
       var newIcon = {
-        url: "images/X.png", // Replace with your new icon URL
+        url: "assets/images/X.png", // Replace with your new icon URL
         scaledSize: new google.maps.Size(30, 30) // width and height in pixels
       };
       QC.setIcon(newIcon);
-      currentQCIcon = "images/X.png";
+      currentQCIcon = "assets/images/X.png";
       section2a.style.display = "block";
       map.style.width = "70%";
       sidebar.style.display = "block";
       btn1a.style.display = "block";
-      if (currentBCIcon === "images/X.png") {
+      if (currentBCIcon === "assets/images/X.png") {
         var newIcon = {
-          url: "images/BC.png", // Replace with your original icon URL
+          url: "assets/images/BC.png", // Replace with your original icon URL
           scaledSize: new google.maps.Size(30, 30) // width and height in pixels
         };
         BC.setIcon(newIcon);
-        currentBCIcon = "images/BC.png";
+        currentBCIcon = "assets/images/BC.png";
         var section2b = document.getElementById("section2b");
         section2b.style.display = "none";
         btn1b.style.display = "none";
       }
-    } else if (currentQCIcon === "images/X.png") {
+    } else if (currentQCIcon === "assets/images/X.png") {
       var newIcon = {
-        url: "images/QC.png", // Replace with your original icon URL
+        url: "assets/images/QC.png", // Replace with your original icon URL
         scaledSize: new google.maps.Size(30, 30) // width and height in pixels
       };
       QC.setIcon(newIcon);
-      currentQCIcon = "images/QC.png";
+      currentQCIcon = "assets/images/QC.png";
       map.style.width = "100%";
       sidebar.style.display = "none";
       section2a.style.display = "none";
@@ -147,7 +138,7 @@ addUser();
     console.log(map.style.width)
   });
    
-  let currentBCIcon = "images/BC.png";
+  let currentBCIcon = "assets/images/BC.png";
   const BC = new google.maps.Marker({
     position: new google.maps.LatLng(10.7619567, 106.6863498),
     icon: {
@@ -164,35 +155,35 @@ addUser();
     var btn1a = document.querySelector('.btn1a');
     var btn1b = document.querySelector('.btn1b');
 
-    if (currentBCIcon === "images/BC.png") {
+    if (currentBCIcon === "assets/images/BC.png") {
       var newIcon = {
-        url: "images/X.png", // Replace with your new icon URL
+        url: "assets/images/X.png", // Replace with your new icon URL
         scaledSize: new google.maps.Size(30, 30) // width and height in pixels
       };
       BC.setIcon(newIcon);
-      currentBCIcon = "images/X.png";
+      currentBCIcon = "assets/images/X.png";
       section2b.style.display = "block";
       map.style.width = "70%";
       sidebar.style.display = "block";
       btn1b.style.display = "block";
-      if (currentQCIcon === "images/X.png") {
+      if (currentQCIcon === "assets/images/X.png") {
         var newIcon = {
-          url: "images/QC.png", // Replace with your original icon URL
+          url: "assets/images/QC.png", // Replace with your original icon URL
           scaledSize: new google.maps.Size(30, 30) // width and height in pixels
         };
         QC.setIcon(newIcon);
-        currentQCIcon = "images/QC.png";
+        currentQCIcon = "assets/images/QC.png";
         var section2a = document.getElementById("section2a");
         section2a.style.display = "none";
         btn1a.style.display = "none";
       }
-    } else if (currentBCIcon === "images/X.png") {
+    } else if (currentBCIcon === "assets/images/X.png") {
       var newIcon = {
-        url: "images/BC.png", // Replace with your original icon URL
+        url: "assets/images/BC.png", // Replace with your original icon URL
         scaledSize: new google.maps.Size(30, 30) // width and height in pixels
       };
       BC.setIcon(newIcon);
-      currentBCIcon = "images/BC.png";
+      currentBCIcon = "assets/images/BC.png";
       map.style.width = "100%";
       sidebar.style.display = "none";
       section2b.style.display = "none";

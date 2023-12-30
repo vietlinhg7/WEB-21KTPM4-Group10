@@ -25,14 +25,12 @@ controller.addQuan = async (req, res) => {
 
 controller.showIndex = async (req, res) => {
     if (req.session.user.chucvu == 'phuong') {
-        let locations = await Location.find({
+        res.locals.locations = await Location.find({
             phuongID: req.session.user.phuong,
             quanID: req.session.user.quan
         });
-        console.log(locations[0].toadoX);
         res.render('Phuong-Map', {
-            layout: 'Phuong',
-            locations: locations
+            layout: 'Phuong'
         });
     }
     if (req.session.user.chucvu == 'quan')
