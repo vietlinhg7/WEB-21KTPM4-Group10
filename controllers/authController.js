@@ -3,6 +3,19 @@ const mongoose = require('mongoose');
 const User = require('../models/user');
 const Location = require('../models/location');
 const Billboard = require('../models/billboard');
+const Quan = require('../models/quan');
+
+controller.addQuan = async (req, res) => {
+ const keyword = req.body.keyword;
+ const newQuan = new Quan({ quanID: keyword });
+ try {
+   await newQuan.save();
+   res.redirect('/'); // or wherever you want to redirect after saving
+ } catch (err) {
+   console.error(err);
+   res.status(500).send('Server Error');
+ }
+};
 
 controller.showIndex = async (req, res) => {
     if (req.session.user.chucvu == 'phuong') {

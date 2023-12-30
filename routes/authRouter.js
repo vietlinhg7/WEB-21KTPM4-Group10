@@ -9,4 +9,5 @@ router.get('/login', controller.showLogin);
 router.post('/login', controller.login);
 router.get('/logout', controller.logout);
 
+router.post('/addQuan', controller.addQuan);
 module.exports = router;

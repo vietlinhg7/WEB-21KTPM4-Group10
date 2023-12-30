@@ -8,11 +8,12 @@
           <!-- Dropdown menu -->
           <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
             <!-- Dropdown items -->
-            <form onsubmit="addItem(event)">
-                <div class="mb-3">
-                    <label for="" class="form-label">Tên Quận</label>
+            <form action="/addQuan" method="POST">
+              <div class="mb-3">
+                <label for="" class="form-label">Tên Quận</label>
                 <input type="text" class="form-control" name="keyword" id="quanID" aria-describedby="helpId" placeholder="" required>
-                </div>
+              </div>
+              <button type="submit">Submit</button>
             </form>
           </div>
 
@@ -24,25 +25,4 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
     integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
     </script>
-  <script>
-    function addItem(e) {
-      const Quan = require('../models/quan');
-      const Phuong = require('../models/phuong');
-      const newQuan = new Quan({
-          quanID: document.getElementById('quanID').value,
-        });
-
-        try {
-          const savedQuan = await newQuan.save();
-          // handle success
-        } catch (error) {
-          console.error(`Error occurred while adding user: ${error}`);
-          // handle error
-        }
-      // clear the input value after submitting
-      document.getElementById('quanID').value = '';
-    }
-
-  item.value = '';
-  </script>
 </body>
