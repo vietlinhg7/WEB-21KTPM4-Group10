@@ -242,4 +242,6 @@ function ChangeImage(){
       console.log(fileUpload.files[0].name);
   })
 }
+  
+
 window.initAutocomplete = initAutocomplete;
