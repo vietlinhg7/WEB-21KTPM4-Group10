@@ -4,13 +4,12 @@ const Schema = mongoose.Schema;
 const locationSchema = new Schema({
     locationID: { type: String, required: true },
     diachi: String,
-    phuong: String,
-    quan: String,
+    phuongID: { type: String, required: true },
+    quanID: { type: String, required: true },
     loaivitri: String,
-    hinhthuc: String,
     hinhanh: String,
     quyhoach: String,
-    taodoX: Number,
+    toadoX: Number,
     toadoY: Number
 });
 

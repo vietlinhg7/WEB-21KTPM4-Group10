@@ -116,3 +116,13 @@ p.help {
 	background-repeat: no-repeat;
 	background-position: center left;
 }
+
+label[for="remember"] {
+	display: inline-flex;
+	width:fit-content;
+}
+input[type="checkbox"] {
+	display: inline-flex;
+	width: fit-content;
+	margin: 0%;
+}
