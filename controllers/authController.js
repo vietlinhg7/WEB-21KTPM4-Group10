@@ -1,12 +1,21 @@
 const controller = {};
 const mongoose = require('mongoose');
 const User = require('../models/user');
+const Location = require('../models/location');
+const Billboard = require('../models/billboard');
 
-controller.showIndex = (req, res) => {
-    if (req.session.user.chucvu == 'phuong')
-    res.render('Phuong-Map', {
-        layout: 'Phuong',
-    });
+controller.showIndex = async (req, res) => {
+    if (req.session.user.chucvu == 'phuong') {
+        let locations = await Location.find({
+            phuongID: req.session.user.phuong,
+            quanID: req.session.user.quan
+        });
+        console.log(locations[0].toadoX);
+        res.render('Phuong-Map', {
+            layout: 'Phuong',
+            locations: locations
+        });
+    }
     if (req.session.user.chucvu == 'quan')
     res.render('Phuong-Map', {
         layout: 'Quan',
