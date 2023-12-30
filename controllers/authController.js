@@ -11,6 +11,10 @@ controller.showIndex = (req, res) => {
     res.render('Phuong-Map', {
         layout: 'Quan',
     });
+    if (req.session.user.chucvu == 'so')
+    res.render('So-Index', {
+        layout: 'So',
+    });
 };
 
 controller.showLogin = (req, res) => {
