@@ -5,8 +5,14 @@ const Location = require('../models/location');
 const Billboard = require('../models/billboard');
 const Quan = require('../models/quan');
 
+controller.showQuan =async(req,res) => {
+    res.locals.quan = await Quan.find({});
+    res.render('So-Index', {
+        layout: 'So',
+    });
+}
 controller.addQuan = async (req, res) => {
- const keyword = req.body.keyword;
+ const keyword = req.body.QID;
  const newQuan = new Quan({ quanID: keyword });
  try {
    await newQuan.save();
@@ -34,9 +40,7 @@ controller.showIndex = async (req, res) => {
         layout: 'Quan',
     });
     if (req.session.user.chucvu == 'so')
-    res.render('So-Index', {
-        layout: 'So',
-    });
+        res.redirect('/showQuan');
 };
 
 controller.showLogin = (req, res) => {

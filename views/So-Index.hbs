@@ -11,13 +11,19 @@
             <form action="/addQuan" method="POST">
               <div class="mb-3">
                 <label for="" class="form-label">Tên Quận</label>
-                <input type="text" class="form-control" name="keyword" id="quanID" aria-describedby="helpId" placeholder="" required>
+                <input type="text" class="form-control" name="QID" id="quanID" aria-describedby="helpId" placeholder="" required>
               </div>
               <button type="submit">Submit</button>
             </form>
           </div>
-
     </div>
+    <form action="/showQuan" method="GET">
+            <ul class="list-group card mx-5 fs-3"  id="myList">
+              {{#each quan}}
+                <li class="list-group-item">{{quanID}}</li>
+              {{/each}}
+            </ul>
+    </form>
    
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
