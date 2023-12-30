@@ -117,6 +117,31 @@
       transform: translateY(-7px);
     }
   </style>
+
+  <script>
+    // Hàm để lấy tham số từ URL
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    
+
+    // Lấy tọa độ từ URL
+    var latitude = getUrlParameter('lat');
+    var longitude = getUrlParameter('lng');
+
+    function setCoordinates() {
+      document.getElementById('latitude').value = latitude;
+      document.getElementById('longitude').value = longitude;
+    }
+
+    // Hiển thị tọa độ trong console (có thể sử dụng để xử lý tiếp)
+    console.log('Latitude:', latitude);
+    console.log('Longitude:', longitude);
+  </script>
 </head>
 <body>
 
@@ -149,6 +174,9 @@
 
       <label for="reportContent">Nội dung báo cáo:</label>
       <textarea id="reportContent" name="reportContent" rows="3" placeholder="Send message" required></textarea>
+
+      <input type="hidden" id="latitude" name="latitude" value="">
+      <input type="hidden" id="longitude" name="longitude" value="">
     </div>
   </div>
 
@@ -162,7 +190,7 @@
       <input type="file" id="image2" name="image2" accept="image/*">
     </div> -->
 
-    <button type="submit"><i class="fas fa-paper-plane"></i> Gửi yêu cầu</button>
+    <button type="submit" onclick="setCoordinates()"><i class="fas fa-paper-plane"></i> Gửi yêu cầu</button>
     <a href="Map.html" target="_blank">
       <button type="button" class="homepage-button">Homepage</button>
     </a>

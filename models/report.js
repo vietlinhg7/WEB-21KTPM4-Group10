@@ -9,6 +9,7 @@ const reportSchema = new Schema({
   reportContent: String,
   thoidiemgui: Date,
   tinhtrang: String,
+  cachthucxuly: String,
   // image1: Buffer, // Sử dụng kiểu dữ liệu Buffer cho ảnh
   // image2: Buffer // Sử dụng kiểu dữ liệu Buffer cho ảnh
 });

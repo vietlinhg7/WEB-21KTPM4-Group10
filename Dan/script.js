@@ -112,7 +112,7 @@ function addAdvertisingLocation(latitude, longitude, advertisingData, content, c
   // Thêm sự kiện khi click vào marker
   marker.addListener('click', function() {
     // Thực hiện hành động khi click vào marker, ví dụ: hiển thị bảng thông tin khác
-    showAdditionalInfo(marker, content, content1, data1, data2);
+    showAdditionalInfo(marker, content, content1, data1, data2, latitude, longitude);
   });
 
   // Thêm sự kiện khi di chuột ra khỏi marker
@@ -165,7 +165,7 @@ function addAdvertisingLocation1(latitude, longitude, advertisingData, content, 
   // Thêm sự kiện khi click vào marker
   marker.addListener('click', function() {
     // Thực hiện hành động khi click vào marker, ví dụ: hiển thị bảng thông tin khác
-    showAdditionalInfo(marker, content, content1, data1, data2);
+    showAdditionalInfo(marker, content, content1, data1, data2, latitude, longitude);
     
   });
 
@@ -341,12 +341,12 @@ function generateInfoContent(advertisingData) {
   }
 }
 
-function showAdditionalInfo(marker, content, content1, data1, data2) {
+function showAdditionalInfo(marker, content, content1, data1, data2, latitude, longitude) {
   var additionalInfoWindow = new google.maps.InfoWindow({
     content: '<div style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Danh sách các bảng quảng cáo</div>' +
       '<form style="display: flex; flex-direction: column; align-items: center; max-width: 900px; font-size: 20px; padding: 0px 50px 0px 0px;">' +
-      '<div class="a" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data1 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>' +
-      '<div class="b" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content1 + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data2 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>' +
+      '<div class="a" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data1 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button onclick="redirectToReportPage(' + latitude + ', ' + longitude + ')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>' +
+      '<div class="b" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content1 + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data2 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button onclick="redirectToReportPage(' + latitude + ', ' + longitude + ')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>' +
       '</form>',
     maxWidth: 1000,
   });
@@ -448,7 +448,7 @@ content += '<div class="preserve-whitespace"> <b>          Loại hình kinh doa
 content += '</div>'; // Kết thúc div address-info
 
 // Thêm nút "BÁO CÁO VI PHẠM" và căn chỉnh nó sang phía dưới bên phải
-content += '<button onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; align-self: flex-end; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button>';
+content += '<button onclick="redirectToReportPage(' + place.geometry.location.lat() + ', ' + place.geometry.location.lng() + ')" style="margin: 10px; padding: 10px; align-self: flex-end; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button>';
 
 content += '</form>';
 
@@ -466,10 +466,11 @@ function toggleExpirationDate(Date) {
   expirationDate.style.display = (expirationDate.style.display === 'none' || expirationDate.style.display === '') ? 'block' : 'none';
 }
 
-function redirectToReportPage() {
-  // Mở trang Report.html trong một tab/chế độ xem mới
-  window.open('Report.html', '_blank');
+// Mở trang Report.html trong một tab/chế độ xem mới và truyền tọa độ
+function redirectToReportPage(latitude, longitude) {
+  window.open('Report.html?lat=' + latitude + '&lng=' + longitude, '_blank');
 }
+
 
 function showMyLocation() {
   // Kiểm tra xem trình duyệt có hỗ trợ Geolocation không
