@@ -1,0 +1,202 @@
+/* 
+ * Always set the map height explicitly to define the size of the div element
+ * that contains the map. 
+ */
+
+/* 
+ * Optional: Makes the sample page fill the window. 
+ */
+html,
+body {
+  height: 96.5%;
+  margin: 0;
+  padding: 0;
+}
+
+#description {
+  font-family: Roboto;
+  font-size: 15px;
+  font-weight: 300;
+}
+
+#infowindow-content .title {
+  font-weight: bold;
+}
+
+#infowindow-content {
+  display: none;
+}
+
+#map #infowindow-content {
+  display: inline;
+}
+
+.pac-card {
+  background-color: #fff;
+  border: 0;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+  margin: 10px;
+  padding: 0 0.5em;
+  font: 400 18px Roboto, Arial, sans-serif;
+  overflow: hidden;
+  font-family: Roboto;
+  padding: 0;
+}
+
+#pac-container {
+  padding-bottom: 12px;
+  margin-right: 12px;
+}
+
+.pac-controls {
+  display: inline-block;
+  padding: 5px 11px;
+}
+
+.pac-controls label {
+  font-family: Roboto;
+  font-size: 13px;
+  font-weight: 300;
+}
+
+#pac-input {
+  background-color: #fff;
+  font-family: Roboto;
+  font-size: 20px;
+  font-weight: 300;
+  margin-left: 12px;
+  margin-top: 15px;
+  padding: 0 11px 0 13px;
+  text-overflow: ellipsis;
+  width: 400px;
+}
+
+#pac-input:focus {
+  border-color: #4d90fe;
+}
+
+#title {
+  color: #fff;
+  background-color: #4d90fe;
+  font-size: 25px;
+  font-weight: 500;
+  padding: 6px 12px;
+}
+
+#target {
+  width: 345px;
+}
+
+content {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+ }
+ 
+ #map {
+  height: 100%;
+  width: 100%;
+ }
+ 
+ #sidebar {
+  height: 100%;
+  width: 30%;
+  display: none;
+ }
+ [id^="section"] {
+  display: block;
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  width: 90%;
+  text-align: center;
+  border-radius: 15px;
+ }
+ #section1 {
+  height: 20%;
+  background-color: #c3fbff;
+ }
+ [id^="section2"] {
+  height: 60%;
+ }
+ #section2a {
+  background-color:#aeffac;
+  display: none;
+ }
+ #section2b {
+  background-color:#96bdff;
+  display: none;
+ }
+ .button-container {
+  display: flex;
+  justify-content: space-between;
+  margin-left: 5%;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  width: 90%;
+  height: 7%; 
+  text-align: center;
+}
+
+[class^="btn"] {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-left: 5%;
+  margin-right: 5%;
+  border-radius: 15px;  
+  border-color: #fff;
+  height: 100%;
+  width: 35%;
+  font-size: 20;
+  font-weight: bold;
+  color: black;
+} 
+[class^="btn"] {
+  background-color: #fdff89;
+  margin-left: 7%;
+  display:none;
+}
+.btn2 {
+  background-color: #ff6262;  
+  margin-right: 7%;
+  display: block;
+}
+img{
+  margin-top:15px;
+  float: left;
+  margin-left: 15px;
+}
+#locationInfo, #adInfo{
+  margin-left: 50px;
+  margin-top: -30px;
+  margin-right: 10px;
+  display: float;
+  float: left;
+}
+#reportInfo{
+  display: float;
+  float: left;
+  margin-top: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.line1, .line2, .line3{
+  font-family: Roboto;
+  text-align: left;
+  margin-bottom: 8px;
+}
+.line1{
+  font-weight: bold;
+  font-size: 25px;
+}
+.line2{
+  font-weight: bold;
+  font-size: 18px;
+}
+.line3{
+  font-size: 15px;
+}

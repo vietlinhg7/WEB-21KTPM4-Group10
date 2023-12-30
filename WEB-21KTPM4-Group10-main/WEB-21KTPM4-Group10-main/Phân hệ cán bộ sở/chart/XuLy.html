@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Phân hệ cán bộ sở VH-TT</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <script src="script.js" defer></script>
+
+</head>
+
+<body>
+
+  <header class="containter-fluid bg-primary">
+    <nav class="navbar navbar-expand-sm  bg-primary">
+      <div class="container">
+        <a class="navbar-brand text-light" href="#">WebSiteName</a>
+        <a class="active text-light"style="text-decoration: none;" href="../index.html">Quản lý điểm đặt quảng cáo</a>
+        <a class="text-light "style="text-decoration: none;" href="../LicenseRequest/licenseRequest.html">Yêu cầu cấp phép</a>
+        <a class="text-light"style="text-decoration: none;" href="../chart/report.html">Thống kê báo cáo & Cách thức xử lý</a>
+        <!-- <a class="text-light"style="text-decoration: none;" href="../Assign/assign.html">Phân công khu vực quản lý</a> -->
+        <div class="dropdown">
+          <a class="btn btn-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Phân công khu vực quản lí
+          </a>
+        
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="../Login_Register/public/register.html">Đăng kí</a></li>
+            <li><a class="dropdown-item" href="../Assign/assign.html">Phân công khu vực quản lí</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+      <div class="dropdown text-start m-3">
+          <!-- Dropdown toggle button -->
+          <button class="btn btn-secondary dropdown-toggle bg-primary" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Xử Lý
+          </button>
+          <!-- Dropdown menu -->
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <!-- Dropdown items -->
+            <a class="BaoCao dropdown-item" href="report.html">Báo cáo</a>
+            <a class="XuLy dropdown-item" href="XuLy.html">Xử Lý</a>
+  
+          </div>
+        </div>
+    <div id="chartContainerXuLy" style="height: 800px; width: 100%; font-family: Arial;"></div>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+    <div class="chart" id="" style="height: 800px; width: 100%; font-family: Arial;"></div>
+    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+
+<script>
+    window.onload = function () {
+    
+    var chart = new CanvasJS.Chart("chartContainerXuLy", {
+        exportEnabled: true,
+        animationEnabled: true,
+        title:{
+            text: "Cách thức xử lý"
+        },
+        subtitles: [{
+            text: "Ấn vào chú thích để hiện-ẩn thuộc tính"
+        }], 
+        axisX: {
+            title: "Các quận"
+        },
+        axisY: {
+            title: "Sửa chữa",
+            titleFontColor: "#4F81BC",
+            lineColor: "#4F81BC",
+            labelFontColor: "#4F81BC",
+            tickColor: "#4F81BC",
+            includeZero: true
+        },
+        axisY2: {
+            title: "Gỡ bỏ",
+            titleFontColor: "#C0504E",
+            lineColor: "#C0504E",
+            labelFontColor: "#C0504E",
+            tickColor: "#C0504E",
+            includeZero: true
+        },
+        toolTip: {
+            shared: true
+        },
+        legend: {
+            cursor: "pointer",
+            itemclick: toggleDataSeries
+        },
+        data: [{
+            type: "column",
+            name: "Sửa chữa",
+            showInLegend: true,      
+            yValueFormatString: "#,##0.# Units",
+            dataPoints: [
+            { label: "Quận 1",  y: 4 },
+                { label: "Quận 2", y: 6 },
+                { label: "Quận 3", y: 6 },
+                { label: "Quận 4",  y: 2 },
+                { label: "Quận 5",  y: 4 },
+                { label: "Quận 6",  y: 5 },
+                { label: "Quận 7",  y: 4 },
+                { label: "Quận 8",  y: 8 },
+                { label: "Quận 9",  y: 5 },
+                { label: "Quận 10",  y: 10},
+                { label: "Quận 11",  y: 12 },
+                { label: "Quận 12",  y: 11 }
+            ]
+        },
+        {
+            type: "column",
+            name: "Gỡ bỏ",
+            axisYType: "secondary",
+            showInLegend: true,
+            yValueFormatString: "#,##0.# Units",
+            dataPoints: [
+            { label: "Quận 1",  y: 1 },
+                { label: "Quận 2", y: 2 },
+                { label: "Quận 3", y: 6 },
+                { label: "Quận 4",  y: 6 },
+                { label: "Quận 5",  y: 2 },
+                { label: "Quận 6",  y: 7 },
+                { label: "Quận 7",  y: 1 },
+                { label: "Quận 8",  y: 8 },
+                { label: "Quận 9",  y: 9 },
+                { label: "Quận 10",  y: 1},
+                { label: "Quận 11",  y: 1 },
+                { label: "Quận 12",  y: 4 }
+            ]
+        }]
+    });
+    chart.render();
+    
+    function toggleDataSeries(e) {
+        if (typeof (e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
+            e.dataSeries.visible = false;
+        } else {
+            e.dataSeries.visible = true;
+        }
+        e.chart.render();
+    }
+    
+    }
+    </script>
+    <script>
+    </script>
+</body>

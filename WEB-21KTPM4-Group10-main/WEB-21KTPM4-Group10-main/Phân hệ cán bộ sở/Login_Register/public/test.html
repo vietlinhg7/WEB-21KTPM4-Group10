@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Upload Interface</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .upload-container {
+      text-align: center;
+    }
+
+    .upload-btn-wrapper {
+      position: relative;
+      overflow: hidden;
+      display: inline-block;
+    }
+
+    .btn {
+      border: 2px solid gray;
+      color: gray;
+      background-color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    .upload-btn-wrapper input[type=file] {
+      font-size: 100px;
+      position: absolute;
+      left: 0;
+      top: 0;
+      opacity: 0;
+    }
+
+    .upload-btn-wrapper .btn:hover {
+      border-color: black;
+    }
+
+    #uploaded-image {
+      max-width: 100%;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="upload-container">
+    <div class="upload-btn-wrapper">
+      <button class="btn" onclick="uploadImage()">Choose Image</button>
+      <input type="file" id="fileInput" onchange="displayImage()" />
+    </div>
+    <p>Supported file types: JPEG, PNG, GIF</p>
+    <img id="uploaded-image" alt="Uploaded Image">
+  </div>
+
+  <script>
+    function displayImage() {
+      const fileInput = document.getElementById('fileInput');
+      const uploadedImage = document.getElementById('uploaded-image');
+
+      const file = fileInput.files[0];
+      if (file) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+          uploadedImage.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function uploadImage() {
+      const fileInput = document.getElementById('fileInput');
+      const uploadedImage = document.getElementById('uploaded-image');
+
+      const file = fileInput.files[0];
+      if (file) {
+        // Thực hiện xử lý đăng ảnh lên server ở đây (nếu cần)
+        // Ví dụ: Bạn có thể sử dụng AJAX để gửi ảnh đến server
+        alert('Image uploaded!'); // Thông báo đơn giản (có thể thay đổi thành xử lý thực tế)
+      } else {
+        alert('Please choose an image first.');
+      }
+    }
+  </script>
+</body>
+</html>

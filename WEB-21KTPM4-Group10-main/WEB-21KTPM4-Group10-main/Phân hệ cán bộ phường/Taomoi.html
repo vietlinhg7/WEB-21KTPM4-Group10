@@ -1,0 +1,177 @@
+<html>
+  <head>
+    <title>Phân hệ cán bộ phường</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="./style.css" />
+    <script type="module" src="./index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  </head>
+  <body>
+    <header>
+      <!-- <nav class="navbar navbar-default navbar-static-top navbar-inverse">
+        <div class="container">
+            <ul class="nav navbar-nav">
+              <li><a>Trang chủ</a></li>
+              <li ><a href="Chinhsua.html">Chỉnh sửa</a></li>
+              <li  class="active"><a href="Chitiet.html">Chi tiết</a></li>
+              <li><a href="Taomoi.html">Tạo mới</a></li>
+              <li><a href="Danhsach.html">Danh sách</a></li>
+            </ul>
+        </div>
+      </nav> 
+      <style>
+        .navbar {
+          margin: 0px;
+          height: 5%;
+        }
+      </style>-->
+      <nav class="navbar navbar-expand navbar-light bg-light">
+          <div class="nav navbar-nav">
+              <a class="nav-item nav-link" href="index.html">Trang chủ</a>
+              <a class="nav-item nav-link" href="Chitiet.html">Chi tiết <span class="visually-hidden">(current)</span></a>
+              <a class="nav-item nav-link " href="Chinhsua.html">Chỉnh sửa</a>
+              <a class="nav-item nav-link active" aria-current="page" >Tạo mới</a>
+              <a class="nav-item nav-link" href="Danhsach.html">Danh sách</a>
+          </div>
+      </nav>
+    </header>
+    <form action="#" method="post">
+    <div class="container py-3">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>                
+            <div class="mb-3">
+            <input type="text" class="form-control my-3" name="keyword" id="keyword" aria-describedby="helpId"
+            placeholder="Tên hãng quảng cáo" value="" required>
+          </div></h1>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col">
+              <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Thông tin địa điểm</strong> </h4>
+
+                
+                
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="keyword" id="keyword" aria-describedby="helpId"
+                  placeholder=""
+                  value="" required>
+                </div>
+                
+                <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Thông tin bảng quảng cáo</strong></h5>
+                  <h5 class="mx-5 my-3"><strong>Bên thuê quảng cáo</strong></h5>
+                  
+                  
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="keyword" id="keyword" aria-describedby="helpId"
+                    placeholder="" value="" required>
+                  </div>
+                  
+                  
+                  <h5 class="mx-5 my-3"><strong>Nội dung quảng cáo</strong></h5>
+                  
+                  
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="keyword" id="keyword" aria-describedby="helpId"
+                    placeholder="" value="" required>
+                  </div>
+                  
+                  <h5 class="mx-5 my-3"><strong>Hình thức quảng cáo</strong></h5>
+                  
+                  
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="keyword" id="keyword" aria-describedby="helpId"
+                    placeholder="" value="" required>
+                  </div>
+                  
+                  <h5 class="mx-5 my-3"><strong>Loại vị trí</strong></h5>
+                  
+                  
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="keyword" id="keyword" aria-describedby="helpId"
+                    placeholder="" value="" required>
+                  </div>
+                  
+                  
+                  <h5 class="mx-5 my-3"><strong>Thời hạn quảng cáo</strong></h5>
+                  
+                  
+                  <div class="mb-3">
+                    <input type="text" class="form-control" name="keyword" id="keyword" aria-describedby="helpId"
+                    placeholder="" value="" required>
+                  </div>
+                  
+
+                  
+                </div>
+                <div class="col align-self-center">
+                  <img src="./images/noImg.png" alt="" class="img-thumbnail" id="image">
+                  <label for="file-upload">file input</label>
+                  <input type="file" class="form-control-file" id="file-upload" onclick="ChangeImage()" required />
+                </div>
+              </div>
+            </div>
+            <div class="card-footer">
+              <!-- Dropdown element -->
+              <input class="btn btn-secondary bg-primary " type="button" onclick="edit()" value="Edit">
+              <input class="btn btn-secondary bg-primary " type="button" onclick="save()" value="Tạo mới">
+          </div>
+        </div>
+      </div>
+      
+    </form>
+  </body>
+</html>
+
+<script>
+  function goToChinhsua() {
+    window.location.href = 'Chinhsua.html';
+  }
+
+  function goToChitiet() {
+    window.location.href = 'Chitiet.html';
+  }
+</script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+</script>
+<script>
+  function edit() {
+    for (let i = 0; i < 8; i++) {
+        document.querySelectorAll("form .form-control")[i].readOnly = false;
+    }
+}
+function save() {
+    var xs = [];
+    window.confirm("Tạo mới quảng cáo?");
+    for (let i = 0; i < 8; i++) {
+        var x = document.querySelectorAll("form .form-control")[i].value;
+        xs.push(x);
+        document.querySelectorAll("form .form-control")[i].value = xs[i];
+        document.querySelectorAll("form .form-control")[i].readOnly = true;
+    }
+}
+function ChangeImage(){
+    const fileUpload = document.querySelector("#file-upload");
+    fileUpload.addEventListener("change", (event) => {
+        const { files } = event.target;
+        console.log(fileUpload.files[0].name);
+        document.getElementById("image").src = "../images/" + fileUpload.files[0].name;
+        console.log(fileUpload.files[0].name);
+    })
+
+}
+window.onload = edit();
+</script>

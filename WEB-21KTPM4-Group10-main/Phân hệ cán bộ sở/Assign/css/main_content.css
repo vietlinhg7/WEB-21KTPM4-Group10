@@ -1,0 +1,53 @@
+body {
+  font-family: 'Roboto' sans-serif;
+  margin: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.district-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.district-select,
+.ward-select,
+.account-select {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.assignment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.button-container #submitBtn{
+  text-align: right;
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-left: 100px ;
+}
+
+
+.button-container button:hover {
+  background-color: #45a049;
+}

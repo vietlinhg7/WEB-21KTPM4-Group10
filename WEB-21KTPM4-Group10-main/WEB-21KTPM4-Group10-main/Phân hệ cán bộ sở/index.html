@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <title>Phân hệ cán bộ sở VH-TT</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS v5.2.1 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+  <script src="script.js" defer></script>
+
+</head>
+
+<body>
+
+  <header class="containter-fluid bg-primary">
+    <nav class="navbar navbar-expand-sm  bg-primary">
+      <div class="container">
+        <a class="navbar-brand text-light" href="#">WebSiteName</a>
+        <a class="active text-light"style="text-decoration: none;" href="../index.html">Quản lý điểm đặt quảng cáo</a>
+        <a class="text-light "style="text-decoration: none;" href="../LicenseRequest/licenseRequest.html">Yêu cầu cấp phép</a>
+        <a class="text-light"style="text-decoration: none;" href="../chart/report.html">Thống kê báo cáo & Cách thức xử lý</a>
+        <!-- <a class="text-light"style="text-decoration: none;" href="../Assign/assign.html">Phân công khu vực quản lý</a> -->
+        <div class="dropdown">
+          <a class="btn btn-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Phân công khu vực quản lí
+          </a>
+        
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="../Login_Register/register.html">Đăng kí</a></li>
+            <li><a class="dropdown-item" href="../Assign/assign.html">Phân công khu vực quản lí</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <div class="">
+      <button class="btn btn-primary me-md-2 m-3 mx-5 px-3 "  type="button" id="add">
+        <a class="text-light" style="text-decoration: none;"  href="../Add/add.html">Tạo mới</a>
+      </button>
+
+    </div>
+    <div class="card mx-5 fs-3">
+      <div class="card-header "><i class="bi bi-laptop px-3"></i><strong>Nestlé Vietnam Ltd</strong> </div>
+      <div class="card-body px-5">MỚI! NESCAFÉ CAFÉ VIỆT PHIÊN BẢN ĐẶC BIỆT VỚI ARABICA</div>
+      <div class="card-footer">
+        <!-- Dropdown element -->
+        <div class="dropdown text-end">
+          <!-- Dropdown toggle button -->
+          <button class="btn btn-secondary dropdown-toggle bg-primary" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Xem thêm
+          </button>
+          <!-- Dropdown menu -->
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <!-- Dropdown items -->
+            <a class="dropdown-item" href="/detailAd/Nestle.html ">Chi tiết</a>
+            <a class="dropdown-item" href="/update/Netstle.html">Sửa</a>
+            <a class="delete dropdown-item" href="#">Xóa</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card m-5 fs-3">
+      <div class="card-header "><i class="bi bi-laptop px-3"></i><strong>OPPO Việt Nam </strong> </div>
+      <div class="card-body px-5">OPPO Find N3 Flip | A New Generation</div>
+      <div class="card-footer">
+        <!-- Dropdown element -->
+        <div class="dropdown text-end">
+          <!-- Dropdown toggle button -->
+          <button class="btn btn-secondary dropdown-toggle bg-primary" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Xem thêm
+          </button>
+          <!-- Dropdown menu -->
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <!-- Dropdown items -->
+            <a class="dropdown-item" href="/detailAd/Oppo.html">Chi tiết</a>
+            <a class="dropdown-item" href="/update/Oppo.html">Sửa</a>
+            <a class="delete dropdown-item" id="deleteAD" href="#">Xóa</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="card m-5 fs-3">
+      <div class="card-header "><i class="bi bi-laptop px-3"></i><strong>Honda Việt Nam</strong> </div>
+      <div class="card-body px-5">Honda AIR BLADE PHIÊN BẢN MỚI</div>
+      <div class="card-footer">
+        <!-- Dropdown element -->
+        <div class="dropdown text-end">
+          <!-- Dropdown toggle button -->
+          <button class="btn btn-secondary dropdown-toggle bg-primary" type="button" id="dropdownMenuButton1"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Xem thêm
+          </button>
+          <!-- Dropdown menu -->
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <!-- Dropdown items -->
+            <a class="dropdown-item" href="/detailAd/Honda.html">Chi tiết</a>
+            <a class="dropdown-item" href="/update/Honda.html">Sửa</a>
+            <a class="delete dropdown-item" onclick="deleteAD()" href="#">Xóa</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+
+<script>
+  document.querySelectorAll('.delete').forEach(item =>{
+      item.onclick = () => {
+          if(confirm('Do really want to remove this item?')){
+              item.parentElement.parentElement.parentElement.parentElement.remove();
+          }
+      }
+  })
+</script>
+</body>
