@@ -1,6 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const User = require('./models/user');
+const Quan = require('./models/quan');
+const Phuong = require('./models/phuong');
+const Location = require('./models/location');
+const Billboard = require('./models/billboard');
+const Loai = require('./models/loai');
 
 const app = express();
 const PORT = 4000;
@@ -29,28 +34,26 @@ app.set("view engine", "hbs");
 const uri = "mongodb+srv://nhom10:web21ktpm@cluster0.uveminn.mongodb.net/nhom10?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// const addUser = async () => {
-//   const newUser = new User({
-//     userID: 'd01',
-//     password: 'password',
-//     chucvu: 'dan',
-//     hoTen: 'Le Dinh Dan',
-//     nsinh: new Date('1990-11-21'),
-//     email: 'tonytran12@gmail.com',
-//     sdt: '0156156165',
-//     phuong: null,
-//     quan: null,
-//   });
+const addUser = async () => {
+  const newUser = new Billboard({
+    billboardID: 'b01',
+    loaiID: 'l01',
+    kichthuoc: '2.5m x 10m',
+    hinhthuc: 'Cổ động chính trị',
+    hinhanh: 'https://cdnphoto.dantri.com.vn/vdDPWOVB1hcODVeyES8rD1GTLio=/zoom/1200_630/2019/04/23/truong-dh-khoa-hoc-tu-nhien-tphcm-1555986970839.jpg',
+    ngayhethan: new Date('2024-11-21'),
+    locationID: 'p4q5-1'
+  });
 
-//   try {
-//     const savedUser = await newUser.save();
-//     console.log(`User ${savedUser.userID} has been added.`);
-//   } catch (error) {
-//     console.error(`Error occurred while adding user: ${error}`);
-//   }
-// };
+  try {
+    const savedUser = await newUser.save();
+    console.log(`User ${savedUser.userID} has been added.`);
+  } catch (error) {
+    console.error(`Error occurred while adding user: ${error}`);
+  }
+};
 
-// addUser();
+addUser();
 
 // Cau hinh cho phep doc du lieu gui len bang phuong thuc POST
 app.use(express.json());

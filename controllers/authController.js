@@ -19,7 +19,6 @@ controller.showIndex = (req, res) => {
 
 controller.showLogin = (req, res) => {
     let reqUrl = req.query.reqUrl ? req.query.reqUrl : '/';
-    console.log("Hello");
     if (req.session.user) {
         return res.redirect(reqUrl);
     }
@@ -32,15 +31,24 @@ controller.showLogin = (req, res) => {
 };
 
 controller.login = async (req, res) => {
-    let { username, password} = req.body;
-    console.log(username);
-    console.log(password);
+    let { username, password, rememberMe } = req.body;
     let user = await User.findOne({userID: username, password });
-    console.log(user);
     if (user) {
-      let reqUrl = req.body.reqUrl ? req.body.reqUrl : '/';
-      req.session.user = user;
-      return res.redirect(reqUrl);
+        let reqUrl = req.body.reqUrl ? req.body.reqUrl : '/';
+        req.session.user = user;
+        if (rememberMe) {
+            res.cookie('username', username, {
+                maxAge: 60 * 60 * 1000,
+                httpOnly: false,
+                signed: true,
+            });
+            res.cookie('password', password, {
+                maxAge: 60 * 60 * 1000,
+                httpOnly: true,
+                signed: true,
+            });
+        }
+        return res.redirect(reqUrl);
     }
     return res.render('login', {
       layout: false,
