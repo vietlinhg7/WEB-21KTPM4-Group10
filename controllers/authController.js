@@ -6,15 +6,30 @@ const Billboard = require('../models/billboard');
 const Quan = require('../models/quan');
 const Phuong = require ('../models/phuong');
 
+controller.themPhuong = async(req,res) => {
+    const qid = req.params.quanID;
+    const pid = req.body.PID;
 
+    const newPhuong = new Phuong({quanID: qid ,phuongID: pid});
+    try {
+        await newPhuong.save();
+        res.redirect('/chiTiet?keyword=' + qid);
+        // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
 
 controller.chiTiet = async (req, res) => {
     const keyword = req.query.keyword;
-    res.locals.quan = await Quan.findOne({quanID: keyword});
+    let quan = await Quan.findOne({quanID: keyword});
     res.locals.phuong = await Phuong.find({quanID: keyword});
 
+;
     res.render('So-QLQuanPhuong', {
         layout: 'So',
+        quan: quan
     });
 };
 

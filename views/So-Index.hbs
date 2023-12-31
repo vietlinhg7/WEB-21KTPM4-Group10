@@ -22,8 +22,6 @@
       <ul class="list-group card mx-5 fs-3" id="myList">
         {{#each quan}}
         <li class="list-group-item">
-
-
             <div class="card-header "><i class="bi bi-geo-alt px-3"></i><strong>Quận {{quanID}}</strong>
               <!-- Dropdown element -->
               <div class="dropdown text-end"> 
@@ -36,14 +34,11 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <!-- Dropdown items -->
                   <a class="dropdown-item" href="/chiTiet?keyword={{quanID}}">Chi tiết</a>
-                  <a class="dropdown-item" href="/them-phuong?keyword={{quanID}}">Thêm phường</a>
                   <a class="dropdown-item" href="/chinh-sua?keyword={{quanID}}">Chỉnh sửa</a>
                   <a class="delete dropdown-item" id="deleteQuan" href="/xoaQuan?keyword={{quanID}}">Xóa</a>
                 </div>
               </div>
-
             </div>
-
         </li>
         {{/each}}
       </ul>
