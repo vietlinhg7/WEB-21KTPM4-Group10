@@ -11,5 +11,5 @@ router.get('/logout', controller.logout);
 
 router.post('/addQuan',controller.isLoggedIn, controller.addQuan);
 router.get('/showQuan',controller.isLoggedIn, controller.showQuan);
-router.post('/xoaQuan',controller.isLoggedIn, controller.xoaQuan);
+router.get('/xoaQuan',controller.isLoggedIn, controller.xoaQuan);
 module.exports = router;
