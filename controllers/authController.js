@@ -22,6 +22,13 @@ controller.showQuan =async(req,res) => {
         layout: 'So',
     });
 }
+
+controller.showSo =async(req,res) => {
+    res.locals.quan = await Quan.find({});
+    res.render('So-Index', {
+        layout: 'So',
+    });
+}
 controller.addQuan = async (req, res) => {
  const keyword = req.body.QID;
  const newQuan = new Quan({ quanID: keyword });

@@ -35,10 +35,12 @@
                 <!-- Dropdown menu -->
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                   <!-- Dropdown items -->
-                  <a class="dropdown-item" href="#">Chi tiết</a>
+                  <a class="dropdown-item"  >Chi tiết</a>
                   <a class="dropdown-item" href="#">Thêm phường</a>
                   <a class="dropdown-item" href="#">Chỉnh sửa</a>
-                  <a class="delete dropdown-item" id="deleteQuan" action="/xoaQuan" method="get" href="#">Xóa</a>
+                  <form action="/xoaQuan" method="POST">
+                  <a class="delete dropdown-item" id="deleteQuan" href="#">Xóa</a>
+                  </form>
                 </div>
               </div>
 
