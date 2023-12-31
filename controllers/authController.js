@@ -7,7 +7,7 @@ const Quan = require('../models/quan');
 
 controller.xoaQuan =async(req,res) => {
     try {
-    const keyword = req.body.QID;
+    const keyword = req.query.keyword;
     await Quan.deleteOne({quanID: keyword});
     res.json({ success: 1 });
   } catch (error) {
