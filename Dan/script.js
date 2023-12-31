@@ -3,6 +3,8 @@ var infor;
 var myLocationBtn = document.getElementById('myLocationBtn');
 var isVariableTrue = true;
 
+
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 10.7769, lng: 106.7009},
@@ -75,6 +77,18 @@ function initMap() {
     showQC(isVariableTrue);
    
   });
+
+  // Thực hiện yêu cầu GET đến endpoint /billboards
+  fetch('/billboards')
+    .then(response => response.json())
+    .then(data => {
+      // Xử lý dữ liệu billboard
+      console.log('Dữ liệu Billboard:', data);
+      // Bạn có thể sử dụng dữ liệu này để cập nhật bản đồ hoặc thực hiện bất kỳ hành động nào khác
+    })
+    .catch(error => {
+      console.error('Lỗi khi lấy dữ liệu billboard:', error);
+    });
 
   
 }
