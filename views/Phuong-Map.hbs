@@ -76,118 +76,22 @@
             scaledSize: new google.maps.Size(30, 30) // width and height in pixels
           },
           map: map,
+          locationID: "{{locationID}}"
+        });
+        google.maps.event.addListener(marker, 'click', function() {
+          var sidebar = document.getElementById("sidebar");
+          var map = document.getElementById("map");
+          var newIcon = {
+            url: "assets/images/X.png", // Replace with your new icon URL
+            scaledSize: new google.maps.Size(30, 30) // width and height in pixels
+          };
+          newIcon = "assets/images/X.png";
+          marker.setIcon(newIcon);
+          map.style.width = "70%";
+          sidebar.style.display = "block";
         });
       {{/each}}
     }
     window.initAutocomplete = initAutocomplete;
   </script>
 </body>
-
-{{!-- let currentQCIcon = "assets/images/QC.png";
-  const QC = new google.maps.Marker({
-    position: new google.maps.LatLng(10.7623944, 106.6872566),
-    icon: {
-      url: currentQCIcon,
-      scaledSize: new google.maps.Size(30, 30) // width and height in pixels
-    },
-    map: map,
-    
-  });
-  google.maps.event.addListener(QC, 'click', function() {
-    // Code to execute when the QC marker is clicked
-    var sidebar = document.getElementById("sidebar");
-    var map = document.getElementById("map");
-    var section2a = document.getElementById("section2a");
-    var btn1a = document.querySelector('.btn1a');
-    var btn1b = document.querySelector('.btn1b');
-   
-    if (currentQCIcon === "assets/images/QC.png") {
-      var newIcon = {
-        url: "assets/images/X.png", // Replace with your new icon URL
-        scaledSize: new google.maps.Size(30, 30) // width and height in pixels
-      };
-      QC.setIcon(newIcon);
-      currentQCIcon = "assets/images/X.png";
-      section2a.style.display = "block";
-      map.style.width = "70%";
-      sidebar.style.display = "block";
-      btn1a.style.display = "block";
-      if (currentBCIcon === "assets/images/X.png") {
-        var newIcon = {
-          url: "assets/images/BC.png", // Replace with your original icon URL
-          scaledSize: new google.maps.Size(30, 30) // width and height in pixels
-        };
-        BC.setIcon(newIcon);
-        currentBCIcon = "assets/images/BC.png";
-        var section2b = document.getElementById("section2b");
-        section2b.style.display = "none";
-        btn1b.style.display = "none";
-      }
-    } else if (currentQCIcon === "assets/images/X.png") {
-      var newIcon = {
-        url: "assets/images/QC.png", // Replace with your original icon URL
-        scaledSize: new google.maps.Size(30, 30) // width and height in pixels
-      };
-      QC.setIcon(newIcon);
-      currentQCIcon = "assets/images/QC.png";
-      map.style.width = "100%";
-      sidebar.style.display = "none";
-      section2a.style.display = "none";
-      btn1a.style.display = "none";
-    }
-    console.log(map.style.width)
-  });
-   
-  let currentBCIcon = "assets/images/BC.png";
-  const BC = new google.maps.Marker({
-    position: new google.maps.LatLng(10.7619567, 106.6863498),
-    icon: {
-      url: currentBCIcon,
-      scaledSize: new google.maps.Size(30, 30) // width and height in pixels
-    },
-    map: map,
-  });
-  google.maps.event.addListener(BC, 'click', function() {
-    // Code to execute when the BC marker is clicked
-    var sidebar = document.getElementById("sidebar");
-    var map = document.getElementById("map");
-    var section2b = document.getElementById("section2b");
-    var btn1a = document.querySelector('.btn1a');
-    var btn1b = document.querySelector('.btn1b');
-
-    if (currentBCIcon === "assets/images/BC.png") {
-      var newIcon = {
-        url: "assets/images/X.png", // Replace with your new icon URL
-        scaledSize: new google.maps.Size(30, 30) // width and height in pixels
-      };
-      BC.setIcon(newIcon);
-      currentBCIcon = "assets/images/X.png";
-      section2b.style.display = "block";
-      map.style.width = "70%";
-      sidebar.style.display = "block";
-      btn1b.style.display = "block";
-      if (currentQCIcon === "assets/images/X.png") {
-        var newIcon = {
-          url: "assets/images/QC.png", // Replace with your original icon URL
-          scaledSize: new google.maps.Size(30, 30) // width and height in pixels
-        };
-        QC.setIcon(newIcon);
-        currentQCIcon = "assets/images/QC.png";
-        var section2a = document.getElementById("section2a");
-        section2a.style.display = "none";
-        btn1a.style.display = "none";
-      }
-    } else if (currentBCIcon === "assets/images/X.png") {
-      var newIcon = {
-        url: "assets/images/BC.png", // Replace with your original icon URL
-        scaledSize: new google.maps.Size(30, 30) // width and height in pixels
-      };
-      BC.setIcon(newIcon);
-      currentBCIcon = "assets/images/BC.png";
-      map.style.width = "100%";
-      sidebar.style.display = "none";
-      section2b.style.display = "none";
-      btn1b.style.display = "none";
-    }
-    console.log(map.style.width)
-  }); --}}
