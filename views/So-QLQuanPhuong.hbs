@@ -19,27 +19,44 @@
         </div>
       </div>
     </form>
-      <div class="card mx-5 fs-3 ">
-        <div class="card-body text-center "><i class="bi bi-geo-alt px-3"></i><strong>Quận {{quan.quanID}}</strong>
-        </div>
-        <div class="card-footer px-5">
-          <ul class="list-group card mx-5 fs-3" id="myList">
-            {{#each phuong}}
-            <li class="list-group-item">
+    <div class="card mx-5 fs-3 ">
+      <div class="card-body text-center "><i class="bi bi-geo-alt px-3"></i><strong>Quận {{quan.quanID}}</strong>
+      </div>
+      <div class="card-footer px-5">
+        <ul class="list-group card mx-5 fs-3" id="myList">
+
+          {{#each phuong}}
+          <li class="list-group-item">
 
 
-              <div class="card-header "><i class="bi bi-geo-alt px-3"></i><strong>Phường {{phuongID}}
-                </strong>
-                <i class="p-2 bi bi-trash-fill  float-end text-danger"></i>
-                <i class="p-2 bi bi-pencil  float-end text-danger"></i>
-                <!-- Dropdown element -->
-              </div>
+            <div class="card-header "><i class="bi bi-geo-alt px-3"></i><strong>Phường {{phuongID}}
+              </strong>
 
-            </li>
-            {{/each}}
-          </ul>
-        </div>
 
+              <form action="/suaPhuong/{{phuongID}}/{{@root.quan.quanID}}" method="POST">
+                <a class="p-2 bi bi-trash-fill  float-end text-danger"
+                  href="/xoaPhuong/{{phuongID}}/{{@root.quan.quanID}}"></a>
+                <a class="p-2 bi bi-pencil dropdown text-danger float-end " id="dropdownMenuButton1"
+                  data-bs-toggle="dropdown" aria-expanded="false"></a>
+                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                  <!-- Dropdown items -->
+                  <div class="mb-3">
+                    <label for="" class="form-label">Tên Phường</label>
+                    <input type="text" class="form-control" name="PID" id="phuongID" aria-describedby="helpId"
+                      placeholder="" required>
+                  </div>
+                  <button type="submit">Submit</button>
+                </div>
+
+              </form>
+              <!-- Dropdown element -->
+            </div>
+
+          </li>
+          {{/each}}
+
+        </ul>
+      </div>
     </div>
     </div>
 

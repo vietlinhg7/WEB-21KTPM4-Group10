@@ -14,5 +14,7 @@ router.get('/showQuan',controller.isLoggedIn, controller.showQuan);
 router.get('/xoaQuan',controller.isLoggedIn, controller.xoaQuan);
 router.get('/chiTiet',controller.isLoggedIn, controller.chiTiet);
 router.post('/themPhuong/:quanID',controller.isLoggedIn, controller.themPhuong);
+router.get('/xoaPhuong/:phuongID/:quanID',controller.isLoggedIn, controller.xoaPhuong);
+router.post('/suaPhuong/:phuongID/:quanID',controller.isLoggedIn, controller.suaPhuong);
 
 module.exports = router;

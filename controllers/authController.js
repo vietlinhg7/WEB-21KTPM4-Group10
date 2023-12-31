@@ -4,13 +4,44 @@ const User = require('../models/user');
 const Location = require('../models/location');
 const Billboard = require('../models/billboard');
 const Quan = require('../models/quan');
-const Phuong = require ('../models/phuong');
+const Phuong = require('../models/phuong');
 
-controller.themPhuong = async(req,res) => {
+
+controller.xoaPhuong = async (req, res) => {
+    try {
+        const qid = req.params.quanID;
+        const pid = req.params.phuongID;
+        await Phuong.deleteOne({ phuongID: pid, quanID: qid });
+        console.log(qid, pid);
+        res.redirect('/chiTiet?keyword=' + qid);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+controller.suaPhuong = async (req, res) => {
+    const qid = req.params.quanID;
+    const pid = req.params.phuongID;
+
+    const newpid = req.body.PID;
+
+    await Phuong.updateOne({ quanID: qid, phuongID: pid }, { phuongID: newpid })
+    try {
+
+        res.redirect('/chiTiet?keyword=' + qid);
+        // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
+controller.themPhuong = async (req, res) => {
     const qid = req.params.quanID;
     const pid = req.body.PID;
 
-    const newPhuong = new Phuong({quanID: qid ,phuongID: pid});
+    const newPhuong = new Phuong({ quanID: qid, phuongID: pid });
     try {
         await newPhuong.save();
         res.redirect('/chiTiet?keyword=' + qid);
@@ -23,10 +54,10 @@ controller.themPhuong = async(req,res) => {
 
 controller.chiTiet = async (req, res) => {
     const keyword = req.query.keyword;
-    let quan = await Quan.findOne({quanID: keyword});
-    res.locals.phuong = await Phuong.find({quanID: keyword});
+    let quan = await Quan.findOne({ quanID: keyword });
+    res.locals.phuong = await Phuong.find({ quanID: keyword });
 
-;
+    ;
     res.render('So-QLQuanPhuong', {
         layout: 'So',
         quan: quan
