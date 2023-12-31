@@ -5,6 +5,17 @@ const Location = require('../models/location');
 const Billboard = require('../models/billboard');
 const Quan = require('../models/quan');
 
+controller.xoaQuan =async(req,res) => {
+    try {
+    const keyword = req.body.QID;
+    await Quan.deleteOne({quanID: keyword});
+    res.json({ success: 1 });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+}
 controller.showQuan =async(req,res) => {
     res.locals.quan = await Quan.find({});
     res.render('So-Index', {
