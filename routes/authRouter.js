@@ -20,5 +20,6 @@ router.post('/suaQuan/:quanID',controller.isLoggedIn, controller.suaQuan);
 router.get('/showLoaiQC',controller.isLoggedIn, controller.showLoaiQC);
 router.get('/xoaLoai/:loaiID/:loai',controller.isLoggedIn, controller.xoaLoai);
 router.post('/suaLoai/:loaiID/:loai',controller.isLoggedIn, controller.suaLoai);
+router.post('/themLoaiQC',controller.isLoggedIn, controller.themLoaiQC);
 
 module.exports = router;

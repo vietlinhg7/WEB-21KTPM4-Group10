@@ -7,6 +7,19 @@ const Quan = require('../models/quan');
 const Phuong = require('../models/phuong');
 const Loai = require('../models/loai');
 
+controller.themLoaiQC = async (req, res) => {
+    const lid = req.body.LID;
+    const ten = req.body.tenLoai;
+    const newLoai = new Loai({ loai: ten, loaiID:lid });
+    try {
+        await newLoai.save();
+        res.redirect('/showLoaiQC'); // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};
+
 controller.xoaLoai = async (req, res) => {
     try {
         const lid = req.params.loaiID;
