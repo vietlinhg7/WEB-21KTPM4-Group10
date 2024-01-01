@@ -16,5 +16,9 @@ router.get('/chiTiet',controller.isLoggedIn, controller.chiTiet);
 router.post('/themPhuong/:quanID',controller.isLoggedIn, controller.themPhuong);
 router.get('/xoaPhuong/:phuongID/:quanID',controller.isLoggedIn, controller.xoaPhuong);
 router.post('/suaPhuong/:phuongID/:quanID',controller.isLoggedIn, controller.suaPhuong);
+router.post('/suaQuan/:quanID',controller.isLoggedIn, controller.suaQuan);
+router.get('/showLoaiQC',controller.isLoggedIn, controller.showLoaiQC);
+router.get('/xoaLoai/:loaiID/:loai',controller.isLoggedIn, controller.xoaLoai);
+router.post('/suaLoai/:loaiID/:loai',controller.isLoggedIn, controller.suaLoai);
 
 module.exports = router;
