@@ -78,17 +78,17 @@ function initMap() {
    
   });
 
-  // Thực hiện yêu cầu GET đến endpoint /billboards
-  fetch('/billboards')
-    .then(response => response.json())
-    .then(data => {
-      // Xử lý dữ liệu billboard
-      console.log('Dữ liệu Billboard:', data);
-      // Bạn có thể sử dụng dữ liệu này để cập nhật bản đồ hoặc thực hiện bất kỳ hành động nào khác
-    })
-    .catch(error => {
-      console.error('Lỗi khi lấy dữ liệu billboard:', error);
-    });
+  // // Thực hiện yêu cầu GET đến endpoint /billboards
+  // fetch('/billboards')
+  //   .then(response => response.json())
+  //   .then(data => {
+  //     // Xử lý dữ liệu billboard
+  //     console.log('Dữ liệu Billboard:', data);
+  //     // Bạn có thể sử dụng dữ liệu này để cập nhật bản đồ hoặc thực hiện bất kỳ hành động nào khác
+  //   })
+  //   .catch(error => {
+  //     console.error('Lỗi khi lấy dữ liệu billboard:', error);
+  //   });
 
   
 }

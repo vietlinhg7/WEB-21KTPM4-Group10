@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const reportSchema = new Schema({
-  reportID: { type: String, required: true },
+  reportID: { type: String, unique: true, index: true },
   reportType: String,
   fullName: String,
   email: String,
