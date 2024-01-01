@@ -1,0 +1,107 @@
+<body>
+  <content>
+    <div id="map"></div>
+    <!-- 
+      The `defer` attribute causes the callback to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises.
+      See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5paKst7kP-INwPaSuqoak2nRGeJOSTQc&callback=initAutocomplete&libraries=places&v=weekly"
+      defer
+    ></script>
+    <style>
+      var sidebar = document.getElementById("sidebar");
+      var map = document.getElementById("map");
+      map.style.width = "70%";
+    </style>
+    <div id="sidebar">
+      <div id="section1">
+        <img src="assets/img/location.png" width=25px height=25px>
+        <div id="locationInfo">
+          <div class="line1">Thông tin địa điểm</div>
+          <div class="line2">{{querylocation.name}}</div>
+          <div class="line3">{{querylocation.diachi}}</div>
+        </div>
+      </div>
+      <div id="section2a">
+        <img src="assets/img/ad.png" width=25px height=25px>
+        <div id="adInfo">
+          <div class="line1">Thông tin quảng cáo</div>
+          <div class="line2">Bên thuê quảng cáo</div>
+          <div class="line3">Nestlé Vietnam Ltd</div>
+          <div class="line2">Nội dung quảng cáo</div>
+          <div class="line3">MỚI! NESCAFÉ CAFÉ VIỆT PHIÊN BẢN ĐẶC BIỆT VỚI ARABICA</div>
+          <div class="line2">Hình thức quảng cáo</div>
+          <div class="line3">Quảng cáo thương mại</div>
+          <div class="line2">Loại vị trí</div>
+          <div class="line3">Đất tư nhân</div>
+          <div class="line2">Thời hạn quảng cáo</div>
+          <div class="line3">01/10/2023 - 01/01/2024</div>
+        </div>
+      </div>
+      <div id="section2b">
+        <img src="assets/img/ad.png" width=25px height=25px>
+        <div id="reportInfo">
+          <div class="line1">Thông tin báo cáo</div>
+          <div class="line2">Hình thức báo cáo</div>
+          <div class="line3">Đóng góp ý kiến</div>
+          <div class="line2">Nội dung báo cáo</div>
+          <div class="line3">Bảng quảng cáo bị hư hại do thời tiết</div>
+          <div class="line2">Thời điểm báo cáo</div>
+          <div class="line3">31/10/2023</div>
+          <div class="line2">Họ tên người gửi</div>
+          <div class="line3">Lê Trường Giang</div>
+          <div class="line2">Điện thoại liên lạc</div>
+          <div class="line3">0912345678</div>
+        </div>
+      </div>
+      <div class="button-container">
+        <button class="btn1a" onclick="goToChinhsua()">Chỉnh sửa</button>
+        <button class="btn1b" onclick="goToChitiet()">Chi tiết</button>
+        <button class="btn2">ĐÓNG</button>
+      </div>
+    </div>
+  </content>
+  <script>
+    function initAutocomplete() {
+      const temp = "{{querylocation.locationID}}";
+      const map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: {{querylocation.toadoX}}, lng: {{querylocation.toadoY}} },
+        zoom: 19,
+        mapTypeId: "roadmap",
+      });
+      let currentQCIcon = "assets/img/QC.png";
+      {{#each locations}}
+        let marker = new google.maps.Marker({  
+          position: new google.maps.LatLng({{toadoX}}, {{toadoY}}),
+          icon: {
+            url: currentQCIcon,
+            scaledSize: new google.maps.Size(30, 30) // width and height in pixels
+          },
+          map: map
+        });
+        if ("{{locationID}}" == temp) 
+        {  
+          var newIcon = {
+            url: "assets/img/X.png", // Replace with your new icon URL
+            scaledSize: new google.maps.Size(30, 30) // width and height in pixels
+          };
+          marker.setIcon(newIcon);
+          google.maps.event.addListener(marker, 'click', function() {
+            window.location.href = "/Phuong-Map";
+          });
+        }
+        else 
+        {
+          google.maps.event.addListener(marker, 'click', function() {
+            window.location.href = "/Phuong-Map-Detail?locationID=" + "{{locationID}}";
+          });
+        }
+      {{/each}}
+    }
+    window.initAutocomplete = initAutocomplete;
+  </script>
+</body>

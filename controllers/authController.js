@@ -95,15 +95,32 @@ controller.addQuan = async (req, res) => {
     }
 };
 
+controller.showPhuongMap = async (req, res) => {
+    res.locals.locations = await Location.find({
+        phuongID: req.session.user.phuong,
+        quanID: req.session.user.quan
+    });
+    res.render('Phuong-Map', {
+        layout: 'Phuong'
+    });
+};
+
+controller.showPhuongMapDetail = async (req, res) => {
+    res.locals.locations = await Location.find({
+        phuongID: req.session.user.phuong,
+        quanID: req.session.user.quan
+    });
+    res.locals.querylocation = await Location.findOne({
+        locationID: req.query.locationID
+    });
+    res.render('Phuong-Map-Detail', {
+        layout: 'Phuong'
+    });
+};
+
 controller.showIndex = async (req, res) => {
     if (req.session.user.chucvu == 'phuong') {
-        res.locals.locations = await Location.find({
-            phuongID: req.session.user.phuong,
-            quanID: req.session.user.quan
-        });
-        res.render('Phuong-Map', {
-            layout: 'Phuong'
-        });
+        res.redirect('/Phuong-Map');
     }
     if (req.session.user.chucvu == 'quan')
         res.render('Phuong-Map', {

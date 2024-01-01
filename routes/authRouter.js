@@ -16,5 +16,7 @@ router.get('/chiTiet',controller.isLoggedIn, controller.chiTiet);
 router.post('/themPhuong/:quanID',controller.isLoggedIn, controller.themPhuong);
 router.get('/xoaPhuong/:phuongID/:quanID',controller.isLoggedIn, controller.xoaPhuong);
 router.post('/suaPhuong/:phuongID/:quanID',controller.isLoggedIn, controller.suaPhuong);
+router.get('/Phuong-Map', controller.isLoggedIn, controller.showPhuongMap);
+router.get('/Phuong-Map-Detail', controller.isLoggedIn, controller.showPhuongMapDetail);
 
 module.exports = router;

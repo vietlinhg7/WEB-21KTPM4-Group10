@@ -3,6 +3,7 @@ const Schema = mongoose.Schema;
 
 const locationSchema = new Schema({
     locationID: { type: String, required: true },
+    name: String,
     diachi: String,
     phuongID: { type: String, required: true },
     quanID: { type: String, required: true },
