@@ -5,7 +5,65 @@ const Location = require('../models/location');
 const Billboard = require('../models/billboard');
 const Quan = require('../models/quan');
 const Phuong = require('../models/phuong');
+const Loai = require('../models/loai');
 
+controller.xoaLoai = async (req, res) => {
+    try {
+        const lid = req.params.loaiID;
+        const loai = req.params.loai;
+        await Loai.deleteOne({ loaiID: lid, loai: loai });
+        res.redirect('/showLoaiQC');
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+controller.suaLoai = async (req, res) => {
+    const lid = req.params.loaiID;
+    const loai = req.params.loai;
+
+    const newLid = req.body.LID;
+    console.log(lid,loai,newLid);
+    await Loai.updateOne({ loaiID: lid, loai: loai }, { loai: newLid })
+    try {
+
+        res.redirect('/showLoaiQC');
+
+        // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
+
+controller.showLoaiQC = async (req, res) => {
+    let loai = await Loai.find({});
+
+    res.render('So-LoaiHinhQC', {
+        layout: 'So',
+        loai: loai,
+    });
+}
+
+controller.suaQuan = async (req, res) => {
+    const qid = req.params.quanID;
+
+    const newQid = req.body.QID;
+    console.log(newQid);
+    console.log(qid);
+    await Phuong.updateMany({ quanID: qid }, { quanID: newQid });
+    await Quan.updateOne({ quanID: qid }, { quanID: newQid });
+    try {
+
+        res.redirect('/chiTiet?keyword=' + newQid);
+        // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
 
 controller.xoaPhuong = async (req, res) => {
     try {
@@ -67,7 +125,9 @@ controller.chiTiet = async (req, res) => {
 controller.xoaQuan = async (req, res) => {
     try {
         const keyword = req.query.keyword;
+
         await Quan.deleteOne({ quanID: keyword });
+        await Phuong.deleteMany({ quanID: keyword });
         res.redirect('/');
     } catch (error) {
         console.log(error);

@@ -21,6 +21,20 @@
     </form>
     <div class="card mx-5 fs-3 ">
       <div class="card-body text-center "><i class="bi bi-geo-alt px-3"></i><strong>Quận {{quan.quanID}}</strong>
+        <form action="/suaQuan/{{@root.quan.quanID}}" method="POST">
+          <a class="p-2 bi bi-pencil dropdown text-danger float-end " id="dropdownMenuButton1" data-bs-toggle="dropdown"
+            aria-expanded="false"></a>
+          <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+            <!-- Dropdown items -->
+            <div class="mb-3">
+              <label for="" class="form-label">Tên Quận</label>
+              <input type="text" class="form-control" name="QID" id="quanID" aria-describedby="helpId" placeholder=""
+                required>
+            </div>
+            <button type="submit">Submit</button>
+          </div>
+
+        </form>
       </div>
       <div class="card-footer px-5">
         <ul class="list-group card mx-5 fs-3" id="myList">

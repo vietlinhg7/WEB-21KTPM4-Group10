@@ -1,0 +1,92 @@
+<body>
+    <main>
+        <div class="container">
+            <!-- Row -->
+            <div class="row">
+                <!-- First Table -->
+                <div class="p-3 text-center col-md-6">
+                    <h2>Loại hình quảng cáo</h2>
+                    <div class="card-header">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="col-6">ID</th>
+                                <th class="col-6">Loại hình thức</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each loai}}
+                            <tr>
+                                <td>{{loaiID}}</td>
+                                <td>
+                                    <form action="/suaLoai/{{loaiID}}/{{loai}}" method="POST">
+                                        <a class="p-2 bi bi-trash-fill  float-end text-danger"
+                                            href="/xoaLoai/{{loaiID}}/{{loai}}"></a>
+                                        <a class="p-2 bi bi-pencil dropdown text-danger float-end "
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                            aria-expanded="false"></a>
+                                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                            <!-- Dropdown items -->
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Tên Loai</label>
+                                                <input type="text" class="form-control" name="LID" id="phuongID"
+                                                    aria-describedby="helpId" placeholder="" required>
+                                            </div>
+                                            <button type="submit">Submit</button>
+                                        </div>
+
+                                    </form>{{loai}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                        <div class="card-footer">
+
+                            <div class="dropdown text-end">
+                                <!-- Dropdown toggle button -->
+                                <button class="btn btn-primary me-md-2 m-3 mx-5 px-3 " type="button" id="add">
+                                    <a class="text-light popup" id="popup" style="text-decoration: none;"
+                                        onclick="ShowPopUpAdding()">Tạo mới</a>
+                                </button>
+
+                            </div>
+                        </div>  
+                    </table>
+                    </div>
+                </div>
+                <!-- Second Table -->
+                <div class="p-3 col-md-6 text-center">
+                    <h2>Hình thức báo cáo</h2>
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th class="col-6">ID</th>
+                                <th class="col-6">Hình thức báo cáo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Data 1</td>
+                                <td>Data 2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dropdown element -->
+
+        </div>
+        </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
+</body>
