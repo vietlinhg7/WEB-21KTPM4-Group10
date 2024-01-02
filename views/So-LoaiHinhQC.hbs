@@ -75,7 +75,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {{#each billBoard}}
+                            {{#each hinhThuc}}
                             <tr>
                                 <td>
 
@@ -113,6 +113,9 @@
                                     <div class="mb-3">
                                         <label for="" class="form-label">Tên hình thức báo cáo</label>
                                         <input type="text" class="form-control" name="tenHinhThuc" id="HTID"
+                                            aria-describedby="helpId" placeholder="" required>
+                                        <label for="" class="form-label">ID</label>
+                                        <input type="text" class="form-control" name="HTID" id="loaiID"
                                             aria-describedby="helpId" placeholder="" required>
                                     </div>
                                     <button type="submit">Submit</button>
