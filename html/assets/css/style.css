@@ -175,11 +175,6 @@ content {
   font-size: 18px;
 }
 .line3{
-<<<<<<< HEAD
-  font-size: 13 px;
-}
-
-=======
   font-size: 15px;
 }
 #adInfo {
@@ -188,4 +183,9 @@ content {
   border: 1px solid black;
   background-color: #fdff89;
 }
->>>>>>> 4a90601ce89c0cb07a5e97a4467112ad786253f2
+#reportInfo {
+  margin: 5%;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: hsl(33, 100%, 50%);
+}
