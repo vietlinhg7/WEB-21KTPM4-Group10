@@ -6,7 +6,7 @@ const Billboard = require('../models/billboard');
 const Quan = require('../models/quan');
 const Phuong = require('../models/phuong');
 const Loai = require('../models/loai');
-
+const Hinhthuc = require('../models/hinhthuc');
 controller.showLocation = async (req, res) => {
     let location = await Location.find({});
     res.render('So-DDQC', {
@@ -14,11 +14,24 @@ controller.showLocation = async (req, res) => {
         location: location
     });
 }
+controller.themHinhThucQC = async (req, res) => {
 
+    const ten = req.body.tenHinhThuc;
+    const htid = req.body.HTID;
+
+    const newHinhthuc = new Hinhthuc({ hinhthuc: ten , hinhthucID: htid});
+    try {
+        await newHinhthuc.save();
+        res.redirect('/showLoaiQC'); // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};
 controller.xoaHinhThuc = async (req, res) => {
     try {
         const ht = req.params.hinhthuc;
-        await Billboard.deleteOne({ hinhthuc: ht });
+        await Hinhthuc.deleteOne({ hinhthuc: ht });
         res.redirect('/showLoaiQC');
     } catch (error) {
         console.log(error);
@@ -30,7 +43,7 @@ controller.suaHinhThuc = async (req, res) => {
     const ht = req.params.hinhthuc;
 
     const newHT = req.body.HT;
-    await Billboard.updateOne({ hinhthuc: ht }, { hinhthuc: newHT })
+    await Hinhthuc.updateOne({ hinhthuc: ht }, { hinhthuc: newHT })
     try {
 
         res.redirect('/showLoaiQC');
@@ -88,11 +101,11 @@ controller.suaLoai = async (req, res) => {
 
 controller.showLoaiQC = async (req, res) => {
     let loai = await Loai.find({});
-    let billBoard = await Billboard.find({});
+    let hinhThuc = await Hinhthuc.find({});
     res.render('So-LoaiHinhQC', {
         layout: 'So',
         loai: loai,
-        billBoard: billBoard,
+        hinhThuc : hinhThuc,
     });
 }
 
