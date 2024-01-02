@@ -7,6 +7,54 @@ const Quan = require('../models/quan');
 const Phuong = require('../models/phuong');
 const Loai = require('../models/loai');
 
+controller.showLocation = async (req, res) => {
+    let location = await Location.find({});
+    res.render('So-DDQC', {
+        layout: 'So',
+        location: location
+    });
+}
+
+controller.xoaHinhThuc = async (req, res) => {
+    try {
+        const ht = req.params.hinhthuc;
+        await Billboard.deleteOne({ hinhthuc: ht });
+        res.redirect('/showLoaiQC');
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+controller.suaHinhThuc = async (req, res) => {
+    const ht = req.params.hinhthuc;
+
+    const newHT = req.body.HT;
+    await Billboard.updateOne({ hinhthuc: ht }, { hinhthuc: newHT })
+    try {
+
+        res.redirect('/showLoaiQC');
+
+        // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
+controller.themLoaiQC = async (req, res) => {
+    const lid = req.body.LID;
+    const ten = req.body.tenLoai;
+    const newLoai = new Loai({ loai: ten, loaiID: lid });
+    try {
+        await newLoai.save();
+        res.redirect('/showLoaiQC'); // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};
+
 controller.xoaLoai = async (req, res) => {
     try {
         const lid = req.params.loaiID;
@@ -24,7 +72,7 @@ controller.suaLoai = async (req, res) => {
     const loai = req.params.loai;
 
     const newLid = req.body.LID;
-    console.log(lid,loai,newLid);
+    console.log(lid, loai, newLid);
     await Loai.updateOne({ loaiID: lid, loai: loai }, { loai: newLid })
     try {
 
@@ -40,10 +88,11 @@ controller.suaLoai = async (req, res) => {
 
 controller.showLoaiQC = async (req, res) => {
     let loai = await Loai.find({});
-
+    let billBoard = await Billboard.find({});
     res.render('So-LoaiHinhQC', {
         layout: 'So',
         loai: loai,
+        billBoard: billBoard,
     });
 }
 

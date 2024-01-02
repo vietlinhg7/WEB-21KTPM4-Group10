@@ -20,7 +20,14 @@ router.post('/suaQuan/:quanID',controller.isLoggedIn, controller.suaQuan);
 router.get('/showLoaiQC',controller.isLoggedIn, controller.showLoaiQC);
 router.get('/xoaLoai/:loaiID/:loai',controller.isLoggedIn, controller.xoaLoai);
 router.post('/suaLoai/:loaiID/:loai',controller.isLoggedIn, controller.suaLoai);
+
+router.post('/themLoaiQC',controller.isLoggedIn, controller.themLoaiQC);
+
 router.get('/Phuong-Map', controller.isLoggedIn, controller.showPhuongMap);
 router.get('/Phuong-Map-Detail', controller.isLoggedIn, controller.showPhuongMapDetail);
+router.post('/suaHinhThuc/:hinhthuc',controller.isLoggedIn, controller.suaHinhThuc);
+router.get('/xoaLoai/:hinhthuc',controller.isLoggedIn, controller.xoaHinhThuc);
+
+router.get('/showLocation',controller.isLoggedIn, controller.showLocation);
 
 module.exports = router;
