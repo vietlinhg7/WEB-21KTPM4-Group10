@@ -7,6 +7,13 @@ const Quan = require('../models/quan');
 const Phuong = require('../models/phuong');
 const Loai = require('../models/loai');
 const Hinhthuc = require('../models/hinhthuc');
+
+controller.DDQCmap = async (req, res) => {
+    res.render('So-DDQC-map', {
+        layout: 'So',
+
+    });
+} 
 controller.showLocation = async (req, res) => {
     let location = await Location.find({});
     res.render('So-DDQC', {

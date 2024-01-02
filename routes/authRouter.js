@@ -30,6 +30,6 @@ router.get('/xoaHinhthuc/:hinhthuc',controller.isLoggedIn, controller.xoaHinhThu
 
 router.get('/showLocation',controller.isLoggedIn, controller.showLocation);
 router.post('/themHinhThucQC',controller.isLoggedIn, controller.themHinhThucQC);
-
+router.get('/DDQCmap',controller.isLoggedIn, controller.DDQCmap)
 
 module.exports = router;

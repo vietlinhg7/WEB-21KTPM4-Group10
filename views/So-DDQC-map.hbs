@@ -1,0 +1,186 @@
+<body>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5paKst7kP-INwPaSuqoak2nRGeJOSTQc&callback=initMap" async defer></script>
+<script>
+ let lat;
+ let lng;
+
+ function createSubmitButton(map) {
+   const controlButton = document.createElement("button");
+
+   // Set CSS for the control.
+   controlButton.style.backgroundColor = "#fff";
+   controlButton.style.border = "2px solid #fff";
+   controlButton.style.borderRadius = "3px";
+   controlButton.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+   controlButton.style.color = "rgb(25,25,25)";
+   controlButton.style.cursor = "pointer";
+   controlButton.style.fontFamily = "Roboto,Arial,sans-serif";
+   controlButton.style.fontSize = "16px";
+   controlButton.style.lineHeight = "38px";
+   controlButton.style.margin = "8px 0 22px";
+   controlButton.style.padding = "0 5px";
+   controlButton.style.textAlign = "center";
+   controlButton.textContent = "Save Location";
+   controlButton.title = "Click to save location";
+   controlButton.type = "button";
+
+   // Setup the click event listeners: save the latitude and longitude.
+   controlButton.addEventListener("click", () => {
+     if (lat && lng) {
+       localStorage.setItem('savedLat', lat);
+       localStorage.setItem('savedLng', lng);
+       alert('Location saved');
+       console.log(localStorage.getItem('savedLat'));
+       console.log(localStorage.getItem('savedLng'));
+       updateLocationDisplay();
+       reverseGeocode(lat, lng);
+     } else {
+       alert('Please click on the map to select a location');
+     }
+   });
+
+   return controlButton;
+ }
+
+ function updateLocationDisplay() {
+   const lat = localStorage.getItem('savedLat');
+   const lng = localStorage.getItem('savedLng');
+
+   // Update the display
+   document.getElementById('latDisplay').textContent = lat;
+   document.getElementById('lngDisplay').textContent = lng;
+ }
+
+ function initMap() {
+   const myLatlng = {lat: 10.7628356, lng: 106.6824824 };
+   const map = new google.maps.Map(document.getElementById('map'), {
+     zoom: 4,
+     center: myLatlng
+   });
+
+   let infoWindow = new google.maps.InfoWindow({
+     content: 'Click the map to get the coordinates!',
+     position: myLatlng
+   });
+
+   infoWindow.open(map);
+
+   // Zoom to the location
+   map.setCenter(myLatlng);
+   map.setZoom(18);
+
+   map.addListener('click', (mapsMouseEvent) => {
+     infoWindow.close();
+     infoWindow = new google.maps.InfoWindow({
+       position: mapsMouseEvent.latLng
+     });
+
+     // Save the latitude and longitude to variables
+     lat = mapsMouseEvent.latLng.lat();
+     lng = mapsMouseEvent.latLng.lng();
+
+     // Now you can use the lat and lng variables
+
+     infoWindow.setContent(
+       JSON.stringify(mapsMouseEvent.latLng.toJSON(), null, 2)
+     );
+     infoWindow.open(map);
+   });
+
+   // Create the DIV to hold the control.
+   const submitButtonDiv = document.createElement("div");
+   // Create the control.
+   const submitButton = createSubmitButton(map);
+   // Append the control to the DIV.
+   submitButtonDiv.appendChild(submitButton);
+   map.controls[google.maps.ControlPosition.TOP_CENTER].push(submitButtonDiv);
+ }
+</script>
+<div id="map" style="height: 100%; width: 50%;" class="float-start"></div>
+{{!-- <h5 class="mx-5 my-3"><strong>Lat: <span id="latDisplay"></span>, Lng: <span id="lngDisplay"></span></strong></h5> --}}
+
+  <form action="#" method="post" class="form float-end" style="height: 50%; width: 50%;">
+    <div class="container py-3">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>
+            <input type="text" class="form-control text-center" name="keyword" id="header_ad" aria-describedby="helpId"
+              placeholder="Tên nhà quảng cáo" value="" required>
+          </h1>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col align-self-center">
+              <img src="../img/noImg.png" alt="" class="img-thumbnail" id="image">
+              <label for="file-upload">file input</label>
+              <input type="file" class="form-control-file" onclick="ChangeImage()" id="file-upload" required />
+            </div>
+            <div class="col">
+              <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Thông tin địa
+                  điểm</strong> </h4>
+
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="keyword" id="adress" aria-describedby="helpId"
+                  placeholder="Tên địa điểm" value="" required>
+              </div>
+
+
+              <div class="mb-3">
+                <input type="text" class="form-control" name="keyword" id="adress_detail" aria-describedby="helpId"
+                  placeholder="Địa chỉ" value="" required>
+              </div>
+
+              <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Thông tin bảng quảng
+                  cáo</strong></h5>
+                <h5 class="mx-5 my-3"><strong>Bên thuê quảng cáo</strong></h5>
+
+
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="keyword" id="name" aria-describedby="helpId"
+                    placeholder="Tên hãng quảng cáo" value="" required>
+                </div>
+
+
+                <h5 class="mx-5 my-3"><strong>Nội dung quảng cáo</strong></h5>
+
+
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="keyword" id="detail" aria-describedby="helpId"
+                    placeholder="nội dung" value="" required>
+                </div>
+
+                <h5 class="mx-5 my-3"><strong>Hình thức quảng cáo</strong></h5>
+
+
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="keyword" id="form" aria-describedby="helpId"
+                    placeholder="Hình thức" value="" required>
+                </div>
+
+
+                <h5 class="mx-5 my-3"><strong>Loại vị trí</strong></h5>
+
+
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="keyword" id="type" aria-describedby="helpId"
+                    placeholder="..." value="" required>
+                </div>
+
+
+                <h5 class="mx-5 my-3"><strong>Thời hạn quảng cáo</strong></h5>
+
+
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="keyword" id="expire" aria-describedby="helpId"
+                    placeholder="dd/mm/yyyy - dd/mm/yyyy" value="" required>
+                </div>
+                <input type="button" onclick="edit()" value="Edit">
+                <input type="button" onclick="save()" value="Save">
+              </h4>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
