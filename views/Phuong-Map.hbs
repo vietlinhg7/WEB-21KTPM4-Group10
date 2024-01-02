@@ -23,6 +23,12 @@
       });
       let currentQCIcon = "assets/img/QC.png";
       {{#each locations}}
+        if ({{hasReport}} == false){
+          currentQCIcon = "assets/img/QC.png";
+        }
+        else {
+          currentQCIcon = "assets/img/BC.png";
+        }
         let marker{{locationID}} = new google.maps.Marker({  
           position: new google.maps.LatLng({{toadoX}}, {{toadoY}}),
           icon: {

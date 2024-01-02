@@ -2,8 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const hinhthucSchema = new Schema({
-    hinhthucID: { type: String, required: true },
-    hinhthuc: String,
+    hinhthuc: { type: String, required: true },
 });
 
 const Hinhthuc = mongoose.model('Hinhthuc', hinhthucSchema);

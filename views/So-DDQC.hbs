@@ -1,23 +1,81 @@
 <body>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <main>
+        <!-- First Table -->
+        <button type="button" class="btn btn-outline-primary">
+            <a class="dropdown-item" href="/DDQCmap">Tạo mới</a>
+        </button>
+        <div class="p-3 text-center ">
+            <h2>Loại hình quảng cáo</h2>
+            <div class="card-header">
+                <div class="table-responsive">
+                    <table class="table table-borderless">
+                        <thead>
+                            <tr>
+                                <th class="col-2">ID</th>
+                                <th class="col-2">Loại hình thức</th>
+                                <th class="col-2">Loại hình thức</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>123</td>
+                                <td>
+                                    <form action="/suaLoai/{{loaiID}}/{{loai}}" method="POST">
+                                        <a class="p-2 bi bi-trash-fill  float-end text-danger"
+                                            href="/xoaLoai/{{loaiID}}/{{loai}}"></a>
+                                        <a class="p-2 bi bi-pencil dropdown text-danger float-end "
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                            aria-expanded="false"></a>
+                                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                            <!-- Dropdown items -->
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Tên Loai</label>
+                                                <input type="text" class="form-control" name="LID" id="phuongID"
+                                                    aria-describedby="helpId" placeholder="" required>
+                                            </div>
+                                            <button type="submit">Submit</button>
+                                        </div>
 
-    <div id="map" style="height: 700px;"></div>
-    Latitude: <input type="text" id="latitude">
-    Longitude: <input type="text" id="longitude">
+                                    </form>123
+                                </td>
+                                <td> 123</td>
+                            </tr>
+                        </tbody>
+                        {{!-- <form action="/themLoaiQC" method="POST">
+                            <div class="card-header">
+                                <!-- Dropdown element -->
+                                <button class="btn btn-secondary dropdown-toggle bg-primary float-end" type="button"
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Tạo mới
+                                </button>
+                                <!-- Dropdown menu -->
+                                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                    <!-- Dropdown items -->
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Tên loại hình quảng cáo</label>
+                                        <input type="text" class="form-control" name="tenLoai" id="loaiID"
+                                            aria-describedby="helpId" placeholder="" required>
+                                        <label for="" class="form-label">ID</label>
+                                        <input type="text" class="form-control" name="LID" id="loaiID"
+                                            aria-describedby="helpId" placeholder="" required>
+                                    </div>
+                                    <button type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form> --}}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- Second Table -->
 
-    <script>
-        let map = L.map('map').setView([10.763264701221265, 106.6821068682297], 30);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+    </main>
 
-        let marker = null;
-        map.on('click', (event) => {
-            if (marker !== null) {
-                map.removeLayer(marker);
-            }
-            marker = L.marker([event.latlng.lat, event.latlng.lng]).addTo(map);
-            document.getElementById('latitude').value = event.latlng.lat;
-            document.getElementById('longitude').value = event.latlng.lng;
-        });
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+        </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+        integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+        </script>
 </body>
