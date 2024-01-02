@@ -11,6 +11,7 @@ const reportSchema = new Schema({
   thoidiemgui: Date,
   tinhtrang: String,
   cachthucxuly: String,
+  queryID: { type: String, required: true },
   // image1: Buffer, // Sử dụng kiểu dữ liệu Buffer cho ảnh
   // image2: Buffer // Sử dụng kiểu dữ liệu Buffer cho ảnh
 });

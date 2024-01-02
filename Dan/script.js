@@ -7,7 +7,7 @@ var isVariableTrue = true;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 10.7769, lng: 106.7009},
+    center: {lat: 10.7628356, lng: 106.6824824},
     zoom: 16
   });
 
@@ -64,54 +64,133 @@ function initMap() {
   // Thêm nút "My Location" vào bản đồ
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('myLocationBtnContainer'));
 
-
-  
-
-  showQC(isVariableTrue);
-   
-
   // Thực hiện yêu cầu GET đến endpoint /billboards
-  fetch('/billboards')
+  fetch('/locations')
     .then(response => response.json())
     .then(data => {
-      // Xử lý dữ liệu billboard
+      // Xử lý dữ liệu 
+      let idCounter = 0;
+
       // Kiểm tra nếu dữ liệu có tồn tại và là mảng
       if (Array.isArray(data)) {
-        // Lặp qua mỗi billboard trong mảng
-        data.forEach(async billboard => {
-          // Truy cập các biến của mỗi billboard
-          const billboardID = billboard.billboardID;
-          const loaiID = billboard.loaiID;
-          const kichthuoc = billboard.kichthuoc;
-          const hinhthuc = billboard.hinhthuc;
-          const hinhanh = billboard.hinhanh;
-          const ngayhethan = billboard.ngayhethan;
-          const locationID = billboard.locationID;
+        // Lặp qua mỗi mảng
+        data.forEach(async location => {
+          // Truy cập các biến c
 
-          const loaiResponse = await fetch(`/loais/${loaiID}`);
-          const loaiData = await loaiResponse.json();
+          const locationID = location.locationID;
+          const name = location.name;
+          const diachi = location.diachi;
+          const phuongID = location.phuongID;
+          const quanID = location.quanID;
+          const loaivitri = location.loaivitri;
+          const hinhanh1 = location.hinhanh;
+          const quyhoach = location.quyhoach;
+          const toadoX = location.toadoX;
+          const toadoY = location.toadoY;
 
-          const locationResponse = await fetch(`/locations/${locationID}`);
-          const locationData = await locationResponse.json();
+          console.log(`locationID: ${locationID}, Name: ${name}, diachi: ${diachi}, phuongID: ${phuongID}, quanID: ${quanID}, loaivitri: ${loaivitri}, hinhanh: ${hinhanh1}, quyhoach: ${quyhoach}, toadoX: ${toadoX}, toadoY: ${toadoY}`);
 
-          // Thực hiện các hành động với các biến của billboard
-          console.log(`Billboard ID: ${billboardID}, loaiID: ${loaiID}, Size: ${kichthuoc}, hinhthuc: ${hinhthuc}, hinhanh: ${hinhanh}, ngayhethan: ${ngayhethan}, locationID: ${locationID}`);
-       
-          const loai = loaiData.loai;
-          console.log('Thông tin loaiData:', loai);
+          const billboardResponse = await fetch(`/billboards/${locationID}`);
+          const billboardData = await billboardResponse.json();
 
-          const name = locationData.name;
-          const diachi = locationData.diachi;
-          const phuongID = locationData.phuongID;
-          const quanID = locationData.quanID;
-          const loaivitri = locationData.loaivitri;
-          const hinhanh1 = locationData.hinhanh;
-          const quyhoach = locationData.quyhoach;
-          const toadoX = locationData.toadoX;
-          const toadoY = locationData.toadoY;
+          const billboardsArray = [];
+          const contentArray = [];
+          var boardID;
+          
+          
+          if (Array.isArray(billboardData)) {
 
-          console.log(`Name: ${name}, diachi: ${diachi}, phuongID: ${phuongID}, quanID: ${quanID}, loaivitri: ${loaivitri}, hinhanh: ${hinhanh1}, quyhoach: ${quyhoach}, toadoX: ${toadoX}, toadoY: ${toadoY}`);
+            billboardData.forEach(billboardData => {
+              const billboardID = billboardData.billboardID;
+              const loai = billboardData.loai;
+              const kichthuoc = billboardData.kichthuoc;
+              const hinhthuc = billboardData.hinhthuc;
+              const hinhanh = billboardData.hinhanh;
+              const ngayhethan = billboardData.ngayhethan;
 
+              // Thêm một đối tượng mới vào mảng
+              const billboardObject = {
+                billboardID,
+                loai,
+                kichthuoc,
+                hinhthuc,
+                hinhanh,
+                ngayhethan
+              };
+
+              // Thêm đối tượng vào mảng
+              billboardsArray.push(billboardObject);
+              
+              // Thực hiện các hành động với các biến của billboard
+              //console.log(`LocationID: ${locationID}, Billboard ID: ${billboardID}, loai: ${loai}, Size: ${kichthuoc}, hinhthuc: ${hinhthuc}, hinhanh: ${hinhanh}, ngayhethan: ${ngayhethan}`)
+
+            });
+
+            billboardsArray.forEach(billboardsArray => {
+              const billboardObject = {
+                  billboardID: billboardsArray.billboardID,
+                  loai: billboardsArray.loai,
+                  kichthuoc: billboardsArray.kichthuoc,
+                  hinhthuc: billboardsArray.hinhthuc,
+                  hinhanh: billboardsArray.hinhanh,
+                  ngayhethan: billboardsArray.ngayhethan
+              };
+              boardID = billboardObject.billboardID;
+              const billboardLoai = billboardObject.loai;
+              const billboardAnh = billboardObject.hinhanh;
+              const billboardSize = billboardObject.kichthuoc;
+              const billboardType = billboardObject.hinhthuc;
+              const billboardDate = billboardObject.ngayhethan;
+          
+              // Truy cập giá trị của thuộc tính billboardID trong vòng lặp
+              const content = `
+                <form style="display: flex; flex-direction: column; align-items: center;">
+                  <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
+                    <img src="` + billboardAnh + `" alt="Cong Chao" style="width: 300px; height: auto; margin-bottom: 10px;"><br>
+                    <b>` + billboardLoai + `</b><br>`
+                    + diachi + `<br>
+                    Kích thước:` + billboardSize + `<br>
+                    Số lượng: <b>1 trụ/bảng</b><br>
+                    Hình thức:<b>`+ billboardType+ `</b><br>
+                    Phân loại: <b>`+loaivitri+`</b><br>
+                    <span id="expirationDate${idCounter}">Ngày hết hạn: <b>`+billboardDate+ `</b><br></span>
+                  </div>
+              `;
+              contentArray.push(content);
+
+              idCounter++;
+            
+            });
+            
+          }
+          else{
+            console.log(`Không có locationID `, locationID);
+            
+          }
+
+          var Content = '<div style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Danh sách các bảng quảng cáo</div>' +
+          '<form action="/boardID" id="handleBoardIDPost" method="POST" style="display: flex; flex-direction: column; align-items: center; max-width: 900px; font-size: 20px; padding: 0px 50px 0px 0px;">'+
+          '<input type="hidden" name="boardID" id="boardID" value="' + boardID + '">';
+          console.log(boardID)
+
+          contentArray.forEach((content, index) => {
+            var data1 = "expirationDate${index}";
+            Content += '<div class="a" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data1 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button type="submit" onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>';
+          });
+
+          Content += '</form>';
+          
+          //console.log(Content);
+
+
+          var advertisingData = { type: name, text1: loaivitri, text2: diachi, infor: quyhoach };
+          var icon;
+          if(quyhoach == "ĐÃ QUY HOẠCH"){
+            icon = 'images/icon1.png';
+          }else{
+            icon = 'images/icon2.png';
+          }
+          addAdvertisingLocation(marker, toadoX, toadoY, advertisingData, hinhanh1, icon,  Content, isVariableTrue);
 
         });
       } else {  
@@ -119,20 +198,20 @@ function initMap() {
       }
       })
     .catch(error => {
-      console.error('Lỗi khi lấy dữ liệu billboard:', error);
+        console.error('Lỗi khi lấy dữ liệu billboard:', error);
     });
 
 
   
 }
 
-function addAdvertisingLocation(latitude, longitude, advertisingData, content, content1, data1, data2, ) {
+function addAdvertisingLocation(marker, latitude, longitude, advertisingData, imageQC, icon, content, isVariableTrue) {
   // Tạo marker kiểu hình ảnh
   var marker = new google.maps.Marker({
     position: { lat: latitude, lng: longitude },
     map: map,
     icon: {
-      url: 'images/icon1.png', // Đường dẫn đến hình ảnh điểm đặt quảng cáo
+      url: icon,// Đường dẫn đến hình ảnh điểm đặt quảng cáo
       scaledSize: new google.maps.Size(30, 30) // Kích thước hình ảnh
     },
     title: 'Điểm Đặt Quảng Cáo'
@@ -144,8 +223,7 @@ function addAdvertisingLocation(latitude, longitude, advertisingData, content, c
   // Thêm sự kiện khi di chuột vào marker
   marker.addListener('mouseover', function() {
     var content = generateInfoContent(advertisingData); // Tạo nội dung thông tin
-    var imageSrc = 'images/icon5.png'; // Đường dẫn đến hình ảnh của bạn
-    var imageTag = '<img src="' + imageSrc + '" alt="Ảnh mô tả" style="max-width: 100%;">'; // Thẻ img với đường dẫn hình ảnh
+    var imageTag = '<img src="' + imageQC + '" alt="Ảnh mô tả" style="max-width: 100%;">'; // Thẻ img với đường dẫn hình ảnh
 
     // Bổ sung thẻ img vào nội dung thông tin
     content += imageTag;
@@ -156,218 +234,25 @@ function addAdvertisingLocation(latitude, longitude, advertisingData, content, c
     infoWindow.open(map, marker);
   });
 
-  // Thêm sự kiện khi click vào marker
+   // Thêm sự kiện khi click vào marker
   marker.addListener('click', function() {
     // Thực hiện hành động khi click vào marker, ví dụ: hiển thị bảng thông tin khác
-    showAdditionalInfo(marker, content, content1, data1, data2, latitude, longitude);
+    showAdditionalInfo(marker, content);
   });
 
-  // Thêm sự kiện khi di chuột ra khỏi marker
-  marker.addListener('mouseout', function() {
-    infoWindow.close();
-  });
+   // Thêm sự kiện khi di chuột ra khỏi marker
+   marker.addListener('mouseout', function() {
+     infoWindow.close();
+   });
 
-  if (!isVariableTrue) {
-    // Đóng bảng thông tin nếu nó đang mở
-    console.log('Giá trị của biến sau khi nhấn nút:', isVariableTrue);
-    marker.infoWindow.close();
+  // if (!isVariableTrue) {
+  //   // Đóng bảng thông tin nếu nó đang mở
+  //   console.log('Giá trị của biến sau khi nhấn nút:', isVariableTrue);
+  //   marker.infoWindow.close();
 
-    // Xóa marker khỏi bản đồ
-    marker.setMap(null);
-  }
-
-}
-
-function addAdvertisingLocation1(latitude, longitude, advertisingData, content, content1, data1, data2, isVariableTrue) {
-  // Tạo marker kiểu hình ảnh
-  var marker = new google.maps.Marker({
-    position: { lat: latitude, lng: longitude },
-    map: map,
-    icon: {
-      url: 'images/icon2.png', // Đường dẫn đến hình ảnh điểm đặt quảng cáo
-      scaledSize: new google.maps.Size(30, 30) // Kích thước hình ảnh
-    },
-    title: 'Điểm Đặt Quảng Cáo'
-  });
-
-  // Tạo thông tin chi tiết cho điểm đặt quảng cáo
-  var infoWindow = new google.maps.InfoWindow();
-
-  // Thêm sự kiện khi di chuột vào marker
-  marker.addListener('mouseover', function() {
-    var content = generateInfoContent(advertisingData); // Tạo nội dung thông tin
-    var imageSrc = 'images/icon5.png'; // Đường dẫn đến hình ảnh của bạn
-    var imageTag = '<img src="' + imageSrc + '" alt="Ảnh mô tả" style="max-width: 100%;">'; // Thẻ img với đường dẫn hình ảnh
-
-    // Bổ sung thẻ img vào nội dung thông tin
-    content += imageTag;
-
-    // Thiết lập nội dung của cửa sổ thông tin
-    infoWindow.setContent(content);
-    infoWindow.maxWidth = 500;
-    infoWindow.open(map, marker);
-  });
-
-
-  // Thêm sự kiện khi click vào marker
-  marker.addListener('click', function() {
-    // Thực hiện hành động khi click vào marker, ví dụ: hiển thị bảng thông tin khác
-    showAdditionalInfo(marker, content, content1, data1, data2, latitude, longitude);
-    
-  });
-
-  // Thêm sự kiện khi di chuột ra khỏi marker
-  marker.addListener('mouseout', function() {
-    infoWindow.close();
-  });
-
-  if (!isVariableTrue) {
-    // Đóng bảng thông tin nếu nó đang mở
-    console.log('Giá trị của biến sau khi nhấn nút:', isVariableTrue);
-    marker.infoWindow.close();
-
-    // Xóa marker khỏi bản đồ
-    marker.setMap(null);
-  }
-  
-}
-
-function showQC(isVariableTrue) {
-
-  var content1 = `
-  <form style="display: flex; flex-direction: column; align-items: center;">
-    <div id="expirationDateInfo" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-      <img src="images/icon4.png" alt="Cong Chao" style="width: 300px; height: auto; margin-bottom: 10px;"><br>
-      <b>Cổng chào</b><br>
-      Số 86 Đ.Lê Thánh Tôn, Bến Nghé, <br>
-      Quận 1, thành phố Hồ Chí Minh<br>
-      Kích thước: 2.5m x 1.5m<br>
-      Số lượng: <b>1 trụ/bảng</b><br>
-      Hình thức: <b>Cổ động chính trị</b><br>
-      Phân loại: <b>Đất công</b><br>
-      <span id="expirationDate1">Ngày hết hạn: <b>18/12/2050</b><br></span>
-    </div>
-`;
-  var content2 = `
-  <form style="display: flex; flex-direction: column; align-items: center;">
-    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-      <img src="images/icon3.png" alt="TRU" style="width: 300px; height: auto; margin-bottom: 10px;"><br>
-      <b>Trụ/Cụm pano</b><br>
-      135 Đ. Nguyễn Huệ, Bến Nghé, <br>
-      Quận 1, thành phố Hồ Chí Minh<br><br>
-      Kích thước: 2.5m x 1.5m<br>
-      Số lượng: <b>1 trụ/bảng</b><br>
-      Hình thức: <b>Cổ động chính trị</b><br>
-      Phân loại: <b>Đất công</b><br>
-      <span id="expirationDate2">Ngày hết hạn: <b>15/10/2050</b><br></span>
-    </div>
-  `;
-
-  var content3 = `
-  <form style="display: flex; flex-direction: column; align-items: center;">
-    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-      <img src="images/icon6.png" alt="TRUng tam" style="width: 300px; height: auto; margin-bottom: 10px;"> <br>
-      <b>Trung tâm thương mại</b><br>
-      06 Đ. Hồ Tùng Mậu, Phường Nguyễn Thái Bình,<br> 
-      Quận 1, thành phố Hồ Chí Minh<br><br>
-      Kích thước: 2.5m x 1.5m<br>
-      Số lượng: <b>1 trụ/bảng</b><br>
-      Hình thức: <b>Cổ động chính trị</b><br>
-      Phân loại: <b>Trung tâm thương mại</b><br>
-      <span id="expirationDate3">Ngày hết hạn: <b>1/1/2055</b><br></span>
-    </div>
-  `;
-
-  var content4 = `
-  <form style="display: flex; flex-direction: column; align-items: center;">
-    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-      <img src="images/icon7.png" alt="TRU" style="width: 300px; height: auto; margin-bottom: 10px;"><br>
-      <b>Trụ màn hình điện tử LED</b><br>
-      Hẻm 122 Tôn Đản Vĩnh Khánh phường 10, <br>
-      Quận 4, thành phố Hồ Chí Minh<br><br>
-      Kích thước: 2.5m x 1.5m<br>
-      Số lượng: <b>1 trụ/bảng</b><br>
-      Hình thức: <b>Quảng cáo thương mại</b><br>
-      Phân loại: <b>Hành lang an toàn giao thông</b><br>
-      <span id="expirationDate4">Ngày hết hạn: <b>2/5/2045</b><br></span>
-    </div>
-  `;
-
-  var content5 = `
-  <form style="display: flex; flex-direction: column; align-items: center;">
-    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-      <img src="images/icon7.png" alt="TRU" style="width: 300px; height: auto; margin-bottom: 10px;"><br>
-      <b>Trụ màn hình điện tử LED</b><br>
-      Hẻm 122 Tôn Đản Vĩnh Khánh phường 10, <br>
-      Quận 4, thành phố Hồ Chí Minh<br><br>
-      Kích thước: 2.5m x 1.5m<br>
-      Số lượng: <b>1 trụ/bảng</b><br>
-      Hình thức: <b>Quảng cáo thương mại</b><br>
-      Phân loại: <b>Hành lang an toàn giao thông</b><br>
-      <span id="expirationDate5">Ngày hết hạn: <b>2/5/2045</b><br></span>
-    </div>
-  `;
-
-  // Sử dụng hàm addAdvertisingLocation
-  var advertisingData1 = { type: 'Cổ động chính trị', text1: 'Đất công', text2: 'Số 86 Đ.Lê Thánh Tôn, Bến Nghé,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.7769, 106.7009, advertisingData1, content1, content5, 'expirationDate1', 'expirationDate5', isVariableTrue);
-
-  var advertisingData2 = { type: 'Cổ động chính trị', text1: 'Đất công', text2: '135 Đ. Nguyễn Huệ, Bến Nghé,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.7750, 106.702, advertisingData2, content2, content5, 'expirationDate2', 'expirationDate5', isVariableTrue);
-
-  var advertisingData3 = { type: 'Cổ động chính trị', text1: 'Trung tâm thương mại', text2: '06 Đ. Hồ Tùng Mậu, Phường Nguyễn Thái Bình,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'CHƯA QUY HOẠCH' };
-  addAdvertisingLocation1(10.77, 106.7055, advertisingData3, content3, content5, 'expirationDate3', 'expirationDate5', isVariableTrue);
-
-  var advertisingData4 = { type: 'Quảng cáo thương mại', text1: 'Hành lang an toàn giao thông', text2: 'Đường Lê Thánh Tôn,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.775, 106.7002, advertisingData4, content4, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData5 = { type: 'Cổ động chính trị', text1: 'Trung tâm thương mại', text2: 'Hẻm 490 Đoàn Văn Bơ,',text3: 'Quận 4, thành phố Hồ Chí Minh', infor: 'CHƯA QUY HOẠCH' };
-  addAdvertisingLocation1(10.76, 106.709, advertisingData5, content5, content5, 'expirationDate5', 'expirationDate5', isVariableTrue);
-
-  var advertisingData6 = { type: 'Quảng cáo thương mại', text1: 'Hành lang an toàn giao thông', text2: 'Đường Pasteur, Nguyễn Công Trứ,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.77, 106.703, advertisingData6, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData7 = { type: 'Xã hội hoá', text1: 'Trung tâm thương mại', text2: 'Đường số 41, Nguyễn Hữu Hào,',text3: 'Quận 4, thành phố Hồ Chí Minh', infor: 'CHƯA QUY HOẠCH' };
-  addAdvertisingLocation1(10.76, 106.702, advertisingData7, content5, content5, 'expirationDate3', 'expirationDate5', isVariableTrue);
-
-  var advertisingData8 = { type: 'Xã hội hoá', text1: 'Hành lang an toàn giao thông', text2: 'Hẻm 243A Hoàng Diệu, phường 8,',text3: 'Quận 4, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.76, 106.703, advertisingData8, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData9 = { type: 'Xã hội hoá', text1: 'Hành lang an toàn giao thông', text2: 'Công trường Lam Sơn,',text3: 'Quận 4, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.777, 106.703, advertisingData9, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData10 = { type: 'Xã hội hoá', text1: 'Hành lang an toàn giao thông', text2: 'Tôn Thất Thiệp, Bến Nghé,',text3: 'Quận 4, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.774, 106.703, advertisingData10, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData11 = { type: 'Quảng cáo thương mại', text1: 'Hành lang an toàn giao thông', text2: 'Unit 4, Floor 10, Saigon Centre,65 Le Loi Street, Ben Nghe Ward,',text3: 'Quận 4, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.774, 106.701, advertisingData11, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData12 = { type: 'Quảng cáo thương mại', text1: 'Hành lang an toàn giao thông', text2: 'Toà Nhà 60, 62 Đ. Lê Lợi Bến Nghé,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.774, 106.70, advertisingData12, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData13 = { type: 'Cổ động chính trị', text1: 'Hành lang an toàn giao thông', text2: '64 P. Đức Chính Phường Nguyễn Thái Bình,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.77, 106.70, advertisingData13, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData14 = { type: 'Quảng cáo thương mại', text1: 'Hành lang an toàn giao thông', text2: '107 Tân Vĩnh Phường 6,',text3: 'Quận 4, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.76, 106.70, advertisingData14, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData15 = { type: 'Cổ động chính trị', text1: 'Hành lang an toàn giao thông', text2: '142 Đ. Võ Văn Kiệt Phường Nguyễn Thái Bình,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.765, 106.70, advertisingData15, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData16 = { type: 'Cổ động chính trị', text1: 'Hành lang an toàn giao thông', text2: '27 Đ. Yersin Phường Cầu Ông Lãnh',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.7657, 106.698, advertisingData16, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData17 = { type: 'Xã hội hoá', text1: 'Hành lang an toàn giao thông', text2: 'Hẻm 142 đường Võ Văn Kiệt,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.7655, 106.699, advertisingData17, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData18 = { type: 'Cổ động chính trị', text1: 'Hành lang an toàn giao thông', text2: '100/65 Đ. Cô Bắc, Phường Cô Giang,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.7652, 106.694, advertisingData18, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData19 = { type: 'Cổ động chính trị', text1: 'Hành lang an toàn giao thông', text2: '74A Đ. Lê Lai Phường Phạm Ngũ Lão,',text3: 'Quận 1, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.77, 106.6945, advertisingData19, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
-
-  var advertisingData20 = { type: 'Quảng cáo thương mại', text1: 'Hành lang an toàn giao thông', text2: '40/13 Đ. Bùi Viện Phường Phạm Ngũ Lão,',text3: 'Quận 4, thành phố Hồ Chí Minh', infor: 'ĐÃ QUY HOẠCH' };
-  addAdvertisingLocation(10.768, 106.6943, advertisingData20, content5, content5, 'expirationDate4', 'expirationDate5', isVariableTrue);
+  //   // Xóa marker khỏi bản đồ
+  //   marker.setMap(null);
+  // }
 
 }
 
@@ -379,7 +264,6 @@ function generateInfoContent(advertisingData) {
     content += '<p><b>' + advertisingData.type + '</b></p>';
     content += '<p>' + advertisingData.text1 + '</p>';
     content += '<p>' + advertisingData.text2 + '</p>';
-    content += '<p>' + advertisingData.text3 + '</p>';
     content += '<p><b><em>' + advertisingData.infor + '</b></em></p>';
     content += '</div>';
     return content;
@@ -388,13 +272,9 @@ function generateInfoContent(advertisingData) {
   }
 }
 
-function showAdditionalInfo(marker, content, content1, data1, data2, latitude, longitude) {
+function showAdditionalInfo(marker, content) {
   var additionalInfoWindow = new google.maps.InfoWindow({
-    content: '<div style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Danh sách các bảng quảng cáo</div>' +
-      '<form style="display: flex; flex-direction: column; align-items: center; max-width: 900px; font-size: 20px; padding: 0px 50px 0px 0px;">' +
-      '<div class="a" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data1 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button onclick="redirectToReportPage(' + latitude + ', ' + longitude + ')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>' +
-      '<div class="b" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content1 + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data2 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button onclick="redirectToReportPage(' + latitude + ', ' + longitude + ')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>' +
-      '</form>',
+    content: content,
     maxWidth: 1000,
   });
 
@@ -492,10 +372,10 @@ content += '<div class="preserve-whitespace">           ' + formattedAddress + '
 content += '<div class="preserve-whitespace"> <b>          Tên quán: </b>' + place.name + '</div>';
 content += '<div class="preserve-whitespace"> <b>          Đánh giá: </b>' + (place.rating || 'Chưa có đánh giá') + '</div>';
 content += '<div class="preserve-whitespace"> <b>          Loại hình kinh doanh: </b>' + (place.types ? place.types.join(', ') : 'Không rõ') + '</div>';
-content += '</div>'; // Kết thúc div address-info
-
+ // Kết thúc div address-info
 // Thêm nút "BÁO CÁO VI PHẠM" và căn chỉnh nó sang phía dưới bên phải
-content += '<button onclick="redirectToReportPage(' + place.geometry.location.lat() + ', ' + place.geometry.location.lng() + ')" style="margin: 10px; padding: 10px; align-self: flex-end; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button>';
+content += '<button onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; align-self: flex-end; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button>';
+content += '</div>';
 
 content += '</form>';
 
@@ -514,8 +394,8 @@ function toggleExpirationDate(Date) {
 }
 
 // Mở trang Report.html trong một tab/chế độ xem mới và truyền tọa độ
-function redirectToReportPage(latitude, longitude) {
-  window.open('Report.html?lat=' + latitude + '&lng=' + longitude, '_blank');
+function redirectToReportPage() {
+  window.open('Report.html', '_blank');
 }
 
 

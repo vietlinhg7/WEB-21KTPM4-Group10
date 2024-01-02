@@ -1,10 +1,10 @@
 const Report = require('../models/report');
 const Billboard = require('../models/billboard');
-const Loai = require('../models/loai');
 const Location = require('../models/location');
 
 
 const controller = {};
+let currentBoardID = '';
 
 const getNewReportID = async () => {
     
@@ -39,12 +39,30 @@ const getNewReportID = async () => {
     } 
 };
 
+controller.handleBoardIDPost = async (req, res) => {
+    try {
+        const boardID = req.body.boardID; 
+        if (!boardID) {
+            throw new Error('Missing boardID');
+        }
+
+        currentBoardID = boardID;
+
+        res.redirect('/Map.html');
+    } catch (error) {
+        console.error('Error handling boardID:', error);
+        res.status(400).json({ success: false, message: 'Error handling boardID', error: error.message });
+    }
+};
+
+
 controller.addReport = async (req, res) => {
 
     console.log(req.body);
     let { reportType, fullName, email, phone, reportContent} = req.body;
     
     const reportID = await getNewReportID(); // Lấy reportID mới
+    
     
     try {
         
@@ -58,7 +76,7 @@ controller.addReport = async (req, res) => {
             thoidiemgui: new Date(),
             tinhtrang: "Chưa xử lí",
             cachthucxuly: 'null',
-            
+            queryID: currentBoardID,
         });
 
     
@@ -71,44 +89,27 @@ controller.addReport = async (req, res) => {
 };
 
 
-controller.getBillboards = async (req, res) => {
+controller.getLocations = async (req, res) => {
     try {
-        // Lấy tất cả các bảng billboard
-        const billboards = await Billboard.find({});
-        res.json(billboards); 
-    } catch (error) {
-        console.error('Lỗi khi lấy dữ liệu billboard:', error);
-    }
-};
-
-controller.getLoais = async (req, res) => {
-    try {
-        const loaiID = req.params.loaiID;
-
-        const loaiData = await Loai.findOne({ loaiID });
-    
-        if (!loaiData) {
-            return res.status(404).json({ error: 'Không tìm thấy dữ liệu cho loaiID đã cung cấp.' });
-        }
-    
-        res.json(loaiData);
+        // Lấy tất cả các bảng locations
+        const locations = await Location.find({});
+        res.json(locations); 
     } catch (error) {
         console.error('Lỗi khi lấy dữ liệu:', error);
-        res.status(500).send('Lỗi Nội Bộ của Máy Chủ');
     }
 };
 
-controller.getLocations = async (req, res) => {
+controller.getBillboards = async (req, res) => {
     try {
         const locationID = req.params.locationID;
 
-        const locationData = await Location.findOne({ locationID });
+        const billboardData = await Billboard.find({ locationID });
 
-        if (!locationData) {
-        return res.status(404).json({ error: 'Không tìm thấy dữ liệu cho locationID đã cung cấp.' });
+        if (!billboardData || billboardData.length === 0) {
+            return res.status(404).json({ error: 'Không tìm thấy dữ liệu cho locationID đã cung cấp.' });
         }
 
-        res.json(locationData);
+        res.json(billboardData);
     } catch (error) {
         console.error('Lỗi khi lấy dữ liệu:', error);
         res.status(500).send('Lỗi Nội Bộ của Máy Chủ');

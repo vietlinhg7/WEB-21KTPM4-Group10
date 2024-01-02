@@ -3,10 +3,10 @@ const router = express.Router();
 const controller = require("../controllers/userController");
 
 router.post('/reports', controller.addReport);
+router.post('/boardID', controller.handleBoardIDPost)
 
-router.get('/billboards', controller.getBillboards);
-router.get('/loais/:loaiID', controller.getLoais);
-router.get('/locations/:locationID', controller.getLocations);
+router.get('/billboards/:locationID', controller.getBillboards);
+router.get('/locations', controller.getLocations);
 
 
 

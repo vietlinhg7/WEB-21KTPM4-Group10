@@ -90,58 +90,8 @@
     .image-section {
         background-color: #c7ceea;
     }
-    .homepage-button
-    {
-      width: 140px;
-      height: 45px;
-      font-family: 'Roboto', sans-serif;
-      font-size: 16px;
-      font-weight: 500;
-      color: white;
-      background-color: red;
-      border: none;
-      border-radius: 45px;
-      box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease 0s;
-      cursor: pointer;
-      outline: none;
-      position: absolute;
-      top: 3%; 
-      left: 10%;
-
-      }
-    .homepage-button:hover{
-      background-color: #ff0000;
-      box-shadow: 0px 15px 20px rgba(255, 80, 80, 0.4);
-      color: #fff;
-      transform: translateY(-7px);
-    }
-  </style>
-
-  <script>
-    // Hàm để lấy tham số từ URL
-    function getUrlParameter(name) {
-        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-        var results = regex.exec(location.search);
-        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-    }
-
     
-
-    // Lấy tọa độ từ URL
-    var latitude = getUrlParameter('lat');
-    var longitude = getUrlParameter('lng');
-
-    function setCoordinates() {
-      document.getElementById('latitude').value = latitude;
-      document.getElementById('longitude').value = longitude;
-    }
-
-    // Hiển thị tọa độ trong console (có thể sử dụng để xử lý tiếp)
-    console.log('Latitude:', latitude);
-    console.log('Longitude:', longitude);
-  </script>
+  </style>
 </head>
 <body>
 
@@ -191,10 +141,6 @@
     </div> -->
 
     <button type="submit" onclick="setCoordinates()"><i class="fas fa-paper-plane"></i> Gửi yêu cầu</button>
-    <a href="Map.html" target="_blank">
-      <button type="button" class="homepage-button">Homepage</button>
-    </a>
-    
   </div>
 
 </form>
