@@ -104,7 +104,7 @@ content {
  #sidebar {
   height: 100%;
   width: 30%;
-  display: none;
+  display: block;
  }
  [id^="section"] {
   display: block;
