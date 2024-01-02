@@ -113,7 +113,7 @@ content {
   margin-bottom: 5%;
   width: 90%;
   text-align: center;
-  border-radius: 15px;
+  border-radius: 5px;
  }
  #section2a {
   background-color: #c3fbff;
@@ -175,7 +175,7 @@ img{
   margin-right: 10px;
 }
 .line1, .line2, .line3{
-  display: inline-block;
+  display: block;
   font-family: Roboto;
   text-align: left;
   margin-bottom: 8px;
@@ -186,8 +186,14 @@ img{
 }
 .line2{
   font-weight: bold;
-  font-size: 15px;
+  font-size: 18px;
 }
 .line3{
-  font-size: 13 px;
+  font-size: 15px;
+}
+#adInfo {
+  margin: 5%;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: #ffffff;
 }
