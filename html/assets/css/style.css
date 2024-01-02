@@ -200,3 +200,12 @@ img{
 .line3{
   font-size: 15px;
 }
+
+.navnavbar-nav {
+  background-color: red;
+}
+
+.navbar-nav img {
+  margin-left: auto; /* This pushes the avatar to the right, centering it vertically */
+  margin-right: 15px; /* Adjust this margin as needed */
+}
