@@ -19,28 +19,29 @@
     </style>
     <div id="sidebar">
       <div id="section1">
-        <img src="assets/img/location.png" width=25px height=25px>
+        <img src="assets/img/location.png" width=25px height=25px display="inline-block">
+        <div class="line1" display="float">Thông tin địa điểm</div>
         <div id="locationInfo">
-          <div class="line1">Thông tin địa điểm</div>
           <div class="line2">{{querylocation.name}}</div>
           <div class="line3">{{querylocation.diachi}}</div>
         </div>
       </div>
+      <style>
+        #section1 {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        }
+      </style>
       <div id="section2a">
-        <img src="assets/img/ad.png" width=25px height=25px>
+        {{#each billboard}}
         <div id="adInfo">
-          <div class="line1">Thông tin quảng cáo</div>
-          <div class="line2">Bên thuê quảng cáo</div>
-          <div class="line3">Nestlé Vietnam Ltd</div>
-          <div class="line2">Nội dung quảng cáo</div>
-          <div class="line3">MỚI! NESCAFÉ CAFÉ VIỆT PHIÊN BẢN ĐẶC BIỆT VỚI ARABICA</div>
-          <div class="line2">Hình thức quảng cáo</div>
-          <div class="line3">Quảng cáo thương mại</div>
-          <div class="line2">Loại vị trí</div>
-          <div class="line3">Đất tư nhân</div>
-          <div class="line2">Thời hạn quảng cáo</div>
-          <div class="line3">01/10/2023 - 01/01/2024</div>
+          <div class="line1">"{{loai}}"</div>
+          <div class="line2">"Kích thước: {{kichthuoc}}"</div>
+          <div class="line3">"Số lượng: {{soluong}}"</div>
+          <div class="line2">"Hình thước: {{hinhthuc}}"</div>
         </div>
+        {{/each}}
       </div>
       <div id="section2b">
         <img src="assets/img/ad.png" width=25px height=25px>
@@ -75,7 +76,7 @@
       });
       let currentQCIcon = "assets/img/QC.png";
       {{#each locations}}
-        let marker = new google.maps.Marker({  
+        let marker{{locationID}} = new google.maps.Marker({  
           position: new google.maps.LatLng({{toadoX}}, {{toadoY}}),
           icon: {
             url: currentQCIcon,
@@ -89,14 +90,14 @@
             url: "assets/img/X.png", // Replace with your new icon URL
             scaledSize: new google.maps.Size(30, 30) // width and height in pixels
           };
-          marker.setIcon(newIcon);
-          google.maps.event.addListener(marker, 'click', function() {
+          marker{{locationID}}.setIcon(newIcon);
+          google.maps.event.addListener(marker{{locationID}}, 'click', function() {
             window.location.href = "/Phuong-Map";
           });
         }
         else 
         {
-          google.maps.event.addListener(marker, 'click', function() {
+          google.maps.event.addListener(marker{{locationID}}, 'click', function() {
             window.location.href = "/Phuong-Map-Detail?locationID=" + "{{locationID}}";
           });
         }
