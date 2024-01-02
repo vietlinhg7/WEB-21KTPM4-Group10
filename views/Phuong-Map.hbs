@@ -23,7 +23,13 @@
       });
       let currentQCIcon = "assets/img/QC.png";
       {{#each locations}}
-        let marker = new google.maps.Marker({  
+        if ({{hasReport}} == false){
+          currentQCIcon = "assets/img/QC.png";
+        }
+        else {
+          currentQCIcon = "assets/img/BC.png";
+        }
+        let marker{{locationID}} = new google.maps.Marker({  
           position: new google.maps.LatLng({{toadoX}}, {{toadoY}}),
           icon: {
             url: currentQCIcon,
@@ -31,7 +37,7 @@
           },
           map: map
         });
-        google.maps.event.addListener(marker, 'click', function() {
+        google.maps.event.addListener(marker{{locationID}}, 'click', function() {
           window.location.href = "/Phuong-Map-Detail?locationID=" + "{{locationID}}";
         });
       {{/each}}

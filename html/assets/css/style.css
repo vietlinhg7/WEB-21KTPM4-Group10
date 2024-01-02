@@ -7,8 +7,11 @@
  * Optional: Makes the sample page fill the window. 
  */
 html,
+header {
+  height: 7vh;
+}
 body {
-  height: 96.5%;
+  height: 93vh;
   margin: 0;
   padding: 0;
 }
@@ -105,6 +108,8 @@ content {
   height: 100%;
   width: 30%;
   display: block;
+  max-height: 100%; /* Limits the sidebar height to 100% of the viewport height */
+  overflow-y: auto; /* Adds a vertical scrollbar if the sidebar content is too much */
  }
  [id^="section"] {
   display: block;
@@ -113,68 +118,39 @@ content {
   margin-bottom: 5%;
   width: 90%;
   text-align: center;
-  border-radius: 15px;
- }
- #section1 {
-  height: 20%;
-  background-color: #c3fbff;
- }
- [id^="section2"] {
-  height: 60%;
+  border-radius: 5px;
+  border: 1px solid black;
  }
  #section2a {
+  background-color: #c3fbff;
+ }
+ #section1 {
   background-color:#aeffac;
-  display: none;
  }
  #section2b {
-  background-color:#96bdff;
-  display: none;
+  background-color:#ff6262;
  }
- .button-container {
-  display: flex;
-  justify-content: space-between;
-  margin-left: 5%;
-  margin-top: 5%;
-  margin-bottom: 5%;
-  width: 90%;
-  height: 7%; 
-  text-align: center;
-}
 
-[class^="btn"] {
+[class^="close"] {
   padding: 10px;
   font-size: 16px;
   cursor: pointer;
   margin-left: 5%;
   margin-right: 5%;
-  border-radius: 15px;  
+  border-radius: 10%;  
   border-color: #fff;
-  height: 100%;
-  width: 35%;
+  height: auto;
+  width: auto;
+  text-decoration: none;
   font-size: 20;
   font-weight: bold;
   color: black;
-} 
-[class^="btn"] {
-  background-color: #fdff89;
-  margin-left: 7%;
-  display:none;
-}
-.btn2 {
   background-color: #ff6262;  
   margin-right: 7%;
   display: block;
 }
-img{
-  margin-top:15px;
-  float: left;
-  margin-left: 15px;
-}
 #locationInfo, #adInfo{
-  margin-left: 50px;
-  margin-top: -30px;
-  margin-right: 10px;
-  display: float;
+  display: block;
   float: left;
 }
 #reportInfo{
@@ -185,13 +161,14 @@ img{
   margin-right: 10px;
 }
 .line1, .line2, .line3{
+  display: block;
   font-family: Roboto;
   text-align: left;
   margin-bottom: 8px;
 }
 .line1{
   font-weight: bold;
-  font-size: 25px;
+  font-size: 22px;
 }
 .line2{
   font-weight: bold;
@@ -199,4 +176,10 @@ img{
 }
 .line3{
   font-size: 15px;
+}
+#adInfo {
+  margin: 5%;
+  border-radius: 5px;
+  border: 1px solid black;
+  background-color: #fdff89;
 }

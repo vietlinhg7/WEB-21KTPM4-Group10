@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const billboardSchema = new Schema({
     billboardID: { type: String, required: true },
-    loaiID: { type: String, required: true },
+    loai: { type: String, required: true },
     kichthuoc: String,
     hinhthuc: String,
     hinhanh: String,
