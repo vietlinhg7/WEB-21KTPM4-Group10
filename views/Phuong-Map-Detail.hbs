@@ -18,8 +18,9 @@
       map.style.width = "70%";
     </style>
     <div id="sidebar">
+      <button class="close" onclick="window.location.href='/Phuong-Map'">Đóng</button>
       <div id="section1">
-        <img src="assets/img/location.png" width=25px height=25px display="inline-block">
+        <img src="assets/img/location.png" width=25px height=25px display=inline-block>
         <div class="line1" display="float">Thông tin địa điểm</div>
         <div id="locationInfo">
           <div class="line2">{{querylocation.name}}</div>
@@ -27,46 +28,31 @@
           <div class="line3">Phường: {{querylocation.phuongID}} Quận: {{querylocation.quanID}}</div>
           <div class="line3">Loại vị trí: {{querylocation.loaivitri}}</div>
           <div class="line2">{{querylocation.quyhoach}}</div>
+          <a href="/Phuong-Map">
+            <img src="assets/img/infor.png" width=25px height=25px>
+          </a>
         </div>
       </div>
       <div id="section2a">
         <div class="line1">Thông tin bảng quảng cáo:</div>
-        {{#each billboard}}
+        {{#each billboards}}
         <div id="adInfo">
           <div class="line2">{{loai}}</div>
           <div class="line3">Kích thước: {{kichthuoc}}</div>
           <div class="line3">Hình thức: {{hinhthuc}}</div>
+          <a href="/Phuong-Map">
+            <img src="assets/img/infor.png" width=25px height=25px>
+          </a>
         </div>
         {{/each}}
       </div>
       <style>
-        #section1, #section2a {
+        [id^="section"] {
         display: flex;
         flex-direction: column;
         align-items: stretch;
         }
       </style>
-      <div id="section2b">
-        <img src="assets/img/ad.png" width=25px height=25px>
-        <div id="reportInfo">
-          <div class="line1">Thông tin báo cáo</div>
-          <div class="line2">Hình thức báo cáo</div>
-          <div class="line3">Đóng góp ý kiến</div>
-          <div class="line2">Nội dung báo cáo</div>
-          <div class="line3">Bảng quảng cáo bị hư hại do thời tiết</div>
-          <div class="line2">Thời điểm báo cáo</div>
-          <div class="line3">31/10/2023</div>
-          <div class="line2">Họ tên người gửi</div>
-          <div class="line3">Lê Trường Giang</div>
-          <div class="line2">Điện thoại liên lạc</div>
-          <div class="line3">0912345678</div>
-        </div>
-      </div>
-      <div class="button-container">
-        <button class="btn1a" onclick="goToChinhsua()">Chỉnh sửa</button>
-        <button class="btn1b" onclick="goToChitiet()">Chi tiết</button>
-        <button class="btn2">ĐÓNG</button>
-      </div>
     </div>
   </content>
   <script>
@@ -79,6 +65,12 @@
       });
       let currentQCIcon = "assets/img/QC.png";
       {{#each locations}}
+        if ({{hasReport}} == false){
+          currentQCIcon = "assets/img/QC.png";
+        }
+        else {
+          currentQCIcon = "assets/img/BC.png";
+        }
         let marker{{locationID}} = new google.maps.Marker({  
           position: new google.maps.LatLng({{toadoX}}, {{toadoY}}),
           icon: {

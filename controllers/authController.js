@@ -7,6 +7,7 @@ const Quan = require('../models/quan');
 const Phuong = require('../models/phuong');
 const Loai = require('../models/loai');
 const Hinhthuc = require('../models/hinhthuc');
+const Report = require('../models/report');
 controller.showLocation = async (req, res) => {
     let location = await Location.find({});
     res.render('So-DDQC', {
@@ -218,26 +219,63 @@ controller.addQuan = async (req, res) => {
 };
 
 controller.showPhuongMap = async (req, res) => {
-    res.locals.locations = await Location.find({
+    let locations = await Location.find({
         phuongID: req.session.user.phuong,
         quanID: req.session.user.quan
-    });
+    }).lean();
+    for (location of locations) {
+        location.hasReport = !!await Report.findOne({ queryID: location.locationID });
+        location.billboard = await Billboard.find({locationID: location.locationID});
+        if (location.hasReport == false) {
+            for (billboard of location.billboard) {
+                if (location.hasReport == false) {
+                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID });
+                }
+                else break;
+            }   
+        }
+    }
+    res.locals.locations = locations;
     res.render('Phuong-Map', {
         layout: 'Phuong'
     });
 };
 
 controller.showPhuongMapDetail = async (req, res) => {
-    res.locals.locations = await Location.find({
+    let locations = await Location.find({
         phuongID: req.session.user.phuong,
         quanID: req.session.user.quan
-    });
-    res.locals.billboard = await Billboard.find({
-        locationID: req.query.locationID
-    });
+    }).lean();
+    for (location of locations){
+        location.hasReport = !!await Report.findOne({ queryID: location.locationID });
+        location.billboard = await Billboard.find({locationID: location.locationID});
+        if (location.hasReport == false) {
+            for (billboard of location.billboard) {
+                if (location.hasReport == false) {
+                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID });
+                }
+                else break;
+            }   
+        }
+    }
+    res.locals.locations = locations;
+
     res.locals.querylocation = await Location.findOne({
         locationID: req.query.locationID
     });
+
+    billboards = await Billboard.find({
+        locationID: req.query.locationID
+    }).lean();
+    for (billboard of billboards){
+        billboard.report = await Report.find({queryID: billboard.billboardID});
+    }
+    res.locals.billboards = billboards;
+
+    res.locals.reports = await Report.find({
+        queryID: req.query.locationID
+    });
+    
     res.render('Phuong-Map-Detail', {
         layout: 'Phuong'
     });
