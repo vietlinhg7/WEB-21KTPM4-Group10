@@ -5,10 +5,12 @@ const controller = require('../controllers/authController');
 router.get('/',controller.isLoggedIn, controller.showIndex);
 
 router.get('/login', controller.showLogin);
+router.get('/logout', controller.logout);
 
 router.post('/login', controller.login);
 router.get('/logout', controller.logout);
 
+router.get('/profile', controller.isLoggedIn, controller.showProfile);
 router.post('/addQuan',controller.isLoggedIn, controller.addQuan);
 router.get('/showQuan',controller.isLoggedIn, controller.showQuan);
 router.get('/xoaQuan',controller.isLoggedIn, controller.xoaQuan);

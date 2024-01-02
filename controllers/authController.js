@@ -9,6 +9,20 @@ const Loai = require('../models/loai');
 const Hinhthuc = require('../models/hinhthuc');
 const Report = require('../models/report');
 
+
+controller.showProfile = (req, res) => {
+    res.render('Profile', {
+        layout: false
+    });
+};
+
+controller.logout = (req, res, next) => {
+    req.session.destroy(function (error) {
+        if (error) return next(error);
+        res.redirect('/login');
+    });
+};
+
 controller.DDQCmap = async (req, res) => {
     res.render('So-DDQC-map', {
         layout: 'So',
