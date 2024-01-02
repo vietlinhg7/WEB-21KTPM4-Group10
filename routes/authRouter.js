@@ -25,6 +25,9 @@ router.post('/themLoaiQC',controller.isLoggedIn, controller.themLoaiQC);
 
 router.get('/Phuong-Map', controller.isLoggedIn, controller.showPhuongMap);
 router.get('/Phuong-Map-Detail', controller.isLoggedIn, controller.showPhuongMapDetail);
+router.post('/suaHinhThuc/:hinhthuc',controller.isLoggedIn, controller.suaHinhThuc);
+router.get('/xoaLoai/:hinhthuc',controller.isLoggedIn, controller.xoaHinhThuc);
 
+router.get('/showLocation',controller.isLoggedIn, controller.showLocation);
 
 module.exports = router;
