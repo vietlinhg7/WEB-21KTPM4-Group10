@@ -1,6 +1,8 @@
-const mongoose = require('mongoose');
 const Report = require('../models/report');
 const Billboard = require('../models/billboard');
+const Loai = require('../models/loai');
+const Location = require('../models/location');
+
 
 const controller = {};
 
@@ -40,7 +42,6 @@ const getNewReportID = async () => {
 controller.addReport = async (req, res) => {
 
     console.log(req.body);
-    let connection;
     let { reportType, fullName, email, phone, reportContent} = req.body;
     
     const reportID = await getNewReportID(); // Lấy reportID mới
@@ -70,28 +71,48 @@ controller.addReport = async (req, res) => {
 };
 
 
-controller.getBillboards = async () => {
-  try {
-      
-      // Kiểm tra kết nối
-      const db = mongoose.connection;
-      db.on('error', console.error.bind(console, 'Lỗi kết nối MongoDB:'));
-      db.once('open', async function () {
-          console.log('Đã kết nối đến MongoDB');
+controller.getBillboards = async (req, res) => {
+    try {
+        // Lấy tất cả các bảng billboard
+        const billboards = await Billboard.find({});
+        res.json(billboards); 
+    } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu billboard:', error);
+    }
+};
 
-          try {
-              // Lấy tất cả các bảng billboard
-              const billboards = await Billboard.find({});
+controller.getLoais = async (req, res) => {
+    try {
+        const loaiID = req.params.loaiID;
 
-              // In ra dữ liệu billboard
-              console.log(billboards);
-          } catch (error) {
-              console.error('Lỗi khi lấy dữ liệu billboard:', error);
-          }
-      });
-  } catch (error) {
-      console.error('Lỗi khi kết nối đến MongoDB:', error);
-  }
+        const loaiData = await Loai.findOne({ loaiID });
+    
+        if (!loaiData) {
+            return res.status(404).json({ error: 'Không tìm thấy dữ liệu cho loaiID đã cung cấp.' });
+        }
+    
+        res.json(loaiData);
+    } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu:', error);
+        res.status(500).send('Lỗi Nội Bộ của Máy Chủ');
+    }
+};
+
+controller.getLocations = async (req, res) => {
+    try {
+        const locationID = req.params.locationID;
+
+        const locationData = await Location.findOne({ locationID });
+
+        if (!locationData) {
+        return res.status(404).json({ error: 'Không tìm thấy dữ liệu cho locationID đã cung cấp.' });
+        }
+
+        res.json(locationData);
+    } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu:', error);
+        res.status(500).send('Lỗi Nội Bộ của Máy Chủ');
+    }
 };
   
 

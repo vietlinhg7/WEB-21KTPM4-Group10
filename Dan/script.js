@@ -65,30 +65,63 @@ function initMap() {
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('myLocationBtnContainer'));
 
 
-  const toggleButton = document.getElementById('toggleButton');
   
+
   showQC(isVariableTrue);
-  // Gắn sự kiện click cho nút ẩn hiện bảng quảng cáo
-  toggleButton.addEventListener('click', function () {
-    
-    // Đảo ngược giá trị của biến khi nút được nhấn
-    isVariableTrue = !isVariableTrue;
-
-    showQC(isVariableTrue);
    
-  });
 
-  // // Thực hiện yêu cầu GET đến endpoint /billboards
-  // fetch('/billboards')
-  //   .then(response => response.json())
-  //   .then(data => {
-  //     // Xử lý dữ liệu billboard
-  //     console.log('Dữ liệu Billboard:', data);
-  //     // Bạn có thể sử dụng dữ liệu này để cập nhật bản đồ hoặc thực hiện bất kỳ hành động nào khác
-  //   })
-  //   .catch(error => {
-  //     console.error('Lỗi khi lấy dữ liệu billboard:', error);
-  //   });
+  // Thực hiện yêu cầu GET đến endpoint /billboards
+  fetch('/billboards')
+    .then(response => response.json())
+    .then(data => {
+      // Xử lý dữ liệu billboard
+      // Kiểm tra nếu dữ liệu có tồn tại và là mảng
+      if (Array.isArray(data)) {
+        // Lặp qua mỗi billboard trong mảng
+        data.forEach(async billboard => {
+          // Truy cập các biến của mỗi billboard
+          const billboardID = billboard.billboardID;
+          const loaiID = billboard.loaiID;
+          const kichthuoc = billboard.kichthuoc;
+          const hinhthuc = billboard.hinhthuc;
+          const hinhanh = billboard.hinhanh;
+          const ngayhethan = billboard.ngayhethan;
+          const locationID = billboard.locationID;
+
+          const loaiResponse = await fetch(`/loais/${loaiID}`);
+          const loaiData = await loaiResponse.json();
+
+          const locationResponse = await fetch(`/locations/${locationID}`);
+          const locationData = await locationResponse.json();
+
+          // Thực hiện các hành động với các biến của billboard
+          console.log(`Billboard ID: ${billboardID}, loaiID: ${loaiID}, Size: ${kichthuoc}, hinhthuc: ${hinhthuc}, hinhanh: ${hinhanh}, ngayhethan: ${ngayhethan}, locationID: ${locationID}`);
+       
+          const loai = loaiData.loai;
+          console.log('Thông tin loaiData:', loai);
+
+          const name = locationData.name;
+          const diachi = locationData.diachi;
+          const phuongID = locationData.phuongID;
+          const quanID = locationData.quanID;
+          const loaivitri = locationData.loaivitri;
+          const hinhanh1 = locationData.hinhanh;
+          const quyhoach = locationData.quyhoach;
+          const toadoX = locationData.toadoX;
+          const toadoY = locationData.toadoY;
+
+          console.log(`Name: ${name}, diachi: ${diachi}, phuongID: ${phuongID}, quanID: ${quanID}, loaivitri: ${loaivitri}, hinhanh: ${hinhanh1}, quyhoach: ${quyhoach}, toadoX: ${toadoX}, toadoY: ${toadoY}`);
+
+
+        });
+      } else {  
+        console.error('Dữ liệu không phải là mảng hoặc không tồn tại.');
+      }
+      })
+    .catch(error => {
+      console.error('Lỗi khi lấy dữ liệu billboard:', error);
+    });
+
 
   
 }
