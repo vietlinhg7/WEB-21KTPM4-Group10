@@ -170,6 +170,9 @@ controller.showPhuongMapDetail = async (req, res) => {
         phuongID: req.session.user.phuong,
         quanID: req.session.user.quan
     });
+    res.locals.billboard = await Billboard.find({
+        locationID: req.query.locationID
+    });
     res.locals.querylocation = await Location.findOne({
         locationID: req.query.locationID
     });
