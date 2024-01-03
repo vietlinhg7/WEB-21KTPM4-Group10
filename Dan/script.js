@@ -70,6 +70,7 @@ function initMap() {
     .then(data => {
       // Xử lý dữ liệu 
       let idCounter = 0;
+      let idCount = 0;
 
       // Kiểm tra nếu dữ liệu có tồn tại và là mảng
       if (Array.isArray(data)) {
@@ -146,14 +147,14 @@ function initMap() {
               const content = `
                 <form style="display: flex; flex-direction: column; align-items: center;">
                   <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-                    <img src="` + billboardAnh + `" alt="Cong Chao" style="width: 300px; height: auto; margin-bottom: 10px;"><br>
+                    <span id="expirationImage${idCounter}" style="display: none;"><img src="` + billboardAnh + `" alt="Cong Chao" style="width: 300px; height: auto; margin-bottom: 10px;"><br></span>
                     <b>` + billboardLoai + `</b><br>`
                     + diachi + `<br>
                     Kích thước:` + billboardSize + `<br>
                     Số lượng: <b>1 trụ/bảng</b><br>
                     Hình thức:<b>`+ billboardType+ `</b><br>
                     Phân loại: <b>`+loaivitri+`</b><br>
-                    <span id="expirationDate${idCounter}">Ngày hết hạn: <b>`+billboardDate+ `</b><br></span>
+                    <span id="expirationDate${idCounter}" style="display: none;">Ngày hết hạn: <b>`+billboardDate+ `</b><br></span>
                   </div>
               `;
               contentArray.push(content);
@@ -171,11 +172,15 @@ function initMap() {
           var Content = '<div style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Danh sách các bảng quảng cáo</div>' +
           '<form action="/boardID" id="handleBoardIDPost" method="POST" style="display: flex; flex-direction: column; align-items: center; max-width: 900px; font-size: 20px; padding: 0px 50px 0px 0px;">'+
           '<input type="hidden" name="boardID" id="boardID" value="' + boardID + '">';
-          console.log(boardID)
 
-          contentArray.forEach((content, index) => {
-            var data1 = "expirationDate${index}";
-            Content += '<div class="a" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data1 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button type="submit" onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>';
+          contentArray.forEach((content) => {
+            var data1 = 'expirationDate' + idCount;
+            var data2 = 'expirationImage' + idCount;
+            console.log(data1);
+            console.log(data2);
+
+            Content += '<div class="a" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data1 + '\', \'' + data2 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button type="submit" onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>';
+            idCount++;
           });
 
           Content += '</form>';
@@ -223,14 +228,14 @@ function addAdvertisingLocation(marker, latitude, longitude, advertisingData, im
   // Thêm sự kiện khi di chuột vào marker
   marker.addListener('mouseover', function() {
     var content = generateInfoContent(advertisingData); // Tạo nội dung thông tin
-    var imageTag = '<img src="' + imageQC + '" alt="Ảnh mô tả" style="max-width: 100%;">'; // Thẻ img với đường dẫn hình ảnh
+    var imageTag = '<img src="' + imageQC + '" alt="Ảnh mô tả" style="width: 500px; height: auto;">'; // Thẻ img với đường dẫn hình ảnh
 
     // Bổ sung thẻ img vào nội dung thông tin
     content += imageTag;
 
     // Thiết lập nội dung của cửa sổ thông tin
     infoWindow.setContent(content);
-    infoWindow.maxWidth = 500;
+    infoWindow.maxWidth = 800;
     infoWindow.open(map, marker);
   });
 
@@ -260,7 +265,7 @@ function generateInfoContent(advertisingData) {
   // Kiểm tra xem advertisingData có tồn tại không
   if (advertisingData) {
     // Tạo HTML cho nội dung thông tin
-    var content = '<div>';
+    var content = '<div style="font-size: 17px">';
     content += '<p><b>' + advertisingData.type + '</b></p>';
     content += '<p>' + advertisingData.text1 + '</p>';
     content += '<p>' + advertisingData.text2 + '</p>';
@@ -372,25 +377,35 @@ content += '<div class="preserve-whitespace">           ' + formattedAddress + '
 content += '<div class="preserve-whitespace"> <b>          Tên quán: </b>' + place.name + '</div>';
 content += '<div class="preserve-whitespace"> <b>          Đánh giá: </b>' + (place.rating || 'Chưa có đánh giá') + '</div>';
 content += '<div class="preserve-whitespace"> <b>          Loại hình kinh doanh: </b>' + (place.types ? place.types.join(', ') : 'Không rõ') + '</div>';
- // Kết thúc div address-info
-// Thêm nút "BÁO CÁO VI PHẠM" và căn chỉnh nó sang phía dưới bên phải
-content += '<button onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; align-self: flex-end; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button>';
 content += '</div>';
+ 
+// Kết thúc div address-info
+// Thêm nút "BÁO CÁO VI PHẠM" và căn chỉnh nó sang phía dưới bên phải
+content += '<div background-color: #bbdefb><button onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; align-self: flex-end; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div>';
 
 content += '</form>';
 
 
   // Đặt nội dung cho InfoWindow
   infor.setContent(content);
-
-  // Mở InfoWindow trên bản đồ  
   infor.open(map);
 }
 
 // Hiển thị/Ẩn thông tin "Ngày hết hạn"
-function toggleExpirationDate(Date) {
-  var expirationDate = document.getElementById(Date);
-  expirationDate.style.display = (expirationDate.style.display === 'none' || expirationDate.style.display === '') ? 'block' : 'none';
+function toggleExpirationDate(Date1, Date2) {
+  var expirationDate = document.getElementById(Date1);
+  if (expirationDate) {
+    expirationDate.style.display = (expirationDate.style.display === 'none' || expirationDate.style.display === '') ? 'block' : 'none';
+  } else {
+    console.error('Element with id not found.');
+  }
+
+  var expirationDate1 = document.getElementById(Date2);
+  if (expirationDate1) {
+    expirationDate1.style.display = (expirationDate1.style.display === 'none' || expirationDate1.style.display === '') ? 'block' : 'none';
+  } else {
+    console.error('Element with id  not found.');
+  }
 }
 
 // Mở trang Report.html trong một tab/chế độ xem mới và truyền tọa độ
