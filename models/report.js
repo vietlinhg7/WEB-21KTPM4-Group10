@@ -12,8 +12,8 @@ const reportSchema = new Schema({
   tinhtrang: String,
   cachthucxuly: String,
   queryID: { type: String, required: true },
-  // image1: Buffer, // Sử dụng kiểu dữ liệu Buffer cho ảnh
-  // image2: Buffer // Sử dụng kiểu dữ liệu Buffer cho ảnh
+  image1: String, 
+  image2: String
 });
 
 const Report = mongoose.model('Report', reportSchema);
