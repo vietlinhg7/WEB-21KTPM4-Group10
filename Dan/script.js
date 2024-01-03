@@ -1,6 +1,6 @@
 var map; 
 var infor;
-var myLocationBtn = document.getElementById('myLocationBtn');
+var myLocationBtn = document.getElementById('myLocationBtn'); // biến lấy vị trí hiện tại
 var isVariableTrue = true;
 
 

@@ -18,7 +18,11 @@
     #map {
       height: 100vh; /* 100% chiều cao của viewport */
       width: 100%;
-   }
+    }
+
+    body {
+      overflow: hidden;
+    }
 
     #locationBtn {
       position: absolute;
@@ -36,21 +40,6 @@
       font-size: 14px;
     }
 
-    .advertising-marker {
-      width: 30px;
-      height: 30px;
-      background-color: #3498db; 
-      border-radius: 50%;
-      cursor: pointer;
-    }
-    .advertising-info {
-      display: none;
-      position: absolute;
-      background-color: #fff;
-      padding: 10px;
-      border: 1px solid #ccc;
-      z-index: 1000;
-    }
     #pac-input {
       background-color: #fff;
       padding: 5px;
@@ -71,9 +60,9 @@
 </head>
 <body>
   <div id="map"></div>
-  <div id="locationBtn" onmouseover="showLocationText()" onmouseout="hideLocationText()">
+  <div id="locationBtn"  onmouseover="showLocationText()" onmouseout="hideLocationText()">
     <div id="locationIcon">&#x1F4CD;</div>
-    <div id="locationText"><b>My Location</b></div>
+    <div id="locationText" style="display: none"><b>My Location</b></div>
   </div>
 
   <!-- <button id="toggleButton">Toggle</button> -->
