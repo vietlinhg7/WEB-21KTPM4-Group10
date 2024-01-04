@@ -8,6 +8,8 @@ const app = express();
 const PORT = 3000;
 
 var userRoute = require('./routes/userRoute');
+var userRouteUpload = require('./routes/upload');
+
 const MONGO_URL = 'mongodb+srv://nhom10:web21ktpm@cluster0.uveminn.mongodb.net/nhom10?retryWrites=true&w=majority'
 
 const options = {
@@ -47,6 +49,7 @@ app.get('/', (req, res) => {
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json({ debug: true }));
 
+app.use (express.static('uploads'));
 
 app.use('/', userRoute);
 

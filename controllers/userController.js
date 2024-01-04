@@ -1,13 +1,11 @@
-const path = require('path');
 const Report = require('../models/report');
 const Billboard = require('../models/billboard');
 const Location = require('../models/location');
+const Image1 = require('../models/location');
 
 
 const controller = {};
 let currentBoardID = '';
-let anh1;
-let anh2;
 
 const getNewReportID = async () => {
     
@@ -58,30 +56,28 @@ controller.handleBoardIDPost = async (req, res) => {
     }
 };
 
-controller.getImage = async (req, res) => {
-    try {
-        //let {image1, image2} = req.body;
-        const filePaths = req.files.map(file => file.path);
-        console.log(filePaths);
-        
-
-        res.redirect('/Report.html');
-    } catch (error) {
-        console.error('Error handling boardID:', error);
-        res.status(400).json({ success: false, message: 'Error handling boardID', error: error.message });
-    }
-};
-
-
 controller.addReport = async (req, res) => {
 
     console.log(req.body);
-    let { reportType, fullName, email, phone, reportContent, image1, image2} = req.body;
+
+    //let { reportType, fullName, email, phone, reportContent, image1, image2} = req.body;
+    var reportType = req.body.reportType;
+    var fullName = req.body.fullName;
+    var email = req.body.email;
+    var phone = req.body.phone;
+    var reportContent = req.body.reportContent;
     
     const reportID = await getNewReportID(); // Lấy reportID mới
     
     
     try {
+
+        const image1 = req.query.image1;
+        const image2 = req.query.image2;
+        console.log(image1);
+        console.log(image2);
+
+
         
         await Report.create({
             reportID,
