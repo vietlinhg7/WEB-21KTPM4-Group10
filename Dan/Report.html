@@ -97,7 +97,7 @@
 
 <h1>BẢNG BÁO CÁO</h1>
 
-<form action="/reports" id="addReport" method="POST">
+<form action="/reports" id="addReport" method="POST" enctype="multipart/form-data">
     
   <div class="left-section">
     <div class="report-type-section">
@@ -131,7 +131,7 @@
   </div>
 
   <div class="right-section" >
-    <!-- <div  class="image-section">
+    <div  class="image-section">
       <h2><i class="fas fa-image"></i> Hình ảnh minh hoạ</h2>
       <label for="image1">Hình ảnh minh hoạ 1:</label>
       <input type="file" id="image1" name="images" accept="image/*">
@@ -139,10 +139,10 @@
       <label for="image2">Hình ảnh minh hoạ 2:</label>
       <input type="file" id="image2" name="images" accept="image/*" multiple>
   
-    </div>  -->
+    </div> 
     
 
-    <button type="submit" onclick="setCoordinates()"><i class="fas fa-paper-plane"></i> Gửi yêu cầu</button>
+    <button type="submit"><i class="fas fa-paper-plane"></i> Gửi yêu cầu</button>
   </div>
 </form>
 

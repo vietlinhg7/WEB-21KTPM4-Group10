@@ -1,7 +1,8 @@
 const Report = require('../models/report');
 const Billboard = require('../models/billboard');
 const Location = require('../models/location');
-const Image1 = require('../models/location');
+const cloudinary = require("../cloudImage/cloudinary");
+
 
 
 const controller = {};
@@ -59,6 +60,7 @@ controller.handleBoardIDPost = async (req, res) => {
 controller.addReport = async (req, res) => {
 
     console.log(req.body);
+    console.log(req.files);
 
     //let { reportType, fullName, email, phone, reportContent, image1, image2} = req.body;
     var reportType = req.body.reportType;
@@ -72,12 +74,20 @@ controller.addReport = async (req, res) => {
     
     try {
 
-        const image1 = req.query.image1;
-        const image2 = req.query.image2;
-        console.log(image1);
-        console.log(image2);
+        const images = req.files.map((file) => file.path);
 
+        const uploadedImages = [];
 
+        for(let image of images) {
+            const results = await cloudinary.uploader.upload(image);
+            uploadedImages.push({
+                url: results.secure_url,
+                publicId: results.secure_id,
+            });
+        }
+
+        const image1 = uploadedImages[0] ? uploadedImages[0].url : null;
+        const image2 = uploadedImages[1] ? uploadedImages[1].url : null;
         
         await Report.create({
             reportID,

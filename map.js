@@ -1,5 +1,4 @@
 const express = require('express');
-const multer = require('multer');
 const path = require('path');
 const mongoose = require("mongoose");
 
@@ -8,7 +7,6 @@ const app = express();
 const PORT = 3000;
 
 var userRoute = require('./routes/userRoute');
-var userRouteUpload = require('./routes/upload');
 
 const MONGO_URL = 'mongodb+srv://nhom10:web21ktpm@cluster0.uveminn.mongodb.net/nhom10?retryWrites=true&w=majority'
 
