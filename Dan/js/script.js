@@ -4,7 +4,6 @@ var myLocationBtn = document.getElementById('myLocationBtn'); // biến lấy v�
 var isVariableTrue = true;
 
 
-
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 10.7628356, lng: 106.6824824},
@@ -191,11 +190,11 @@ function initMap() {
           var advertisingData = { type: name, text1: loaivitri, text2: diachi, infor: quyhoach };
           var icon;
           if(quyhoach == "ĐÃ QUY HOẠCH"){
-            icon = 'images/icon1.png';
+            icon = '/Dan/images/icon1.png';
           }else{
-            icon = 'images/icon2.png';
+            icon = '/Dan/images/icon2.png';
           }
-          addAdvertisingLocation(marker, toadoX, toadoY, advertisingData, hinhanh1, icon,  Content, isVariableTrue);
+          addAdvertisingLocation(toadoX, toadoY, advertisingData, hinhanh1, icon,  Content, isVariableTrue);
 
         });
       } else {  
@@ -210,7 +209,7 @@ function initMap() {
   
 }
 
-function addAdvertisingLocation(marker, latitude, longitude, advertisingData, imageQC, icon, content, isVariableTrue) {
+function addAdvertisingLocation(latitude, longitude, advertisingData, imageQC, icon, content, isVariableTrue) {
   // Tạo marker kiểu hình ảnh
   var marker = new google.maps.Marker({
     position: { lat: latitude, lng: longitude },
@@ -410,7 +409,7 @@ function toggleExpirationDate(Date1, Date2) {
 
 // Mở trang Report.html trong một tab/chế độ xem mới và truyền tọa độ
 function redirectToReportPage() {
-  window.open('Report.html', '_blank');
+  //window.location.href = '/report';
 }
 
 
@@ -421,7 +420,7 @@ function showMyLocation() {
     navigator.geolocation.getCurrentPosition(function(position) {
       var userLocation = {
         lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lng: position.coords.longitude  
       };
 
       // Di chuyển bản đồ đến vị trí hiện tại của người dùng

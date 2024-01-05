@@ -15,12 +15,15 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({storage: storage});
 
+router.get('/', controller.showMap);
 
 router.post('/reports', upload.array("images", 2),  controller.addReport);
 router.post('/boardID', controller.handleBoardIDPost);
 
 router.get('/billboards/:locationID', controller.getBillboards);
 router.get('/locations', controller.getLocations);
+router.get('/report', controller.showReport);
+
 
 
 

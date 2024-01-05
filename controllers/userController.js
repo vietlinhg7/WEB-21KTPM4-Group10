@@ -41,6 +41,19 @@ const getNewReportID = async () => {
     } 
 };
 
+controller.showMap = (req, res) => {
+    res.render('Map', {
+        layout: 'Map-layout',
+    });
+};
+
+controller.showReport = (req, res) => {
+    console.log('ok');
+    res.render('Report', {
+        layout: 'Report-layout',
+    });
+};
+
 controller.handleBoardIDPost = async (req, res) => {
     try {
         const boardID = req.body.boardID; 
@@ -50,7 +63,7 @@ controller.handleBoardIDPost = async (req, res) => {
 
         currentBoardID = boardID;
 
-        res.redirect('/Map.html');
+        res.redirect('/report');
     } catch (error) {
         console.error('Error handling boardID:', error);
         res.status(400).json({ success: false, message: 'Error handling boardID', error: error.message });
@@ -105,7 +118,7 @@ controller.addReport = async (req, res) => {
         });
 
     
-        res.redirect('/Report.html');
+        res.redirect('/');
         
     } catch (error) {
         res.send("Can not add report!");

@@ -1,10 +1,12 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require("mongoose");
+const expressHbs = require("express-handlebars");
+
 
 
 const app = express();
-const PORT = 3000;
+const PORT = 5000;
 
 var userRoute = require('./routes/userRoute');
 
@@ -23,25 +25,21 @@ mongoose.connect(MONGO_URL, options)
     console.error('Error connecting to MongoDB:', err);
   });
 
+app.use('/Dan', express.static(path.join(__dirname, 'Dan')));
 
-app.use((req, res, next) => {
-  // Đặt tiêu đề cache-control
-  res.setHeader('Cache-Control', 'Dan, max-age=604800, stale-while-revalidate=604800');
-
-  // Đặt tiêu đề x-content-type-options
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-
-  // Tiếp tục đến middleware tiếp theo
-  next();
-});
-
-// Dùng middleware để phục vụ tệp tĩnh (ví dụ: HTML, CSS, hình ảnh)
-app.use(express.static(path.join(__dirname, 'Dan')));
-
-// Route chính
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'Dan', 'Map.html'));
-});
+// Cau hinh Template Engine
+app.engine(
+  "hbs",
+  expressHbs.engine({
+    layoutsDir: __dirname + "/views/layouts",
+    defaultLayout: "Map-layout",
+    extname: "hbs",
+    runtimeOptions: {
+      allowProtoPropertiesByDefault: true,
+    },
+  })
+);
+app.set("view engine", "hbs");
 
 // Cau hinh cho phep doc du lieu gui len bang phuong thuc POST
 app.use(express.urlencoded({ extended: true }));
