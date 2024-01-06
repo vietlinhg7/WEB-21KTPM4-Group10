@@ -1,76 +1,112 @@
 <body>
     <main>
-        <!-- First Table -->
-        <button type="button" class="btn btn-outline-primary">
-            <a class="dropdown-item" href="/DDQCmap">Tạo mới</a>
-        </button>
-        <div class="p-3 text-center ">
-            <h2>Loại hình quảng cáo</h2>
-            <div class="card-header">
-                <div class="table-responsive">
-                    <table class="table table-borderless">
-                        <thead>
-                            <tr>
-                                <th class="col-2">ID</th>
-                                <th class="col-2">Loại hình thức</th>
-                                <th class="col-2">Loại hình thức</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>123</td>
-                                <td>
-                                    <form action="/suaLoai/{{loaiID}}/{{loai}}" method="POST">
-                                        <a class="p-2 bi bi-trash-fill  float-end text-danger"
-                                            href="/xoaLoai/{{loaiID}}/{{loai}}"></a>
-                                        <a class="p-2 bi bi-pencil dropdown text-danger float-end "
-                                            id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                            aria-expanded="false"></a>
-                                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                            <!-- Dropdown items -->
-                                            <div class="mb-3">
-                                                <label for="" class="form-label">Tên Loai</label>
-                                                <input type="text" class="form-control" name="LID" id="phuongID"
-                                                    aria-describedby="helpId" placeholder="" required>
-                                            </div>
-                                            <button type="submit">Submit</button>
-                                        </div>
-
-                                    </form>123
-                                </td>
-                                <td> 123</td>
-                            </tr>
-                        </tbody>
-                        {{!-- <form action="/themLoaiQC" method="POST">
-                            <div class="card-header">
-                                <!-- Dropdown element -->
-                                <button class="btn btn-secondary dropdown-toggle bg-primary float-end" type="button"
-                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Tạo mới
-                                </button>
-                                <!-- Dropdown menu -->
-                                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                    <!-- Dropdown items -->
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Tên loại hình quảng cáo</label>
-                                        <input type="text" class="form-control" name="tenLoai" id="loaiID"
-                                            aria-describedby="helpId" placeholder="" required>
-                                        <label for="" class="form-label">ID</label>
-                                        <input type="text" class="form-control" name="LID" id="loaiID"
-                                            aria-describedby="helpId" placeholder="" required>
-                                    </div>
-                                    <button type="submit">Submit</button>
-                                </div>
-                            </div>
-                        </form> --}}
-                    </table>
+        <div class="d-flex justify-content-around justify-items-start align-items-start flex-wrap flex-row bd-highlight mx-2">
+            <div id="ddqc-item" class="col-2 mx-3 my-3 px-1 border border-white rounded">
+                <div id="ad-purpose" class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
+                    <div class="fw-bold align-self-center">
+                        Cổ động chính trị
+                    </div>
+                    <button id="close-btn" type="button" class="btn btn-danger custom-close-btn"
+                        aria-label="Close">x</button>
                 </div>
+
+                <p class="text-left text-wrap">
+                    Đất công/Công viên/Hành lang an toàn giao thông <br>
+                    Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1
+                </p>
+                <p class="text-start text-nowrap text-capitalize fst-italic fw-bold fs-4">
+                    Đã Quy Hoạch
+                </p>
             </div>
+            <div id="ddqc-item" class="col-2 mx-3 my-3 px-1 border border-white rounded">
+                <div id="ad-purpose" class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
+                    <div class="fw-bold align-self-center">
+                        Cổ động chính trị
+                    </div>
+                    <button id="close-btn" type="button" class="btn btn-danger custom-close-btn"
+                        aria-label="Close">x</button>
+                </div>
+
+                <p class="text-left text-wrap">
+                    Đất công/Công viên/Hành lang an toàn giao thông <br>
+                    Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1
+                </p>
+                <p class="text-start text-nowrap text-capitalize fst-italic fw-bold fs-4">
+                    Đã Quy Hoạch
+                </p>
+            </div>
+            <div id="ddqc-item" class="col-2 mx-3 my-3 px-1 border border-white rounded">
+                <div id="ad-purpose" class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
+                    <div class="fw-bold align-self-center">
+                        Cổ động chính trị
+                    </div>
+                    <button id="close-btn" type="button" class="btn btn-danger custom-close-btn"
+                        aria-label="Close">x</button>
+                </div>
+
+                <p class="text-left text-wrap">
+                    Đất công/Công viên/Hành lang an toàn giao thông <br>
+                    Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1
+                </p>
+                <p class="text-start text-nowrap text-capitalize fst-italic fw-bold fs-4">
+                    Đã Quy Hoạch
+                </p>
+            </div>
+            <div id="ddqc-item" class="col-2 mx-3 my-3 px-1 border border-white rounded">
+                <div id="ad-purpose" class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
+                    <div class="fw-bold align-self-center">
+                        Cổ động chính trị
+                    </div>
+                    <button id="close-btn" type="button" class="btn btn-danger custom-close-btn"
+                        aria-label="Close">x</button>
+                </div>
+
+                <p class="text-left text-wrap">
+                    Đất công/Công viên/Hành lang an toàn giao thông <br>
+                    Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1
+                </p>
+                <p class="text-start text-nowrap text-capitalize fst-italic fw-bold fs-4">
+                    Đã Quy Hoạch
+                </p>
+            </div>
+            <div id="ddqc-item" class="col-2 mx-3 my-3 px-1 border border-white rounded">
+                <div id="ad-purpose" class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
+                    <div class="fw-bold align-self-center">
+                        Cổ động chính trị
+                    </div>
+                    <button id="close-btn" type="button" class="btn btn-danger custom-close-btn"
+                        aria-label="Close">x</button>
+                </div>
+
+                <p class="text-left text-wrap">
+                    Đất công/Công viên/Hành lang an toàn giao thông <br>
+                    Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1
+                </p>
+                <p class="text-start text-nowrap text-capitalize fst-italic fw-bold fs-4">
+                    Đã Quy Hoạch
+                </p>
+            </div>
+            <div id="ddqc-item" class="col-2 mx-3 my-3 px-1 border border-white rounded">
+                <div id="ad-purpose" class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
+                    <div class="fw-bold align-self-center">
+                        Cổ động chính trị
+                    </div>
+                    <button id="close-btn" type="button" class="btn btn-danger custom-close-btn"
+                        aria-label="Close">x</button>
+                </div>
+
+                <p class="text-left text-wrap">
+                    Đất công/Công viên/Hành lang an toàn giao thông <br>
+                    Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1
+                </p>
+                <p class="text-start text-nowrap text-capitalize fst-italic fw-bold fs-4">
+                    Đã Quy Hoạch
+                </p>
+            </div>
+
+
         </div>
-        <!-- Second Table -->
-
     </main>
-
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
         </script>
