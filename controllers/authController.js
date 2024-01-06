@@ -7,7 +7,7 @@ const Quan = require('../models/quan');
 const Phuong = require('../models/phuong');
 const Loai = require('../models/loai');
 const Hinhthuc = require('../models/hinhthuc');
-<<<<<<< HEAD
+const Report = require('../models/report');
 
 controller.DDQCmap = async (req, res) => {
     res.render('So-DDQC-map', {
@@ -15,9 +15,6 @@ controller.DDQCmap = async (req, res) => {
 
     });
 } 
-=======
-const Report = require('../models/report');
->>>>>>> 4609f95cccd902591a1ecfab95851599a01f9dc4
 controller.showLocation = async (req, res) => {
     let location = await Location.find({});
     res.render('So-DDQC', {
