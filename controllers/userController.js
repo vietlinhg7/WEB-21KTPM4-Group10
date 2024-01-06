@@ -178,5 +178,21 @@ controller.getBillboards = async (req, res) => {
     }
 };
   
+controller.getBC = async (req, res) => {
+    try {
+        const queryID = req.params.queryID;
+
+        const reportData = await Report.find({ queryID });
+
+        if (!reportData || reportData.length === 0) {
+            return res.status(404).json({ error: 'Không tìm thấy dữ liệu cho queryID đã cung cấp.' });
+        }
+
+        res.json(reportData);
+    } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu:', error);
+        res.status(500).send('Lỗi Nội Bộ của Máy Chủ');
+    }
+};
 
   module.exports = controller;

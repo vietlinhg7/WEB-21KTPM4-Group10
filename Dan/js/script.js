@@ -93,86 +93,107 @@ function initMap() {
           const billboardResponse = await fetch(`/billboards/${locationID}`);
           const billboardData = await billboardResponse.json();
 
-          const billboardsArray = [];
+          
           const contentArray = [];
+          const newcontent = [];
           var boardID;
           
           
           if (Array.isArray(billboardData)) {
 
-            billboardData.forEach(billboardData => {
+            const promises = billboardData.map(async billboardData => {
               const billboardID = billboardData.billboardID;
               const loai = billboardData.loai;
               const kichthuoc = billboardData.kichthuoc;
               const hinhthuc = billboardData.hinhthuc;
               const hinhanh = billboardData.hinhanh;
               const ngayhethan = billboardData.ngayhethan;
+              const queryID = billboardID;
 
-              // Thêm một đối tượng mới vào mảng
-              const billboardObject = {
-                billboardID,
-                loai,
-                kichthuoc,
-                hinhthuc,
-                hinhanh,
-                ngayhethan
-              };
-
-              // Thêm đối tượng vào mảng
-              billboardsArray.push(billboardObject);
+              const reportArray = [];
               
-              // Thực hiện các hành động với các biến của billboard
-              //console.log(`LocationID: ${locationID}, Billboard ID: ${billboardID}, loai: ${loai}, Size: ${kichthuoc}, hinhthuc: ${hinhthuc}, hinhanh: ${hinhanh}, ngayhethan: ${ngayhethan}`)
 
-            });
-
-            billboardsArray.forEach(billboardsArray => {
-              const billboardObject = {
-                  billboardID: billboardsArray.billboardID,
-                  loai: billboardsArray.loai,
-                  kichthuoc: billboardsArray.kichthuoc,
-                  hinhthuc: billboardsArray.hinhthuc,
-                  hinhanh: billboardsArray.hinhanh,
-                  ngayhethan: billboardsArray.ngayhethan
-              };
-              boardID = billboardObject.billboardID;
-              const billboardLoai = billboardObject.loai;
-              const billboardAnh = billboardObject.hinhanh;
-              const billboardSize = billboardObject.kichthuoc;
-              const billboardType = billboardObject.hinhthuc;
-              const billboardDate = billboardObject.ngayhethan;
-          
               // Truy cập giá trị của thuộc tính billboardID trong vòng lặp
               const content = `
                 <form style="display: flex; flex-direction: column; align-items: center;">
                   <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-                    <span id="expirationImage${idCounter}" style="display: none;"><img src="` + billboardAnh + `" alt="Cong Chao" style="width: 300px; height: auto; margin-bottom: 10px;"><br></span>
-                    <b>` + billboardLoai + `</b><br>`
+                    <span id="expirationImage${idCounter}" style="display: none;"><img src="` + hinhanh + `" alt="Cong Chao" style="width: 300px; height: auto; margin-bottom: 10px;"><br></span>
+                    <b>` + loai + `</b><br>`
                     + diachi + `<br>
-                    Kích thước:` + billboardSize + `<br>
+                    Kích thước: <b>` + kichthuoc + `</b><br>
                     Số lượng: <b>1 trụ/bảng</b><br>
-                    Hình thức:<b>`+ billboardType+ `</b><br>
+                    Hình thức: <b>`+ hinhthuc+ `</b><br>
                     Phân loại: <b>`+loaivitri+`</b><br>
-                    <span id="expirationDate${idCounter}" style="display: none;">Ngày hết hạn: <b>`+billboardDate+ `</b><br></span>
+                    <span id="expirationDate${idCounter}" style="display: none;">Ngày hết hạn: <b>`+ngayhethan+ `</b><br></span>
                   </div>
-              `;
+                `;
               contentArray.push(content);
 
               idCounter++;
-            
+
+
+
+              const reportResponse = await fetch(`/BC/${queryID}`);
+              const reportData = await reportResponse.json();
+                      
+              if (Array.isArray(reportData)) {
+                let smallContent = `<div style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Danh sách báo cáo</div>`;
+
+                reportData.forEach(reportData => {
+                  const fullName = reportData.fullName;
+                  const reportContent = reportData.reportContent;
+                  const thoidiemgui = reportData.thoidiemgui;
+                  const tinhtrang = reportData.tinhtrang;
+                  const cachthucxuly = reportData.cachthucxuly;
+
+                  const report = `
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
+                      <b>Họ tên: </b>` + fullName + `<br>
+                      <b>Nội dung báo cáo: </b>`+reportContent+`<br>
+                      <b>Thời điểm gửi: </b>`+ thoidiemgui+ `<br>
+                      <b>Tình trạng: </b>`+tinhtrang+`<br>
+                      <b>Cách thức xử lí: </b>`+cachthucxuly+`<br>
+                    </div>
+                  `;
+
+                  smallContent += report;
+                });
+                // Thêm đối tượng vào mảng
+                reportArray.push(smallContent);
+              }
+              //console.log(reportArray);
+
+              contentArray.forEach(contentArray => {
+                let  new_ = contentArray;
+                reportArray.forEach(reportArray => {
+                  let  x = reportArray;
+                  new_ += x;
+                });
+                new_ += `</form>`;
+                newcontent.push(new_);
+              });
+
             });
-            
+
+            await Promise.all(promises);
+
           }
           else{
             console.log(`Không có locationID `, locationID);
             
           }
 
+          console.log(newcontent);
+          //console.log(contentArray);
+          // contentArray.forEach(a => {
+          //   console.log(a);
+          // })
+
           var Content = '<div style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Danh sách các bảng quảng cáo</div>' +
           '<form action="/boardID" id="handleBoardIDPost" method="POST" style="display: flex; flex-direction: column; align-items: center; max-width: 900px; font-size: 20px; padding: 0px 50px 0px 0px;">'+
           '<input type="hidden" name="boardID" id="boardID" value="' + boardID + '">';
 
-          contentArray.forEach((content) => {
+          newcontent.forEach(content => {
             var data1 = 'expirationDate' + idCount;
             var data2 = 'expirationImage' + idCount;
             console.log(data1);
