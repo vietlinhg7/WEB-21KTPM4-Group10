@@ -16,6 +16,14 @@
         {{{body}}}
         
         <script src="/Dan/js/script.js" ></script>
+        <script>
+            var alertMsg = new URLSearchParams(window.location.search).get('alertOK');
+
+            // Hiển thị thông báo nếu có
+            if (alertMsg) {
+                alert(alertMsg);
+            }
+        </script>
     
     </body>
 </html>

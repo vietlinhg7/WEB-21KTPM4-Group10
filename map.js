@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const mongoose = require("mongoose");
 const expressHbs = require("express-handlebars");
+const session = require("express-session");
 
 
 
@@ -24,6 +25,12 @@ mongoose.connect(MONGO_URL, options)
   .catch((err) => {
     console.error('Error connecting to MongoDB:', err);
   });
+
+app.use(session({
+  secret: 'your-secret-key',
+  resave: false,
+  saveUninitialized: false
+}));
 
 app.use('/Dan', express.static(path.join(__dirname, 'Dan')));
 

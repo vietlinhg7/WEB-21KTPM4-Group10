@@ -13,13 +13,24 @@
             <script>
                 function validateRecaptcha() {
                     var response = grecaptcha.getResponse();
-                    console.log(response);
+                    console.log('Aaaa:', response);
 
                     if (response.length == 0) {
                         alert('Vui lòng xác nhận bạn không phải robot.');
                         return false;
                     }
                     return true;
+                }
+
+                var alertMsg = '{{session.alertMsg}}';
+
+                // Hiển thị thông báo nếu có
+                if (alertMsg) {
+                    alert(alertMsg);
+                    setTimeout(function() {
+            
+                        alertMsg = null;
+                    }, 5000);
                 }
             </script>
         </head>
