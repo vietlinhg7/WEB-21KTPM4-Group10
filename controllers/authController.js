@@ -9,6 +9,20 @@ const Loai = require('../models/loai');
 const Hinhthuc = require('../models/hinhthuc');
 const Report = require('../models/report');
 
+
+controller.showProfile = (req, res) => {
+    res.render('Profile', {
+        layout: false
+    });
+};
+
+controller.logout = (req, res, next) => {
+    req.session.destroy(function (error) {
+        if (error) return next(error);
+        res.redirect('/login');
+    });
+};
+
 controller.DDQCmap = async (req, res) => {
     res.render('So-DDQC-map', {
         layout: 'So',
@@ -275,13 +289,33 @@ controller.showPhuongMapDetail = async (req, res) => {
         locationID: req.query.locationID
     }).lean();
     for (billboard of billboards){
-        billboard.report = await Report.find({queryID: billboard.billboardID});
+        let reports = await Report.find({
+            queryID: billboard.billboardID,
+            tinhtrang: "Chưa xử lí"
+        }).lean();
+        for (let report of reports) {
+            let date = new Date(report.thoidiemgui);
+            let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+            let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+            let year = date.getFullYear(); // Get the full year
+            report.thoidiemgui = `${day}-${month}-${year}`; // Combine the day, month, and year into a string
+        }
+        billboard.reports = reports;
     }
     res.locals.billboards = billboards;
 
-    res.locals.reports = await Report.find({
-        queryID: req.query.locationID
-    });
+    reports = await Report.find({
+        queryID: req.query.locationID,
+        tinhtrang: "Chưa xử lí"
+    }).lean();
+    for (let report of reports) {
+        let date = new Date(report.thoidiemgui);
+        let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        let year = date.getFullYear(); // Get the full year
+        report.thoidiemgui = `${day}-${month}-${year}`; // Combine the day, month, and year into a string
+    }
+    res.locals.reports = reports;
     
     res.render('Phuong-Map-Detail', {
         layout: 'Phuong'

@@ -10,14 +10,12 @@
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
-                                    <th class="col-6">ID</th>
                                     <th class="col-6">Loại hình thức</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {{#each loai}}
                                 <tr>
-                                    <td>{{loaiID}}</td>
                                     <td>
                                         <form action="/suaLoai/{{loaiID}}/{{loai}}" method="POST">
                                             <a class="p-2 bi bi-trash-fill  float-end text-danger"

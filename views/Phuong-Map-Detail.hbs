@@ -28,22 +28,59 @@
           <div class="line3">Phường: {{querylocation.phuongID}} Quận: {{querylocation.quanID}}</div>
           <div class="line3">Loại vị trí: {{querylocation.loaivitri}}</div>
           <div class="line2">{{querylocation.quyhoach}}</div>
-          <a href="/Phuong-Map">
+          <a href="/Phuong-Map-Location?locationID={{querylocation.locationID}}">
             <img src="assets/img/infor.png" width=25px height=25px>
           </a>
-        </div>
+          {{#if reports}}
+            <div id="section2b">
+              <img src="assets/img/alert.png" width=25px height=25px display=inline-block>
+              <div class="line1">Báo cáo:</div>
+                {{#each reports}}
+                  <div id="reportInfo">
+                    <div class="line2">{{reportType}}</div>
+                    <div class="line3">Tên người gửi: {{fullName}}</div>
+                    <div class="line3">Email: {{email}}</div>
+                    <div class="line3">Số điện thoại: {{phone}}</div>
+                    <div class="line3">Thời điểm gửi: {{thoidiemgui}}</div>
+                    <a href="/Phuong-Map-Report?reportID={{reportID}}">
+                      <img src="assets/img/infor.png" width=25px height=25px>
+                    </a>
+                  </div>
+                {{/each}}
+            </div>
+          {{/if}}
+      </div>
       </div>
       <div id="section2a">
+        <img src="assets/img/ad.png" width=25px height=25px display=inline-block>
         <div class="line1">Thông tin bảng quảng cáo:</div>
         {{#each billboards}}
-        <div id="adInfo">
-          <div class="line2">{{loai}}</div>
-          <div class="line3">Kích thước: {{kichthuoc}}</div>
-          <div class="line3">Hình thức: {{hinhthuc}}</div>
-          <a href="/Phuong-Map">
-            <img src="assets/img/infor.png" width=25px height=25px>
-          </a>
-        </div>
+          <div id="adInfo">
+            <div class="line2">{{loai}}</div>
+            <div class="line3">Kích thước: {{kichthuoc}}</div>
+            <div class="line3">Hình thức: {{hinhthuc}}</div>
+            <a href="/Phuong-Map-Billboard?billboardID={{billboardID}}">
+              <img src="assets/img/infor.png" width=25px height=25px>
+            </a>
+            {{#if reports}}
+              <div id="section2b">
+                <img src="assets/img/alert.png" width=25px height=25px display=inline-block>
+                <div class="line1">Báo cáo:</div>
+                {{#each reports}}
+                  <div id="reportInfo">
+                    <div class="line2">{{reportType}}</div>
+                    <div class="line3">Tên người gửi: {{fullName}}</div>
+                    <div class="line3">Email: {{email}}</div>
+                    <div class="line3">Số điện thoại: {{phone}}</div>
+                    <div class="line3">Thời điểm gửi: {{thoidiemgui}}</div>
+                    <a href="/Phuong-Map-Report?reportID={{reportID}}">
+                      <img src="assets/img/infor.png" width=25px height=25px>
+                    </a>
+                  </div>
+                {{/each}}
+              </div>
+            {{/if}}
+          </div>
         {{/each}}
       </div>
       <style>
@@ -60,7 +97,7 @@
       const temp = "{{querylocation.locationID}}";
       const map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: {{querylocation.toadoX}}, lng: {{querylocation.toadoY}} },
-        zoom: 19,
+        zoom: 17,
         mapTypeId: "roadmap",
       });
       let currentQCIcon = "assets/img/QC.png";
@@ -75,7 +112,7 @@
           position: new google.maps.LatLng({{toadoX}}, {{toadoY}}),
           icon: {
             url: currentQCIcon,
-            scaledSize: new google.maps.Size(30, 30) // width and height in pixels
+            scaledSize: new google.maps.Size(25, 25) // width and height in pixels
           },
           map: map
         });
@@ -83,7 +120,7 @@
         {  
           var newIcon = {
             url: "assets/img/X.png", // Replace with your new icon URL
-            scaledSize: new google.maps.Size(30, 30) // width and height in pixels
+            scaledSize: new google.maps.Size(25, 25) // width and height in pixels
           };
           marker{{locationID}}.setIcon(newIcon);
           google.maps.event.addListener(marker{{locationID}}, 'click', function() {

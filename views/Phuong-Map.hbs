@@ -18,7 +18,7 @@
     function initAutocomplete() {
       const map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: {{locations.[0].toadoX}}, lng: {{locations.[0].toadoY}} },
-        zoom: 19,
+        zoom: 17,
         mapTypeId: "roadmap",
       });
       let currentQCIcon = "assets/img/QC.png";
@@ -33,7 +33,7 @@
           position: new google.maps.LatLng({{toadoX}}, {{toadoY}}),
           icon: {
             url: currentQCIcon,
-            scaledSize: new google.maps.Size(30, 30) // width and height in pixels
+            scaledSize: new google.maps.Size(25, 25) // width and height in pixels
           },
           map: map
         });

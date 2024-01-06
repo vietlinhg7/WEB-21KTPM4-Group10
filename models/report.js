@@ -3,11 +3,11 @@ const Schema = mongoose.Schema;
 
 const reportSchema = new Schema({
     reportID: { type: String, required: true },
-    hinhthuc: String,
-    hoten: String,
+    reportType: String,
+    fullName: String,
     email: String,
-    sdt: String,
-    noidung: String,
+    phone: String,
+    reportContent: String,
     thoidiemgui: Date,
     tinhtrang: String,
     cachthucxuly: String,
