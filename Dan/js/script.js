@@ -70,6 +70,7 @@ function initMap() {
       // Xử lý dữ liệu 
       let idCounter = 0;
       let idCount = 0;
+      let idReport = 0;
 
       // Kiểm tra nếu dữ liệu có tồn tại và là mảng
       if (Array.isArray(data)) {
@@ -137,8 +138,15 @@ function initMap() {
               const reportData = await reportResponse.json();
                       
               if (Array.isArray(reportData)) {
-                let smallContent = `<div style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Danh sách báo cáo</div>`;
+                var amount = 'reportContent' + idReport;
 
+                let smallContent = `<div onclick="toggleReportList('` + amount  + `')" style="align-items: center; margin: 7px; padding: 5px;">
+                <div style="margin: 0px; padding: 10px; border: 2px solid; cursor: pointer; text-align: center;">
+                    <i class="fas fa-list-ul" style="margin-right: 0px; "></i><b> Danh sách báo cáo</b>
+                </div>
+                </div>
+                <span id="reportContent${idReport}" style="display: none">
+                `;
                 reportData.forEach(reportData => {
                   const fullName = reportData.fullName;
                   const reportContent = reportData.reportContent;
@@ -157,7 +165,10 @@ function initMap() {
                   `;
 
                   smallContent += report;
+
                 });
+                smallContent += `</span>`;
+                idReport++;
                 // Thêm đối tượng vào mảng
                 reportArray.push(smallContent);
               }
@@ -425,6 +436,15 @@ function toggleExpirationDate(Date1, Date2) {
     expirationDate1.style.display = (expirationDate1.style.display === 'none' || expirationDate1.style.display === '') ? 'block' : 'none';
   } else {
     console.error('Element with id  not found.');
+  }
+}
+
+function toggleReportList(date) {
+  var expirationDate = document.getElementById(date);
+  if (expirationDate) {
+    expirationDate.style.display = (expirationDate.style.display === 'none') ? 'block' : 'none';
+  } else {
+    console.error('Element with id not found.');
   }
 }
 
