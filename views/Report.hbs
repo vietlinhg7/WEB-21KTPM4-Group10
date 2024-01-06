@@ -1,7 +1,7 @@
 <h1>BẢNG BÁO CÁO</h1>
 
-<form action="/reports" id="addReport" method="POST" enctype="multipart/form-data">
-    
+<form action="/reports" id="addReport" method="POST" onsubmit="return validateRecaptcha()" enctype="multipart/form-data">
+
     <div class="left-section">
         <div class="report-type-section">
         <h2><i class="fas fa-flag"></i> Hình thức báo cáo</h2>
@@ -28,8 +28,6 @@
         <label for="reportContent">Nội dung báo cáo:</label>
         <textarea id="reportContent" name="reportContent" rows="3" placeholder="Send message" required></textarea>
 
-        <input type="hidden" id="latitude" name="latitude" value="">
-        <input type="hidden" id="longitude" name="longitude" value="">
         </div>
     </div>
 
@@ -43,6 +41,9 @@
         <input type="file" id="image2" name="images" accept="image/*" multiple>
 
         </div> 
+
+        <div class="g-recaptcha" data-sitekey="6LelokcpAAAAABZtoqD7JDbYLty18zOFcWOnJwel">
+        </div>
         
 
         <button type="submit"><i class="fas fa-paper-plane"></i> Gửi yêu cầu</button>

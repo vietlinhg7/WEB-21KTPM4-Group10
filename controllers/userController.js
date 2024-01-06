@@ -2,6 +2,8 @@ const Report = require('../models/report');
 const Billboard = require('../models/billboard');
 const Location = require('../models/location');
 const cloudinary = require("../cloudImage/cloudinary");
+const axios = require('axios');
+
 
 
 
@@ -48,7 +50,6 @@ controller.showMap = (req, res) => {
 };
 
 controller.showReport = (req, res) => {
-    console.log('ok');
     res.render('Report', {
         layout: 'Report-layout',
     });
@@ -84,46 +85,69 @@ controller.addReport = async (req, res) => {
     
     const reportID = await getNewReportID(); // Lấy reportID mới
     
+    const recaptcha = req.body['g-recaptcha-response'];
+    if(!recaptcha) {
+        return res.json({success: false, msg: 'Captcha token is underfined!'});
+    }
+
+    const YOUR_SECRET_KEY = '6LelokcpAAAAAFKFE7EuwzzYtQi9vYtT77Vogx7l';
+    const verificationURL = `https://www.google.com/recaptcha/api/siteverify?secret=${YOUR_SECRET_KEY}&response=${recaptcha}`;
     
     try {
+        console.log('Đường dẫn xác minh:', verificationURL);
+        const recaptchaVerification = await axios.post(verificationURL);
+        console.log('Phản hồi reCaptcha:', recaptchaVerification.data);
+        if(recaptchaVerification.data.success){
+            try {
 
-        const images = req.files.map((file) => file.path);
-
-        const uploadedImages = [];
-
-        for(let image of images) {
-            const results = await cloudinary.uploader.upload(image);
-            uploadedImages.push({
-                url: results.secure_url,
-                publicId: results.secure_id,
-            });
+                const images = req.files.map((file) => file.path);
+        
+                const uploadedImages = [];
+        
+                for(let image of images) {
+                    const results = await cloudinary.uploader.upload(image);
+                    uploadedImages.push({
+                        url: results.secure_url,
+                        publicId: results.secure_id,
+                    });
+                }
+        
+                const image1 = uploadedImages[0] ? uploadedImages[0].url : null;
+                const image2 = uploadedImages[1] ? uploadedImages[1].url : null;
+                
+                await Report.create({
+                    reportID,
+                    reportType,
+                    fullName,
+                    email,
+                    phone,
+                    reportContent,
+                    thoidiemgui: new Date(),
+                    tinhtrang: "Chưa xử lí",
+                    cachthucxuly: 'null',
+                    queryID: currentBoardID,
+                    image1,
+                    image2
+                });
+        
+            
+                res.redirect('/');
+                
+            } catch (error) {
+                res.send("Can not add report!");
+                console.error(error);
+            } 
         }
+        else{
+            //res.status(403).send('Failed reCaptcha verification');
+            console.log('loi');
+        }
+    }
+    catch(error){
+        console.error('Error verifying reCaptcha:', error);
+        res.status(500).send('Internal server error');
+    }
 
-        const image1 = uploadedImages[0] ? uploadedImages[0].url : null;
-        const image2 = uploadedImages[1] ? uploadedImages[1].url : null;
-        
-        await Report.create({
-            reportID,
-            reportType,
-            fullName,
-            email,
-            phone,
-            reportContent,
-            thoidiemgui: new Date(),
-            tinhtrang: "Chưa xử lí",
-            cachthucxuly: 'null',
-            queryID: currentBoardID,
-            image1,
-            image2
-        });
-
-    
-        res.redirect('/');
-        
-    } catch (error) {
-        res.send("Can not add report!");
-        console.error(error);
-    } 
 };
 
 

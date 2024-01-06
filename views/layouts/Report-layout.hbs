@@ -6,7 +6,22 @@
             <title>BẢNG BÁO CÁO</title>
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
             <link rel="stylesheet" href="/Dan/css/report.css">
+            {{!-- Recaptcha --}}
+            <!-- Recaptcha -->
+            <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
 
+            <script>
+                function validateRecaptcha() {
+                    var response = grecaptcha.getResponse();
+                    console.log(response);
+
+                    if (response.length == 0) {
+                        alert('Vui lòng xác nhận bạn không phải robot.');
+                        return false;
+                    }
+                    return true;
+                }
+            </script>
         </head>
         <body>
 
