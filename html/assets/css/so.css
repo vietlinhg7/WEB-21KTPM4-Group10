@@ -1,4 +1,59 @@
-#ddqc-item
-{
+@media (min-width: 576px) {
+  .custom-icon {
+    font-size: 70px;
+    /* Larger size for small screens and above */
+  }
+}
+
+@media (min-width: 768px) {
+  .custom-icon {
+    font-size: 100px;
+    /* Larger size for medium screens and above */
+  }
+}
+
+@media (min-width: 992px) {
+  .custom-icon {
+    font-size: 120px;
+    /* Larger size for large screens and above */
+  }
+}
+
+@media (min-width: 1200px) {
+  .custom-icon {
+    font-size: 160px;
+    /* Larger size for extra-large screens and above */
+  }
+}
+
+#ddqc-item {
   background-color: rgb(211, 205, 205);
+}
+
+.custom-icon{
+  color: rgba(40, 167, 69, 1);
+  font-size: 50px;
+}
+
+#add-button{
+  padding: 10px 20px;
+  width: 100%;
+  height: auto;
+  transition: background-color 0.3s ease-in-out;
+  border-top-color: rgba(40, 167, 69, 1);
+  border-right-color: rgba(40, 167, 69, 1);
+  border-bottom-right-radius: 58%;
+  border-top-left-radius: 58%;
+  background-color: white;
+}
+
+#add-button:hover {
+  color: white;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 1);
+}
+
+#add-button:active {
+  color: white;
+  box-shadow: 0 0 0 0;
+  transition: box-shadow 0.15s;
 }
