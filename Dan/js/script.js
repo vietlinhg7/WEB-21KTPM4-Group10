@@ -1,8 +1,8 @@
 var map; 
 var infor;
 var myLocationBtn = document.getElementById('myLocationBtn'); // biến lấy vị trí hiện tại
-var isVariableTrue = false;
-
+var input;
+var searchBox
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -11,9 +11,14 @@ function initMap() {
   });
 
   // Tạo ô tìm kiếm và liên kết với bản đồ
-  var input = document.getElementById('pac-input');
+  input = document.getElementById('pac-input');
   searchBox = new google.maps.places.SearchBox(input);
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+  var marker1 = new google.maps.Marker({
+    map: null, // Đặt giá trị ban đầu của map là null
+    animation: google.maps.Animation.DROP,
+  });
 
   // Xử lý sự kiện khi người dùng thay đổi nội dung ô tìm kiếm
   searchBox.addListener('places_changed', function () {
@@ -25,7 +30,25 @@ function initMap() {
 
     // Xử lý thông tin địa chỉ của địa điểm được chọn
     var place = places[0];
-    console.log(place.formatted_address);
+
+    // Lấy tọa độ (latitude, longitude) của địa điểm được chọn
+    var location = place.geometry.location;
+    var lat = location.lat();
+    var lng = location.lng();
+
+    // Di chuyển bản đồ đến địa điểm được chọn
+    map.setCenter(new google.maps.LatLng(lat, lng));
+    map.setZoom(18); // Đặt mức zoom theo nhu cầu của bạn
+
+    // Thiết lập vị trí mới cho marker
+    marker1.setPosition(new google.maps.LatLng(lat, lng));
+
+    // Hiển thị marker trên bản đồ
+    marker1.setMap(map);
+
+      console.log(place.formatted_address);
+      console.log("Latitude: " + lat);
+      console.log("Longitude: " + lng);
   });
 
   infor = new google.maps.InfoWindow();
@@ -56,7 +79,6 @@ function initMap() {
 
   // Thêm sự kiện click cho nút "My Location"
   document.getElementById('locationBtn').addEventListener('click', function() {
-    // Di chuyển đến vị trí hiện tại khi nút được nhấp vào
     showMyLocation();
   });
 
@@ -245,7 +267,7 @@ function addAdvertisingLocation(latitude, longitude, advertisingData, imageQC, i
   // Tạo marker kiểu hình ảnh
   var marker = new google.maps.Marker({
     position: { lat: latitude, lng: longitude },
-    map: map,
+    map: isVariableTrue ? map : null,
     icon: {
       url: icon,// Đường dẫn đến hình ảnh điểm đặt quảng cáo
       scaledSize: new google.maps.Size(30, 30) // Kích thước hình ảnh

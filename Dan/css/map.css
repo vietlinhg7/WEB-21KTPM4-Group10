@@ -33,11 +33,12 @@
     margin-top: 10px;
     border: 1px solid #ccc;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    width: 500px;
   }
 
-  #hide {
+  #hideQC {
     position: absolute;
-    bottom: 300px; 
+    bottom: 250px; 
     right: 10px;
     background-color: #4285f4;
     color: #fff;

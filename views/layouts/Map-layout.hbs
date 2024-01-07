@@ -8,7 +8,6 @@
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkdyZlma94xlEhyGvEsx56ccQdcU9pJ2g&libraries=places&callback=initMap" async defer></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-        <input id="pac-input" class="controls" type="text" placeholder="Search Box">
         <link rel="stylesheet" href="/Dan/css/map.css">
     </head>
     <body>
@@ -23,6 +22,16 @@
             if (alertMsg) {
                 alert(alertMsg);
             }
+            var isVariableTrue = true;
+
+            function hideAndReloadMap() {
+                isVariableTrue = !isVariableTrue;
+                console.log(isVariableTrue);
+
+                // Gọi lại hàm initMap sau khi ẩn/hiện
+                initMap();
+            }
+            var hide = document.getElementById('hideQC').addEventListener('click', hideAndReloadMap);
         </script>
     
     </body>
