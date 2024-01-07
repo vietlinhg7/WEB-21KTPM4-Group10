@@ -8,7 +8,6 @@ router.get('/login', controller.showLogin);
 router.get('/logout', controller.logout);
 
 router.post('/login', controller.login);
-router.get('/logout', controller.logout);
 
 router.get('/profile', controller.isLoggedIn, controller.showProfile);
 router.post('/addQuan',controller.isLoggedIn, controller.addQuan);

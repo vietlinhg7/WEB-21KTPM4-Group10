@@ -16,13 +16,6 @@ controller.showProfile = (req, res) => {
     });
 };
 
-controller.logout = (req, res, next) => {
-    req.session.destroy(function (error) {
-        if (error) return next(error);
-        res.redirect('/login');
-    });
-};
-
 controller.DDQCmap = async (req, res) => {
     res.render('So-DDQC-map', {
         layout: 'So',
