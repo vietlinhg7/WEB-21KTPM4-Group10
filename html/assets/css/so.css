@@ -65,27 +65,80 @@
   cursor: pointer;
 }
 
-#discard-create-account
-{
+#discard-create-account {
   background-color: rgba(255, 0, 0);
   color: rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease-in-out;
   border: none;
 }
-#discard-create-account:hover
-{
+
+#discard-create-account:hover {
   color: rgba(255, 255, 255, 1);
   box-shadow: 5px 5px 10px rgba(255, 34, 34, 0.8);
 }
-#submit-create-account
-{
-  background-color: rgb(40, 167, 69);  ;
+
+#submit-create-account {
+  background-color: rgb(40, 167, 69);
+  ;
   color: rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease-in-out;
   border: none;
 }
-#submit-create-account:hover
-{
+
+#submit-create-account:hover {
   color: rgba(255, 255, 255, 1);
   box-shadow: 5px 5px 10px rgba(71, 255, 114, 0.8);
+}
+
+.user-avatar {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #fff;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1;
+  list-style: none; /* Remove default list styling */
+  margin: 0;
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: auto; /* Set width to auto */
+}
+
+.dropdown-content li {
+  margin: 0;
+  padding: 0;
+}
+
+.dropdown-content a {
+  text-decoration: none; /* Remove default underline */
+  color: #333; /* Set link color */
+  display: block;
+  padding: 8px 12px; /* Add padding for better spacing */
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd; /* Add a hover background color */
+}
+
+.caret {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: solid #333;
+  border-width: 0 6px 6px 6px;
+  display: inline-block;
+  padding: 4px;
+}
+
+.user-avatar:hover .dropdown-content {
+  display: block;
 }
