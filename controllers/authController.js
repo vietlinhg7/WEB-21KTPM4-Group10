@@ -8,7 +8,137 @@ const Phuong = require('../models/phuong');
 const Loai = require('../models/loai');
 const Hinhthuc = require('../models/hinhthuc');
 const Report = require('../models/report');
+const nodemailer = require('nodemailer');
+const bcrypt = require('bcrypt');
 
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'ndvlinh21@clc.fitus.edu.vn',
+        pass: 'gkil ziel tfsx rldr'
+    }
+});
+
+controller.showForgot = (req,res) => {
+    res.render('Forgot', {
+        layout: false
+    });
+}
+
+controller.forgot = async (req,res) => {
+    let { email } = req.body;
+    let user = await User.findOne({ email });
+    if (user) {
+      let otp = Math.floor(100000 + Math.random() * 900000); // generates a six digit OTP
+   
+      let mailOptions = {
+        from: 'ndvlinh21@clc.fitus.edu.vn',
+        to: email,
+        subject: 'OTP for Password Change',
+        text: `
+            Dear ${user.hoTen},
+
+            We received a request to secure your account. As a security measure, we're asking you to enter a one-time password (OTP) to verify your identity.
+
+            Your OTP for this operation is: ${otp}
+
+            Please enter this OTP in the provided field to proceed with changing your password. Remember, this OTP is confidential. Do not share it with anyone to avoid unauthorized access to your account.
+
+            If you did not initiate this process, please contact our support team immediately.
+
+            Best Regards,
+            Group 10`
+      };
+   
+      transporter.sendMail(mailOptions);
+      req.session.email = email;
+      req.session.otp = otp;
+      res.render('verify', {
+        layout: false,
+      })
+    } else {
+      res.render('forgot', {
+        layout: false,
+        message: 'No account exists with this email.'
+      });
+    }
+}
+
+controller.resend = async (req,res) => {
+    // Assuming the user is stored in req.session.user
+    let email = req.session.email;
+    let user = await User.findOne({ email });
+    if (!user) {
+      return res.status(401).send('Unauthorized');
+    }
+   
+    let otp = Math.floor(100000 + Math.random() * 900000); // generates a six digit OTP
+   
+    let mailOptions = {
+      from: 'your-email@gmail.com',
+      to: user.email,
+      subject: 'OTP for Password Change',
+      text: `
+      Dear ${user.hoTen},
+   
+      We received a request to secure your account. As a security measure, we're asking you to enter a one-time password (OTP) to verify your identity.
+   
+      Your OTP for this operation is: ${otp}
+   
+      Please enter this OTP in the provided field to proceed with changing your password. Remember, this OTP is confidential. Do not share it with anyone to avoid unauthorized access to your account.
+   
+      If you did not initiate this process, please contact our support team immediately.
+   
+      Best Regards,
+      Group 10`
+    };
+   
+    transporter.sendMail(mailOptions);
+    req.session.email = email;
+    req.session.otp = otp;
+    res.render('verify', {
+        layout: false,
+    });
+};
+
+controller.verify = async (req,res) => {
+    let {otp} = req.body;
+    if (req.session.otp == otp){
+        res.render('changePassword', {
+            layout: false,
+        })
+    }
+    else res.render('verify', {
+        layout: false,
+    });
+};
+
+controller.changePassword = async (req,res) => {
+    let {password, verify} = req.body;
+    if (password === verify){
+        let email = req.session.email;
+        let user = await User.findOne({ email });
+        if (user) {
+            let salt = await bcrypt.genSalt(10);
+            let hashedPassword = await bcrypt.hash(password, salt);
+            user.password = hashedPassword;
+            await user.save();
+            res.render('login', {
+                layout: false,
+                message: 'Password changed successfully'
+            });
+        } else {
+            res.render('changePassword', {
+                layout: false,
+                message: 'No user found with this email'
+            });
+        }
+    }
+    else res.render('changePassword', {
+        layout: false,
+        message: 'Passwords do not match'
+    });
+ };
 
 controller.showProfile = (req, res) => {
     res.render('Profile', {
@@ -346,8 +476,8 @@ controller.showLogin = (req, res) => {
 
 controller.login = async (req, res) => {
     let { username, password, rememberMe } = req.body;
-    let user = await User.findOne({ userID: username, password });
-    if (user) {
+    let user = await User.findOne({ userID: username });
+    if (user && await bcrypt.compare(password, user.password)) {
         let reqUrl = req.body.reqUrl ? req.body.reqUrl : '/';
         req.session.user = user;
         if (rememberMe) {
@@ -366,9 +496,9 @@ controller.login = async (req, res) => {
     }
     return res.render('login', {
         layout: false,
-        message: 'Sai tên tài khoản hoặc mật khẩu',
+        message: 'Tên tài khoản hoặc mật khẩu sai'
     });
-};
+ };
 
 controller.logout = (req, res, next) => {
     req.session.destroy(function (error) {

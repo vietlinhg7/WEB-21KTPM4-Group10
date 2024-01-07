@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Trang đăng nhập cán bộ</title>
+		<link rel="stylesheet" href="assets/css/login.css">
+	</head>
+	<body>
+		<section class="prompt">
+			<h3>Ads management</h3>
+			<hr>
+			<h1>Quên mật khẩu</h1>
+			<p class="mb-4 alert-danger danger p-3">Nhập email bên dưới và hệ thống sẽ gửi email giúp bạn đặt lại mật khẩu</p>
+			<form action="/forgot" method="POST">
+				<section>
+					<label for="email">Nhập email</label>
+					<input id="email" name="email" type="text" autocomplete="email" required autofocus>
+				</section>
+				<a class="signup_link" href="/login" style="color: hsl(221, 91%, 49%); float: right;">Quay lại đăng nhập</a>
+				<button type="submit">Xác nhận</button>
+				
+			</form>
+		</section>
+	</body>
+	<script>
+		if ('{{message}}') {
+			alert('{{message}}');
+		}
+	</script>
+</html>
