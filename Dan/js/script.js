@@ -1,8 +1,7 @@
 var map; 
 var infor;
 var myLocationBtn = document.getElementById('myLocationBtn'); // biến lấy vị trí hiện tại
-var input;
-var searchBox
+var myBox = document.getElementById('pac-input');
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -11,8 +10,8 @@ function initMap() {
   });
 
   // Tạo ô tìm kiếm và liên kết với bản đồ
-  input = document.getElementById('pac-input');
-  searchBox = new google.maps.places.SearchBox(input);
+  var input = document.getElementById('pac-input');
+  var searchBox = new google.maps.places.SearchBox(input);
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
 
   var marker1 = new google.maps.Marker({
@@ -46,9 +45,7 @@ function initMap() {
     // Hiển thị marker trên bản đồ
     marker1.setMap(map);
 
-      console.log(place.formatted_address);
-      console.log("Latitude: " + lat);
-      console.log("Longitude: " + lng);
+    
   });
 
   infor = new google.maps.InfoWindow();
@@ -83,7 +80,9 @@ function initMap() {
   });
 
   // Thêm nút "My Location" vào bản đồ
-  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('myLocationBtnContainer'));
+  map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('myLocationBtn'));
+  map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('myBox'));
+
 
   // Thực hiện yêu cầu GET đến endpoint /billboards
   fetch('/locations')
