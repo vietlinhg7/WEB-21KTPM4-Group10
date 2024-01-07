@@ -9,10 +9,25 @@ const Loai = require('../models/loai');
 const Hinhthuc = require('../models/hinhthuc');
 const Report = require('../models/report');
 
+controller.editLocation = async (req, res) => {
+    const keyword = req.query.keyword;
+    let location = await Location.findOne({ locationID: keyword });
+    try {
+        res.render('So-DDQC-edit', {
+            layout: 'So',
+            location: location
+        });
+        // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
 controller.deleteLocation = async (req, res) => {
     try {
         const keyword = req.query.keyword;
-        await Location.deleteOne({ locationID : keyword });
+        await Location.deleteOne({ locationID: keyword });
         res.redirect('/showLocation');
     } catch (error) {
         console.log(error);
@@ -38,13 +53,13 @@ controller.DDQCmap = async (req, res) => {
         layout: 'So',
 
     });
-} 
+}
 controller.showLocation = async (req, res) => {
     let location = await Location.find({});
-    
+
     res.render('So-DDQC', {
         layout: 'So',
-        location : location
+        location: location
     });
     // res.render('So-DDQC', {
     //     layout: 'So',
@@ -56,7 +71,7 @@ controller.themHinhThucQC = async (req, res) => {
     const ten = req.body.tenHinhThuc;
     const htid = req.body.HTID;
 
-    const newHinhthuc = new Hinhthuc({ hinhthuc: ten , hinhthucID: htid});
+    const newHinhthuc = new Hinhthuc({ hinhthuc: ten, hinhthucID: htid });
     try {
         await newHinhthuc.save();
         res.redirect('/showLoaiQC'); // or wherever you want to redirect after saving
@@ -142,7 +157,7 @@ controller.showLoaiQC = async (req, res) => {
     res.render('So-LoaiHinhQC', {
         layout: 'So',
         loai: loai,
-        hinhThuc : hinhThuc,
+        hinhThuc: hinhThuc,
     });
 }
 
@@ -261,14 +276,14 @@ controller.showPhuongMap = async (req, res) => {
     }).lean();
     for (location of locations) {
         location.hasReport = !!await Report.findOne({ queryID: location.locationID });
-        location.billboard = await Billboard.find({locationID: location.locationID});
+        location.billboard = await Billboard.find({ locationID: location.locationID });
         if (location.hasReport == false) {
             for (billboard of location.billboard) {
                 if (location.hasReport == false) {
                     location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID });
                 }
                 else break;
-            }   
+            }
         }
     }
     res.locals.locations = locations;
@@ -282,16 +297,16 @@ controller.showPhuongMapDetail = async (req, res) => {
         phuongID: req.session.user.phuong,
         quanID: req.session.user.quan
     }).lean();
-    for (location of locations){
+    for (location of locations) {
         location.hasReport = !!await Report.findOne({ queryID: location.locationID });
-        location.billboard = await Billboard.find({locationID: location.locationID});
+        location.billboard = await Billboard.find({ locationID: location.locationID });
         if (location.hasReport == false) {
             for (billboard of location.billboard) {
                 if (location.hasReport == false) {
                     location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID });
                 }
                 else break;
-            }   
+            }
         }
     }
     res.locals.locations = locations;
@@ -303,7 +318,7 @@ controller.showPhuongMapDetail = async (req, res) => {
     billboards = await Billboard.find({
         locationID: req.query.locationID
     }).lean();
-    for (billboard of billboards){
+    for (billboard of billboards) {
         let reports = await Report.find({
             queryID: billboard.billboardID,
             tinhtrang: "Chưa xử lí"
@@ -331,7 +346,7 @@ controller.showPhuongMapDetail = async (req, res) => {
         report.thoidiemgui = `${day}-${month}-${year}`; // Combine the day, month, and year into a string
     }
     res.locals.reports = reports;
-    
+
     res.render('Phuong-Map-Detail', {
         layout: 'Phuong'
     });
