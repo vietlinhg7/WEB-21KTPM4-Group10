@@ -30,12 +30,12 @@
   background-color: rgb(211, 205, 205);
 }
 
-.custom-icon{
+.custom-icon {
   color: rgba(40, 167, 69, 1);
   font-size: 50px;
 }
 
-#add-button{
+#add-button {
   padding: 10px 20px;
   width: 100%;
   height: auto;
@@ -48,12 +48,44 @@
 }
 
 #add-button:hover {
-  color: white;
+  background-color: rgba(40, 167, 69, 1);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 1);
 }
 
-#add-button:active {
+#add-button:hover .custom-icon {
   color: white;
+}
+
+#add-button:active {
   box-shadow: 0 0 0 0;
   transition: box-shadow 0.15s;
+}
+
+.input-group-append {
+  cursor: pointer;
+}
+
+#discard-create-account
+{
+  background-color: rgba(255, 0, 0);
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease-in-out;
+  border: none;
+}
+#discard-create-account:hover
+{
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 5px 5px 10px rgba(255, 34, 34, 0.8);
+}
+#submit-create-account
+{
+  background-color: rgb(40, 167, 69);  ;
+  color: rgba(255, 255, 255, 0.8);
+  transition: all 0.2s ease-in-out;
+  border: none;
+}
+#submit-create-account:hover
+{
+  color: rgba(255, 255, 255, 1);
+  box-shadow: 5px 5px 10px rgba(71, 255, 114, 0.8);
 }
