@@ -1,29 +1,28 @@
 <body>
   <main>
-    <div class="me-md-2 m-3 mx-5 px-3">
-      {{!-- <button class="btn btn-secondary dropdown-toggle bg-primary" type="button" id="dropdownMenuButton1"
-        data-bs-toggle="dropdown" aria-expanded="false">
-        Tạo mới
-      </button> --}}
+    <div class="me-md-2 m-3 mx-1 px-3">
       <button onclick="showInput()" type="button" class="btn btn-outline-success" id="dropdownMenuButton1"
         aria-expanded="false" method="POST">
         Thêm Quận
       </button>
       <form action="/addQuan" method="POST" id="myForm">
-        <div class="mb-3">
+        <div class="mt-2 mx-1">
           <label for="quanID" class="form-label">Tên Quận</label>
           <input type="text" class="form-control" name="QID" id="quanID" aria-describedby="helpId" placeholder=""
             required>
         </div>
-        <button type="submit" class="btn btn-outline-success ml-auto">Submit</button>
+        <div class="d-flex justify-content-end flex-row mt-2 me-1">
+          <button onclick="hideInput()" type="submit" class="btn btn-outline-danger ml-auto me-3">Hủy</button>
+          <button type="submit" class="btn btn-outline-success ml-auto">Xác nhận</button>
+        </div>
       </form>
       <style>
         #myForm {
           display: none;
         }
 
-        #myForm button {
-          margin-left: 93.5%;
+        .btn-outline-primary:hover .bi-pencil-square {
+          color: white;
         }
       </style>
       <script>
@@ -31,46 +30,37 @@
           var input = document.getElementById("myForm");
           input.style.display = "block";
         }
+        function hideInput() {
+          var input = document.getElementById("myForm");
+          input.style.display = "none";
+        }
       </script>
-      {{!-- <!-- Dropdown menu -->
-      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-        <!-- Dropdown items -->
-        <form action="/addQuan" method="POST">
-          <div class="mb-3">
-            <label for="" class="form-label">Tên Quận</label>
-            <input type="text" class="form-control" name="QID" id="quanID" aria-describedby="helpId" placeholder=""
-              required>
-          </div>
-          <button type="submit">Submit</button>
-        </form>
-      </div>--}}
-    </div> 
+    </div>
     <form action="/showQuan" method="GET">
       <ul class="list-group card mx-5 fs-3" id="myList">
         {{#each quan}}
         <li class="list-group-item">
-          <div class="card-header "><i class="bi bi-geo-alt px-3"></i><strong>Quận {{quanID}}</strong>
+          <div class="card-header"><i class="bi bi-geo-alt px-3"></i><strong>Quận {{quanID}}</strong>
             <!-- Dropdown element -->
             <div class="dropdown text-end">
-              <button type="button" class="btn btn-outline-primary">
+              {{!-- <button type="button" class="btn btn-outline-primary">
                 <a class="dropdown-item" href="/chiTiet?keyword={{quanID}}">Chi Tiết</a>
+              </button> --}}
+
+
+              <button type="button" class="btn btn-outline-primary mx-2">
+                <a href="/chiTiet?keyword={{quanID}}">
+                  <i class="bi bi-pencil-square"></i>
+                </a>
               </button>
+
+
 
               <a id="deleteQuan" href="/xoaQuan?keyword={{quanID}}">
                 <button type="button" class="btn btn-outline-danger">
                   <i class="bi bi-trash"></i>
                 </button>
               </a>
-              {{!-- <button class="btn btn-secondary dropdown-toggle bg-primary" type="button" id="dropdownMenuButton1"
-                data-bs-toggle="dropdown" aria-expanded="false">
-                Tùy chọn
-              </button> --}}
-              <!-- Dropdown menu -->
-              {{!-- <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <!-- Dropdown items -->
-                <a class="dropdown-item" href="/chiTiet?keyword={{quanID}}">Chi tiết</a>
-                <a class="delete dropdown-item" id="deleteQuan" href="/xoaQuan?keyword={{quanID}}">Xóa</a>
-              </div> --}}
             </div>
           </div>
         </li>

@@ -1,0 +1,91 @@
+<body>
+  <div class="container center-container my-4">
+    <form class="row g-3">
+      <div class="col-md-3">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="inputLastName" placeholder="Nguyễn">
+          <label for="inputLastName" class="form-label">Họ:</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="inputFirstName" placeholder="Linh">
+          <label for="inputFirstName" class="form-label">Tên:</label>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <label for="birthday" class="form-label fs-6 mb-0">Tháng / Ngày / Năm sinh</label>
+        <div class="form-floating mb-3">
+          <input type="date" id="birthday">
+        </div>
+      </div>
+      <script>
+        $(function () {
+          $('#datepicker').datepicker();
+        });
+
+        function handleRoleChange() {
+          var inputLevel = document.getElementById('inputLevel');
+          var inputWard = document.getElementById('inputWard');
+
+          if (inputLevel.value === 'Cán bộ quận') {
+            inputWard.disabled = true;
+            inputWard.value = 'Ô này đã bị vô hiệu hóa';  // Clear the value to prevent submitting disabled input
+          } else {
+            inputWard.disabled = false;
+            inputWard.value = '';
+          }
+        }
+      </script>
+      <div class="col-12">
+        <div class="form-floating mb-1">
+          <input type="email" class="form-control" id="emailInput" placeholder="name@gmail.com">
+          <label for="emailInput" class="form-label">Email:</label>
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="phonenumberInput" placeholder="024-19xx-xxxx">
+          <label for="phonenumberInput" class="form-label">Số điện thoại:</label>
+        </div>
+      </div>
+      <div class="col-md-2">
+        <label for="inputLevel" class="form-label">Chức vụ</label>
+        <select id="inputLevel" class="form-select" onchange="handleRoleChange()">
+          <option>Cán bộ phường</option>
+          <option>Cán bộ quận</option>
+        </select>
+      </div>
+      <div class="col-md-5">
+        <label for="inputDistrict" class="form-label">Quận</label>
+        <input type="text" class="form-control" id="inputDistrict" placeholder="Nhập quận">
+      </div>
+      <div class="col-md-5">
+        <label for="inputWard" class="form-label">Phường</label>
+        <input type="text" class="form-control" id="inputWard" placeholder="Nhập phường">
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="text" class="form-control" id="inputUserID" placeholder="caubengoknghek">
+          <label for="inputUserID" class="form-label">Tên đăng nhập:</label>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-floating mb-3">
+          <input type="password" class="form-control" id="inputPassword" placeholder="caubengoknghek">
+          <label for="inputPassword" class="form-label">Mật khẩu:</label>
+        </div>
+      </div>
+      <div class="col-12 d-flex justify-content-end align-items-end">
+        <button type="button" class="btn btn-danger me-3" id="discard-create-account">
+          Hủy bỏ
+        </button>
+        <button type="button" class="btn btn-success" id="submit-create-account">
+          Xác nhận
+        </button>
+      </div>
+    </form>
+  </div>
+
+</body>
