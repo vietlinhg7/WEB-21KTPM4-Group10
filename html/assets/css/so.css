@@ -48,12 +48,16 @@
 }
 
 #add-button:hover {
-  color: white;
+  background-color: rgba(40, 167, 69, 1);
   box-shadow: 10px 10px 20px rgba(0, 0, 0, 1);
 }
 
-#add-button:active {
+#add-button:hover .custom-icon
+{
   color: white;
+}
+
+#add-button:active {
   box-shadow: 0 0 0 0;
   transition: box-shadow 0.15s;
 }
