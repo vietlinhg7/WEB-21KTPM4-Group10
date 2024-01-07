@@ -15,8 +15,8 @@
 
   <header class="containter-fluid bg-primary">
     <nav class="navbar navbar-expand-sm bg-primary fixed-top">
-      <div class="container d-flex justify-content-between align-items-center flex-nowrap">
-        <a class="navbar-brand text-light" href="/showQuan">Ads Management</a>
+      <div class="container d-flex justify-content-between align-items-center flex-wrap">
+        {{!-- <a class="navbar-brand text-light" href="/showQuan">Ads Management</a> --}}
         <a class="active text-light" style="text-decoration: none;" href="/showQuan">Danh sách Quận, Phường</a>
         <a class="text-light " style="text-decoration: none;" href="/showLoaiQC">Loại quảng cáo, hình thức báo cáo</a>
         <a class="text-light" style="text-decoration: none;" href="/showLocation">Điểm đặt quảng cáo</a>
@@ -32,10 +32,10 @@
         </div>
 
 
-        <div id="avatar-dropdown" class="btn-group d-flex align-items-center">
+        <div id="avatar-dropdown" class="btn-group d-flex align-items-center justify-content-between">
           <img src="https://www.w3schools.com/bootstrap5/img_avatar1.png" alt="Avatar Logo" style="width:40px;"
             class="rounded-pill">
-          <button class="btn btn-link text-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
+          <button class="btn text-light dropdown-toggle" type="button" data-bs-toggle="dropdown"
             aria-expanded="false">Username</button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">My Profile</a></li>
