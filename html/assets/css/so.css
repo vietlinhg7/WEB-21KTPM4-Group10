@@ -65,27 +65,28 @@
   cursor: pointer;
 }
 
-#discard-create-account
-{
+#discard-create-account {
   background-color: rgba(255, 0, 0);
   color: rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease-in-out;
   border: none;
 }
-#discard-create-account:hover
-{
+
+#discard-create-account:hover {
   color: rgba(255, 255, 255, 1);
   box-shadow: 5px 5px 10px rgba(255, 34, 34, 0.8);
 }
-#submit-create-account
-{
-  background-color: rgb(40, 167, 69);  ;
+
+#submit-create-account {
+  background-color: rgb(40, 167, 69);
+  ;
   color: rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease-in-out;
   border: none;
 }
-#submit-create-account:hover
-{
+
+#submit-create-account:hover {
   color: rgba(255, 255, 255, 1);
   box-shadow: 5px 5px 10px rgba(71, 255, 114, 0.8);
 }
+

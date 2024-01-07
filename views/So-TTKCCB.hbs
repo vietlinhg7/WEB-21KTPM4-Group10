@@ -23,6 +23,19 @@
         $(function () {
           $('#datepicker').datepicker();
         });
+
+        function handleRoleChange() {
+          var inputLevel = document.getElementById('inputLevel');
+          var inputWard = document.getElementById('inputWard');
+
+          if (inputLevel.value === 'Cán bộ quận') {
+            inputWard.disabled = true;
+            inputWard.value = 'Ô này đã bị vô hiệu hóa';  // Clear the value to prevent submitting disabled input
+          } else {
+            inputWard.disabled = false;
+            inputWard.value = '';
+          }
+        }
       </script>
       <div class="col-12">
         <div class="form-floating mb-1">
@@ -36,21 +49,22 @@
           <label for="phonenumberInput" class="form-label">Số điện thoại:</label>
         </div>
       </div>
-      <div class="col-md-5">
-        <label for="inputDistrict" class="form-label">Quận</label>
-        <input type="text" class="form-control" id="inputDistrict">
-      </div>
-      <div class="col-md-5">
-        <label for="inputWard" class="form-label">Phường</label>
-        <input type="text" class="form-control" id="inputWard">
-      </div>
       <div class="col-md-2">
         <label for="inputLevel" class="form-label">Chức vụ</label>
-        <select id="inputLevel" class="form-select">
+        <select id="inputLevel" class="form-select" onchange="handleRoleChange()">
           <option>Cán bộ phường</option>
           <option>Cán bộ quận</option>
         </select>
       </div>
+      <div class="col-md-5">
+        <label for="inputDistrict" class="form-label">Quận</label>
+        <input type="text" class="form-control" id="inputDistrict" placeholder="Nhập quận">
+      </div>
+      <div class="col-md-5">
+        <label for="inputWard" class="form-label">Phường</label>
+        <input type="text" class="form-control" id="inputWard" placeholder="Nhập phường">
+      </div>
+
       <div class="col-md-6">
         <div class="form-floating mb-3">
           <input type="text" class="form-control" id="inputUserID" placeholder="caubengoknghek">
@@ -67,7 +81,7 @@
         <button type="button" class="btn btn-danger me-3" id="discard-create-account">
           Hủy bỏ
         </button>
-        <button type="button"  class="btn btn-success" id="submit-create-account">
+        <button type="button" class="btn btn-success" id="submit-create-account">
           Xác nhận
         </button>
       </div>
