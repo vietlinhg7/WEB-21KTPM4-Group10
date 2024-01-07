@@ -31,7 +31,7 @@ controller.DDQCmap = async (req, res) => {
 } 
 controller.showLocation = async (req, res) => {
     let location = await Location.find({});
-    res.render('So-TTKCCB', {
+    res.render('So-DDQC', {
         layout: 'So'
     });
     // res.render('So-DDQC', {
