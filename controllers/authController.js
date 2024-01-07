@@ -9,6 +9,16 @@ const Loai = require('../models/loai');
 const Hinhthuc = require('../models/hinhthuc');
 const Report = require('../models/report');
 
+controller.deleteLocation = async (req, res) => {
+    try {
+        const keyword = req.query.keyword;
+        await Location.deleteOne({ locationID : keyword });
+        res.redirect('/showLocation');
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
 
 controller.showProfile = (req, res) => {
     res.render('Profile', {
@@ -31,8 +41,10 @@ controller.DDQCmap = async (req, res) => {
 } 
 controller.showLocation = async (req, res) => {
     let location = await Location.find({});
+    
     res.render('So-DDQC', {
-        layout: 'So'
+        layout: 'So',
+        location : location
     });
     // res.render('So-DDQC', {
     //     layout: 'So',

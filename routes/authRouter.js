@@ -32,6 +32,7 @@ router.get('/xoaHinhthuc/:hinhthuc',controller.isLoggedIn, controller.xoaHinhThu
 
 router.get('/showLocation',controller.isLoggedIn, controller.showLocation);
 router.post('/themHinhThucQC',controller.isLoggedIn, controller.themHinhThucQC);
-router.get('/DDQCmap',controller.isLoggedIn, controller.DDQCmap)
+router.get('/DDQCmap',controller.isLoggedIn, controller.DDQCmap);
+router.get('/deleteLocation',controller.isLoggedIn, controller.deleteLocation);
 
 module.exports = router;

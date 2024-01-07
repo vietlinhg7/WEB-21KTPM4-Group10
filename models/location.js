@@ -9,6 +9,7 @@ const locationSchema = new Schema({
     quanID: { type: String, required: true },
     loaivitri: String,
     hinhanh: String,
+    hinhthuc: String,
     quyhoach: String,
     toadoX: Number,
     toadoY: Number
