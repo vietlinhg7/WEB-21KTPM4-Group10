@@ -1,11 +1,3 @@
-function goToChinhsua() {
-  window.location.href = 'Chinhsua.html';
-}
-
-function goToChitiet() {
-  window.location.href = 'Chitiet.html';
-}
-
 function edit() {
   for (let i = 0; i < 8; i++) {
       document.querySelectorAll("form .form-control")[i].readOnly = false;

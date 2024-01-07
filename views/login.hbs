@@ -11,7 +11,7 @@
 			<h3>Ads management</h3>
 			<hr>
 			<h1>Đăng nhập</h1>
-			<p class="mb-4 {{#if message}}alert-danger danger p-3{{/if}}">{{#if message}}{{message}}{{else}}Nhập tên tài khoản và mật khẩu bên dưới{{/if}}</p>
+			<p class="mb-4 alert-danger danger p-3">Nhập tên tài khoản và mật khẩu bên dưới</p>
 			<form action="/login" method="POST">
 				<section>
 					<label for="username">Tên tài khoản</label>
@@ -25,8 +25,15 @@
 					<label for="remember">Remember Me</label>
 					<input type="checkbox" id="remember" name="remember" />
 				</div>
+				<a class="signup_link" href="/forgot" style="color: hsl(221, 91%, 49%); float: right;">Quên mật khẩu</a>
 				<button type="submit">Đăng nhập</button>
+				
 			</form>
 		</section>
 	</body>
+	<script>
+		if ('{{message}}') {
+			alert('{{message}}');
+		}
+	</script>
 </html>
