@@ -1,7 +1,7 @@
 var map; 
 var infor;
 var myLocationBtn = document.getElementById('myLocationBtn'); // biến lấy vị trí hiện tại
-var isVariableTrue = true;
+var isVariableTrue = false;
 
 
 function initMap() {
@@ -277,18 +277,18 @@ function addAdvertisingLocation(latitude, longitude, advertisingData, imageQC, i
   });
 
    // Thêm sự kiện khi di chuột ra khỏi marker
-   marker.addListener('mouseout', function() {
-     infoWindow.close();
-   });
+  marker.addListener('mouseout', function() {
+    infoWindow.close();
+  });
 
-  // if (!isVariableTrue) {
-  //   // Đóng bảng thông tin nếu nó đang mở
-  //   console.log('Giá trị của biến sau khi nhấn nút:', isVariableTrue);
-  //   marker.infoWindow.close();
+  if (!isVariableTrue) {
+    // Đóng bảng thông tin nếu nó đang mở
+    console.log('Giá trị của biến sau khi nhấn nút:', isVariableTrue);
+    infoWindow.close();
 
-  //   // Xóa marker khỏi bản đồ
-  //   marker.setMap(null);
-  // }
+    // Xóa marker khỏi bản đồ
+    marker.setMap(null);
+  }
 
 }
 
