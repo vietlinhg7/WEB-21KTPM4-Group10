@@ -10,6 +10,7 @@ const Hinhthuc = require('../models/hinhthuc');
 const Report = require('../models/report');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
+const { notify } = require('../routes/authRouter');
 
 controller.editLocation = async (req, res) => {
     const keyword = req.query.keyword;
@@ -44,23 +45,23 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-controller.showForgot = (req,res) => {
+controller.showForgot = (req, res) => {
     res.render('Forgot', {
         layout: false
     });
 }
 
-controller.forgot = async (req,res) => {
+controller.forgot = async (req, res) => {
     let { email } = req.body;
     let user = await User.findOne({ email });
     if (user) {
-      let otp = Math.floor(100000 + Math.random() * 900000); // generates a six digit OTP
-   
-      let mailOptions = {
-        from: 'ndvlinh21@clc.fitus.edu.vn',
-        to: email,
-        subject: 'OTP for Password Change',
-        text: `
+        let otp = Math.floor(100000 + Math.random() * 900000); // generates a six digit OTP
+
+        let mailOptions = {
+            from: 'ndvlinh21@clc.fitus.edu.vn',
+            to: email,
+            subject: 'OTP for Password Change',
+            text: `
             Dear ${user.hoTen},
 
             We received a request to secure your account. As a security measure, we're asking you to enter a one-time password (OTP) to verify your identity.
@@ -73,37 +74,37 @@ controller.forgot = async (req,res) => {
 
             Best Regards,
             Group 10`
-      };
-   
-      transporter.sendMail(mailOptions);
-      req.session.email = email;
-      req.session.otp = otp;
-      res.render('verify', {
-        layout: false,
-      })
+        };
+
+        transporter.sendMail(mailOptions);
+        req.session.email = email;
+        req.session.otp = otp;
+        res.render('verify', {
+            layout: false,
+        })
     } else {
-      res.render('forgot', {
-        layout: false,
-        message: 'No account exists with this email.'
-      });
+        res.render('forgot', {
+            layout: false,
+            message: 'No account exists with this email.'
+        });
     }
 }
 
-controller.resend = async (req,res) => {
+controller.resend = async (req, res) => {
     // Assuming the user is stored in req.session.user
     let email = req.session.email;
     let user = await User.findOne({ email });
     if (!user) {
-      return res.status(401).send('Unauthorized');
+        return res.status(401).send('Unauthorized');
     }
-   
+
     let otp = Math.floor(100000 + Math.random() * 900000); // generates a six digit OTP
-   
+
     let mailOptions = {
-      from: 'your-email@gmail.com',
-      to: user.email,
-      subject: 'OTP for Password Change',
-      text: `
+        from: 'your-email@gmail.com',
+        to: user.email,
+        subject: 'OTP for Password Change',
+        text: `
       Dear ${user.hoTen},
    
       We received a request to secure your account. As a security measure, we're asking you to enter a one-time password (OTP) to verify your identity.
@@ -117,7 +118,7 @@ controller.resend = async (req,res) => {
       Best Regards,
       Group 10`
     };
-   
+
     transporter.sendMail(mailOptions);
     req.session.email = email;
     req.session.otp = otp;
@@ -126,9 +127,9 @@ controller.resend = async (req,res) => {
     });
 };
 
-controller.verify = async (req,res) => {
-    let {otp} = req.body;
-    if (req.session.otp == otp){
+controller.verify = async (req, res) => {
+    let { otp } = req.body;
+    if (req.session.otp == otp) {
         res.render('changePassword', {
             layout: false,
         })
@@ -138,9 +139,9 @@ controller.verify = async (req,res) => {
     });
 };
 
-controller.changePassword = async (req,res) => {
-    let {password, verify} = req.body;
-    if (password === verify){
+controller.changePassword = async (req, res) => {
+    let { password, verify } = req.body;
+    if (password === verify) {
         let email = req.session.email;
         let user = await User.findOne({ email });
         if (user) {
@@ -163,7 +164,7 @@ controller.changePassword = async (req,res) => {
         layout: false,
         message: 'Passwords do not match'
     });
- };
+};
 
 controller.showProfile = (req, res) => {
     res.render('Profile', {
@@ -286,19 +287,23 @@ controller.showLoaiQC = async (req, res) => {
 
 controller.suaQuan = async (req, res) => {
     const qid = req.params.quanID;
-
     const newQid = req.body.QID;
-    console.log(newQid);
-    console.log(qid);
-    await Phuong.updateMany({ quanID: qid }, { quanID: newQid });
-    await Quan.updateOne({ quanID: qid }, { quanID: newQid });
-    try {
+    let temp = await Quan.findOne({ quanID: newQid });
+    if (temp != null) {
+        res.send('<script>alert("QuanID is defined"); window.location="/chiTiet?keyword=' + qid + '";</script>');
+    }
+    else {
 
-        res.redirect('/chiTiet?keyword=' + newQid);
-        // or wherever you want to redirect after saving
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+        await Phuong.updateMany({ quanID: qid }, { quanID: newQid });
+        await Quan.updateOne({ quanID: qid }, { quanID: newQid });
+        try {
+
+            res.redirect('/chiTiet?keyword=' + newQid);
+            // or wherever you want to redirect after saving
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server Error');
+        }
     }
 }
 
@@ -320,32 +325,45 @@ controller.suaPhuong = async (req, res) => {
     const pid = req.params.phuongID;
 
     const newpid = req.body.PID;
+    let temp = await Phuong.findOne({ quanID: qid, phuongID: newpid });
+    if (temp != null) {
+        res.send('<script>alert("PhuongID is defined"); window.location="/chiTiet?keyword=' + qid + '";</script>')
+    }
+    else {
 
-    await Phuong.updateOne({ quanID: qid, phuongID: pid }, { phuongID: newpid })
-    try {
+        await Phuong.updateOne({ quanID: qid, phuongID: pid }, { phuongID: newpid })
+        try {
 
-        res.redirect('/chiTiet?keyword=' + qid);
-        // or wherever you want to redirect after saving
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+            res.redirect('/chiTiet?keyword=' + qid);
+            // or wherever you want to redirect after saving
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server Error');
+        }
     }
 }
 
 controller.themPhuong = async (req, res) => {
     const qid = req.params.quanID;
     const pid = req.body.PID;
-
-    const newPhuong = new Phuong({ quanID: qid, phuongID: pid });
-    try {
-        await newPhuong.save();
-        res.redirect('/chiTiet?keyword=' + qid);
-        // or wherever you want to redirect after saving
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+    let temp = await Phuong.findOne({ quanID: qid, phuongID: pid });
+    if (temp != null) {
+        res.send('<script>alert("PhuongID is defined"); window.location="/chiTiet?keyword=' + qid + '";</script>');
     }
-}
+    else {
+        const newPhuong = new Phuong({ quanID: qid, phuongID: pid });
+        try {
+            await newPhuong.save();
+            res.redirect('/chiTiet?keyword=' + qid);
+            // or wherever you want to redirect after saving
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server Error');
+        }
+    }
+};
+
+
 
 controller.chiTiet = async (req, res) => {
     const keyword = req.query.keyword;
@@ -382,15 +400,22 @@ controller.showQuan = async (req, res) => {
 
 controller.addQuan = async (req, res) => {
     const keyword = req.body.QID;
-    const newQuan = new Quan({ quanID: keyword });
-    try {
-        await newQuan.save();
-        res.redirect('/'); // or wherever you want to redirect after saving
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Server Error');
+
+    const temp = await Quan.findOne({ quanID: keyword });
+    if (temp != null) {
+        res.send('<script>alert("quanID is defined"); window.location="/showQuan";</script>');
+    } else {
+        const newQuan = new Quan({ quanID: keyword });
+        try {
+            await newQuan.save();
+            res.redirect('/'); // or wherever you want to redirect after saving
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server Error');
+        }
     }
 };
+
 
 controller.showPhuongMap = async (req, res) => {
     let locations = await Location.find({
@@ -524,7 +549,7 @@ controller.login = async (req, res) => {
         layout: false,
         message: 'Tên tài khoản hoặc mật khẩu sai'
     });
- };
+};
 
 controller.logout = (req, res, next) => {
     req.session.destroy(function (error) {
