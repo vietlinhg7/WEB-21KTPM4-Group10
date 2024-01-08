@@ -34,15 +34,19 @@ app.set("view engine", "hbs");
 const uri = "mongodb+srv://nhom10:web21ktpm@cluster0.uveminn.mongodb.net/nhom10?retryWrites=true&w=majority";
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-// const addUser = async () => {
-//   const newUser = new Billboard({
-//     billboardID: 'b01',
-//     loaiID: 'l01',
-//     kichthuoc: '2.5m x 10m',
-//     hinhthuc: 'Cổ động chính trị',
-//     hinhanh: 'https://cdnphoto.dantri.com.vn/vdDPWOVB1hcODVeyES8rD1GTLio=/zoom/1200_630/2019/04/23/truong-dh-khoa-hoc-tu-nhien-tphcm-1555986970839.jpg',
-//     ngayhethan: new Date('2024-11-21'),
-//     locationID: 'p4q5-1'
+// const addLocation = async () => {
+//   const newUser = new Location({
+//     locationID: "p4q5_1",
+//     name: "Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia TP.HCM",
+//     diachi: "227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh, Vietnam",
+//     phuongID: "4",
+//     quanID: "5",
+//     loaivitri: "Đất công/Công viên/Hành lang an toàn giao thông",
+//     hinhanh: "https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no",
+//     hinhthuc: "Cổ động chính trị",
+//     quyhoach: "Đã quy hoạch",
+//     toadoX: 10.7618957,
+//     toadoY: 106.6826922
 //   });
 
 //   try {
@@ -53,7 +57,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 //   }
 // };
 
-// addUser();
+// addLocation();
 
 // Cau hinh cho phep doc du lieu gui len bang phuong thuc POST
 app.use(express.json());
