@@ -451,12 +451,13 @@ content += '<div class="preserve-whitespace"> <b>          Tên quán: </b>' + p
 content += '<div class="preserve-whitespace"> <b>          Đánh giá: </b>' + (place.rating || 'Chưa có đánh giá') + '</div>';
 content += '<div class="preserve-whitespace"> <b>          Loại hình kinh doanh: </b>' + (place.types ? place.types.join(', ') : 'Không rõ') + '</div>';
 content += '</div>';
+content += '</form>';
+
  
 // Kết thúc div address-info
 // Thêm nút "BÁO CÁO VI PHẠM" và căn chỉnh nó sang phía dưới bên phải
-content += '<div background-color: #bbdefb><button onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; align-self: flex-end; border: 2px solid #f00; left: -100px;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div>';
+content += '<div background-color: #bbdefb><button onclick="redirectToReportPage()" style="margin: 10px 10px 0px 400px; padding: 10px; align-self: flex-end; border: 2px solid #f00; left: -100px;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div>';
 
-content += '</form>';
 
 
   // Đặt nội dung cho InfoWindow
