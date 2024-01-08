@@ -7,6 +7,8 @@ const Quan = require('../models/quan');
 const Phuong = require('../models/phuong');
 const Loai = require('../models/loai');
 const Hinhthuc = require('../models/hinhthuc');
+const ReportType = require('../models/reportType');
+const Loaivitri = require('../models/loaivitri');
 const Report = require('../models/report');
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
@@ -173,6 +175,7 @@ controller.showProfile = (req, res) => {
 };
 
 controller.DDQCmap = async (req, res) => {
+
     res.render('So-DDQC-map', {
         layout: 'So',
 
@@ -246,9 +249,8 @@ controller.themLoaiQC = async (req, res) => {
 
 controller.xoaLoai = async (req, res) => {
     try {
-        const lid = req.params.loaiID;
         const loai = req.params.loai;
-        await Loai.deleteOne({ loaiID: lid, loai: loai });
+        await Loai.deleteOne({ loai: loai });
         res.redirect('/showLoaiQC');
     } catch (error) {
         console.log(error);
@@ -257,12 +259,10 @@ controller.xoaLoai = async (req, res) => {
 }
 
 controller.suaLoai = async (req, res) => {
-    const lid = req.params.loaiID;
     const loai = req.params.loai;
 
     const newLid = req.body.LID;
-    console.log(lid, loai, newLid);
-    await Loai.updateOne({ loaiID: lid, loai: loai }, { loai: newLid })
+    await Loai.updateOne({ loai: loai }, { loai: newLid })
     try {
 
         res.redirect('/showLoaiQC');
@@ -278,10 +278,14 @@ controller.suaLoai = async (req, res) => {
 controller.showLoaiQC = async (req, res) => {
     let loai = await Loai.find({});
     let hinhThuc = await Hinhthuc.find({});
+    let reportType = await ReportType.find({});
+    let loaivitri = await Loaivitri.find({});
     res.render('So-LoaiHinhQC', {
         layout: 'So',
         loai: loai,
         hinhThuc: hinhThuc,
+        reportType: reportType,
+        loaivitri: loaivitri
     });
 }
 

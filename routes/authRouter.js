@@ -24,8 +24,8 @@ router.get('/xoaPhuong/:phuongID/:quanID',controller.isLoggedIn, controller.xoaP
 router.post('/suaPhuong/:phuongID/:quanID',controller.isLoggedIn, controller.suaPhuong);
 router.post('/suaQuan/:quanID',controller.isLoggedIn, controller.suaQuan);
 router.get('/showLoaiQC',controller.isLoggedIn, controller.showLoaiQC);
-router.get('/xoaLoai/:loaiID/:loai',controller.isLoggedIn, controller.xoaLoai);
-router.post('/suaLoai/:loaiID/:loai',controller.isLoggedIn, controller.suaLoai);
+router.get('/xoaLoai/:loai',controller.isLoggedIn, controller.xoaLoai);
+router.post('/suaLoai/:loai',controller.isLoggedIn, controller.suaLoai);
 
 router.post('/themLoaiQC',controller.isLoggedIn, controller.themLoaiQC);
 
