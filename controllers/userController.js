@@ -61,6 +61,7 @@ controller.handleBoardIDPost = async (req, res) => {
         }
 
         currentBoardID = boardID;
+        console.log(currentBoardID);
 
         res.redirect('/report');
     } catch (error) {
@@ -85,7 +86,7 @@ controller.addReport = async (req, res) => {
     
     const recaptcha = req.body['g-recaptcha-response'];
     if(!recaptcha) {
-        req.session.alertMsg = 'Vui lòng xác nhận bạn không phải robot.';
+        res.redirect('/report?alertErr=Vui lòng xác nhận bạn không phải robot.');
         //return res.json({success: false, msg: 'Captcha token is underfined!'});
     }
     else{

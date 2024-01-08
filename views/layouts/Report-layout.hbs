@@ -15,7 +15,7 @@
             <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
 
-            <script type="text/javascript">
+            <script>
 
                 function validateRecaptcha() {
                     var response = grecaptcha.getResponse();
@@ -53,6 +53,13 @@
                     tabsize: 2,
                     height: 100
                 });
+
+                var alertErr = new URLSearchParams(window.location.search).get('alertErr');
+
+                // Hiển thị thông báo nếu có
+                if (alertErr) {
+                    alert(alertErr);
+                }
             </script>
 
         </body>

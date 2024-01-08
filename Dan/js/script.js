@@ -150,6 +150,8 @@ function initMap() {
               const hinhanh = billboardData.hinhanh;
               const ngayhethan = billboardData.ngayhethan;
               const queryID = billboardID;
+              boardID = billboardID;
+
 
               const reportArray = [];
               
