@@ -8,13 +8,13 @@
         </div>
 
         <div class="d-flex align-items-stretch flex-wrap flex-row bd-highlight ms-5 ps-5">
-
+            {{#each location}}
             {{!-- flex item 1 --}}
             <div id="ddqc-item" class="col-3 mx-4 my-3 px-1 border border-white rounded px-2 py-2 d-flex flex-column">
                 <div id="ad-purpose"
                     class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
                     <div class="fw-bold align-self-center fs-7">
-                        Cổ động chính trị
+                        {{hinhthuc}}
                     </div>
                     <button id="info-btn" type="button" class="btn btn-primary" aria-label="Close">
                         <i class="bi bi-info-circle"></i>
@@ -22,30 +22,29 @@
                 </div>
 
                 <p class="overflow-hidden text-truncate">
-                    Đất công/Công viên/Hành lang an toàn giao thông <br>
-                    Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1
-                    Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1
-                    Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1
+                    {{loaivitri}} <br>
+                    {{diachi}}
 
 
                 </p>
 
                 <p class="col-6 text-start text-nowrap text-capitalize fst-italic fw-bold fs-5 mb-0">
-                    Đã Quy Hoạch
+                    {{quyhoach}}
+
                 </p>
-
                 <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
-                    <button class="col-3 btn btn-danger">
+                    <a class="col-3 btn btn-danger" href="/deleteLocation?keyword={{locationID}}" role="button">
                         <i class="bi bi-trash3-fill"></i>
+                    </a>
                     </button>
-
-                    <button class="col-3 btn btn-primary mx-2">
+                    <a class="col-3 btn btn-primary mx-2" href="/editLocation?keyword={{locationID}}" role="button">
                         <i class="bi bi-pencil-square"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
+            {{/each}}
 
-
+            
             {{!-- flex item 2 --}}
             <div id="ddqc-item" class="col-3 mx-4 my-3 px-1 border border-white rounded px-2 py-2 d-flex flex-column">
                 <div id="ad-purpose"
@@ -68,13 +67,13 @@
                 </p>
 
                 <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
-                    <button class="col-3 btn btn-danger">
+                    <a class="col-3 btn btn-danger" href="/deleteLocation?keyword={{locationID}}" role="button">
                         <i class="bi bi-trash3-fill"></i>
+                    </a>
                     </button>
-
-                    <button class="col-3 btn btn-primary mx-2">
+                    <a class="col-3 btn btn-primary mx-2" href="/editLocation?keyword={{locationID}}" role="button">
                         <i class="bi bi-pencil-square"></i>
-                    </button>
+                    </a>
                 </div>
             </div>
 
@@ -101,7 +100,7 @@
                 </p>
 
                 <p class="col-6 text-start text-nowrap text-capitalize fst-italic fw-bold fs-5 mb-0">
-                   Chưa Quy Hoạch
+                    Chưa Quy Hoạch
                 </p>
 
                 <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
@@ -214,14 +213,15 @@
                     Đã Quy Hoạch
                 </p>
 
-                <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
-                    <button class="col-3 btn btn-danger">
+                <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row mb-2">
+                    <a class="col-3 btn btn-danger" href="/deleteLocation?keyword={{locationID}}" role="button">
                         <i class="bi bi-trash3-fill"></i>
+                    </a>
                     </button>
-
-                    <button class="col-3 btn btn-primary mx-2">
+                    <a class="col-3 btn btn-primary mx-2" href="/editLocation?keyword={{locationID}}" role="button">
                         <i class="bi bi-pencil-square"></i>
-                    </button>
+                    </a>
+
                 </div>
             </div>
 
