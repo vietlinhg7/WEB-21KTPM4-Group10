@@ -572,4 +572,44 @@ controller.isLoggedIn = async (req, res, next) => {
     }
 };
 
+
+controller.themHinhThucBC = async (req, res) => {
+
+    const ten = req.body.tenHinhThucBC;
+    console.log(ten);
+    const newReportType = new ReportType({ name: ten });
+    try {
+        await newReportType.save();
+        res.redirect('/showLoaiQC'); // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+};
+controller.xoaReportType = async (req, res) => {
+    try {
+        const ht = req.params.name;
+        await ReportType.deleteOne({ name: ht });
+        res.redirect('/showLoaiQC');
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
+
+controller.suaReportType = async (req, res) => {
+    const ht = req.params.name;
+
+    const newHT = req.body.HTBC;
+    await ReportType.updateOne({ name: ht }, { name: newHT })
+    try {
+
+        res.redirect('/showLoaiQC');
+
+        // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
 module.exports = controller;

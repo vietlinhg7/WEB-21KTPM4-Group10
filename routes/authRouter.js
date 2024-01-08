@@ -33,9 +33,13 @@ router.get('/Phuong-Map', controller.isLoggedIn, controller.showPhuongMap);
 router.get('/Phuong-Map-Detail', controller.isLoggedIn, controller.showPhuongMapDetail);
 router.post('/suaHinhThuc/:hinhthuc',controller.isLoggedIn, controller.suaHinhThuc);
 router.get('/xoaHinhthuc/:hinhthuc',controller.isLoggedIn, controller.xoaHinhThuc);
+router.post('/suaReportType/:name',controller.isLoggedIn, controller.suaReportType);
+router.get('/xoaReportType/:name',controller.isLoggedIn, controller.xoaReportType);
 
 router.get('/showLocation',controller.isLoggedIn, controller.showLocation);
 router.post('/themHinhThucQC',controller.isLoggedIn, controller.themHinhThucQC);
+router.post('/themHinhThucBC',controller.isLoggedIn, controller.themHinhThucBC);
+
 router.get('/DDQCmap',controller.isLoggedIn, controller.DDQCmap);
 router.get('/deleteLocation',controller.isLoggedIn, controller.deleteLocation);
 router.get('/editLocation',controller.isLoggedIn, controller.editLocation);

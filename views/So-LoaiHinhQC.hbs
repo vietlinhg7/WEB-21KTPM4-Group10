@@ -3,7 +3,6 @@
         <div class="container">
             <!-- Row -->
             <div class="row">
-                <!-- First Table -->
                 <div class="p-3 text-center col-md-4">
                     <h2>Loại hình quảng cáo</h2>
                     <div class="card-header">
@@ -57,7 +56,7 @@
                         </table>
                     </div>
                 </div>
-                <!-- Second Table -->
+
                 <div class="p-3 col-md-4 text-center">
                     <h2>Hình thức quảng cáo</h2>
                     <table class="table table-bordered">
@@ -110,6 +109,7 @@
                         </form>
                     </table>
                 </div>
+
                 <div class="p-3 col-md-4 text-center">
                     <h2>Hình thức báo cáo</h2>
                     <table class="table table-bordered">
@@ -127,6 +127,11 @@
                                             aria-expanded="false"></a>
                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
                                             <!-- Dropdown items -->
+                                            <div class="mb-3">
+                                                <label for="" class="form-label">Tên hình thức báo cáo</label>
+                                                <input type="text" class="form-control" name="HTBC" id="phuongID"
+                                                    aria-describedby="helpId" placeholder="" required>
+                                            </div>
                                             <button type="submit">Submit</button>
                                         </div>
 
@@ -135,7 +140,7 @@
                             </tr>
                             {{/each}}
                         </tbody>
-                        <form action="/themHinhThucQC" method="POST">
+                        <form action="/themHinhThucBC" method="POST">
                             <div class="card-header">
                                 <!-- Dropdown element -->
                                 <button class="btn btn-secondary dropdown-toggle bg-primary float-end" type="button"
@@ -147,9 +152,12 @@
                                     <!-- Dropdown items -->
                                     <div class="mb-3">
                                         <label for="" class="form-label">Tên hình thức báo cáo</label>
-                                        <input type="text" class="form-control" name="tenHinhThuc" id="HTID"
+                                        <input type="text" class="form-control" name="tenHinhThucBC" id="tenHinhThucBC"
                                             aria-describedby="helpId" placeholder="" required>
                                     </div>
+
+                                    
+
                                     <button type="submit">Submit</button>
                                 </div>
                             </div>
