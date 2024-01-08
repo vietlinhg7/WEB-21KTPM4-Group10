@@ -7,7 +7,7 @@ const session = require("express-session");
 
 
 const app = express();
-const PORT = 5000;
+const PORT = 2000;
 
 var userRoute = require('./routes/userRoute');
 

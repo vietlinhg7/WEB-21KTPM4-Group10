@@ -79,10 +79,23 @@ function initMap() {
     showMyLocation();
   });
 
+  
+
   // Thêm nút "My Location" vào bản đồ
   map.controls[google.maps.ControlPosition.TOP_RIGHT].push(document.getElementById('myLocationBtn'));
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('myBox'));
 
+  // Khởi tạo MarkerClusterer
+  var markerCluster = new MarkerClusterer(map, [], {
+    imagePath: '/Dan/images/',
+    gridSize: 100,
+    maxZoom: 13
+  });
+
+  // // Thêm sự kiện zoom_changed để theo dõi thay đổi zoom
+  // google.maps.event.addListener(map, 'zoom_changed', function() {
+  //   updateClusterIcons(map, markerCluster);
+  // });
 
   // Thực hiện yêu cầu GET đến endpoint /billboards
   fetch('/locations')
@@ -109,6 +122,12 @@ function initMap() {
           const quyhoach = location.quyhoach;
           const toadoX = location.toadoX;
           const toadoY = location.toadoY;
+
+          if(quyhoach == "ĐÃ QUY HOẠCH" || quyhoach == "Đã quy hoạch"){
+            quyhoach = "ĐÃ QUY HOẠCH";
+          }else{
+            quyhoach = "CHƯA QUY HOẠCH";
+          }
 
           console.log(`locationID: ${locationID}, Name: ${name}, diachi: ${diachi}, phuongID: ${phuongID}, quanID: ${quanID}, loaivitri: ${loaivitri}, hinhanh: ${hinhanh1}, quyhoach: ${quyhoach}, toadoX: ${toadoX}, toadoY: ${toadoY}`);
 
@@ -242,12 +261,12 @@ function initMap() {
 
           var advertisingData = { type: name, text1: loaivitri, text2: diachi, infor: quyhoach };
           var icon;
-          if(quyhoach == "ĐÃ QUY HOẠCH"){
+          if(quyhoach == "ĐÃ QUY HOẠCH" || quyhoach == "Đã quy hoạch"){
             icon = '/Dan/images/icon1.png';
           }else{
             icon = '/Dan/images/icon2.png';
           }
-          addAdvertisingLocation(toadoX, toadoY, advertisingData, hinhanh1, icon,  Content, isVariableTrue);
+          addAdvertisingLocation(toadoX, toadoY, advertisingData, hinhanh1, icon,  Content, isVariableTrue, markerCluster);
 
         });
       } else {  
@@ -262,7 +281,7 @@ function initMap() {
   
 }
 
-function addAdvertisingLocation(latitude, longitude, advertisingData, imageQC, icon, content, isVariableTrue) {
+function addAdvertisingLocation(latitude, longitude, advertisingData, imageQC, icon, content, isVariableTrue, markerCluster ) {
   // Tạo marker kiểu hình ảnh
   var marker = new google.maps.Marker({
     position: { lat: latitude, lng: longitude },
@@ -273,6 +292,8 @@ function addAdvertisingLocation(latitude, longitude, advertisingData, imageQC, i
     },
     title: 'Điểm Đặt Quảng Cáo'
   });
+
+  markerCluster.addMarker(marker);
 
   // Tạo thông tin chi tiết cho điểm đặt quảng cáo
   var infoWindow = new google.maps.InfoWindow();
@@ -511,3 +532,24 @@ function hideLocationText() {
   // Ẩn "Vị trí của tôi" khi rê chuột ra khỏi nút
   document.getElementById('locationText').style.display = 'none';
 }
+
+function updateClusterIcons(map, markerCluster) {
+  var currentZoom = map.getZoom();
+
+  markerCluster.getClusters().forEach(function(cluster) {
+    var clusterSize = cluster.getSize();
+
+    // Kiểm tra xem số lượng marker trong cluster có vượt qua ngưỡng không
+    if (clusterSize > 1) {
+      // Đường dẫn đến thư mục chứa biểu tượng
+      var imagePath = '/Dan/images/';
+      
+      // Tên tệp tin biểu tượng sẽ là 'm' + clusterSize + '.png'
+      var clusterImage = imagePath + 'm' + clusterSize + '.png';
+      
+      // Cập nhật biểu tượng của cluster để hiển thị ảnh chứa số lượng marker
+      cluster.setIcon(clusterImage);
+    }
+  });
+}
+
