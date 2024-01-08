@@ -34,21 +34,49 @@
                   placeholder="Địa chỉ" value="{{location.diachi}}" required>
               </div>
               <h4 class="card-header"><i class="bi bi-geo-alt-fill mb-3"></i><strong> Khu vực</strong></h4>
-
-              <div class="mb-3">
+              {{!-- Phường --}}
+              {{!-- <div class="mb-3">
                 <input type="text" class="form-control my-3" name="keyword" id="adress" aria-describedby="helpId"
                   placeholder="Phường" value="Phường {{location.phuongID}}" required>
+              </div> --}}
+              <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
+                <button id="phuong"
+                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Phường
+                </button>
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 1')">Phường 1</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 2')">Phường 2</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 3')">Phường 3</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 4')">Phường 4</a></li>
+                </ul>
               </div>
+              {{!-- Phường --}}
               {{!-- <div class="mb-3">
                 <input type="text" class="form-control my-3" name="keyword" id="adress_type" aria-describedby="helpId"
                   placeholder="Tên địa điểm" value="{{location.loaivitri}}" required>
               </div> --}}
-              <div class="mb-3">
+              {{!-- Quận --}}
+              {{!-- <div class="mb-3">
                 <input type="text" class="form-control" name="keyword" id="name" aria-describedby="helpId"
                   placeholder="Quận" value="Quận {{location.quanID}}" required>
+              </div> --}}
+              <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
+                <button id="quan"
+                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Quận
+                </button>
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+                  <li><a class="dropdown-item" href="#" onclick="selectOption('quan','Quận Bình Thạnh')">Quận Bình Thạnh</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="selectOption('quan','Quận 5')">Quận 5</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="selectOption('quan','Quận 1')">Quận 1</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="selectOption('quan','Quận Thủ Đức')">Quận Thủ Đức</a></li>
+                </ul>
               </div>
+              {{!-- Quận --}}
               <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại vị trí</strong></h4>
-
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <button id="lvt"
                   class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
