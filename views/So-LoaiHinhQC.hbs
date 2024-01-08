@@ -123,7 +123,7 @@
                         </form>
                     </table>
                 </div>
-                {{!-- <div class="p-3 col-md-4 text-center">
+                <div class="p-3 col-md-4 text-center">
                     <h2>Hình thức quảng cáo</h2>
                     <table class="table table-bordered">
                         <thead>
@@ -154,7 +154,29 @@
                             </tr>
 
                         </tbody>
-                </div> --}}
+                        <form action="" method="POST">
+                            <div class="card-header">
+                                <!-- Dropdown element -->
+                                <button class="btn btn-secondary dropdown-toggle bg-primary float-end" type="button"
+                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Tạo mới
+                                </button>
+                                <!-- Dropdown menu -->
+                                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                    <!-- Dropdown items -->
+                                    <div class="mb-3">
+                                        <label for="" class="form-label">Tên hình thức quảng cáo</label>
+                                        <input type="text" class="form-control" name="tenHinhThuc" id="HTID"
+                                            aria-describedby="helpId" placeholder="" required>
+                                        <label for="" class="form-label">ID</label>
+                                        <input type="text" class="form-control" name="HTID" id="loaiID"
+                                            aria-describedby="helpId" placeholder="" required>
+                                    </div>
+                                    <button type="submit">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                </div>
             </div>
         </div>
 
