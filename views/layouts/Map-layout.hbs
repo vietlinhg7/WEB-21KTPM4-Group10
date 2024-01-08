@@ -29,8 +29,12 @@
                 isVariableTrue = !isVariableTrue;
                 console.log(isVariableTrue);
 
-                // Gọi lại hàm initMap sau khi ẩn/hiện
-                initMap();
+                // Ẩn/hiện tất cả các cluster
+                markerCluster.getClusters().forEach(function(cluster) {
+                    cluster.getMarkers().forEach(function(marker) {
+                        marker.setVisible(isVariableTrue);
+                    });
+                });
             }
             var hide = document.getElementById('hideQC').addEventListener('click', hideAndReloadMap);
         </script>

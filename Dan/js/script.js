@@ -2,6 +2,7 @@ var map;
 var infor;
 var myLocationBtn = document.getElementById('myLocationBtn'); // biến lấy vị trí hiện tại
 var myBox = document.getElementById('pac-input');
+var markerCluster;
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -86,7 +87,7 @@ function initMap() {
   map.controls[google.maps.ControlPosition.TOP_LEFT].push(document.getElementById('myBox'));
 
   // Khởi tạo MarkerClusterer
-  var markerCluster = new MarkerClusterer(map, [], {
+  markerCluster = new MarkerClusterer(map, [], {
     imagePath: '/Dan/images/',
     gridSize: 100,
     maxZoom: 13
@@ -534,6 +535,16 @@ function showLocationText() {
 function hideLocationText() {
   // Ẩn "Vị trí của tôi" khi rê chuột ra khỏi nút
   document.getElementById('locationText').style.display = 'none';
+}
+
+function showQC() {
+  // Hiển thị "Vị trí của tôi" khi rê chuột qua
+  document.getElementById('QCText').style.display = 'inline-block';
+}
+
+function hideQC() {
+  // Ẩn "Vị trí của tôi" khi rê chuột ra khỏi nút
+  document.getElementById('QCText').style.display = 'none';
 }
 
 function updateClusterIcons(map, markerCluster) {
