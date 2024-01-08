@@ -167,9 +167,6 @@ controller.getBillboards = async (req, res) => {
 
         const billboardData = await Billboard.find({ locationID });
 
-        if (!billboardData || billboardData.length === 0) {
-            return res.status(404).json({ error: 'Không tìm thấy dữ liệu cho locationID đã cung cấp.' });
-        }
 
         res.json(billboardData);
     } catch (error) {

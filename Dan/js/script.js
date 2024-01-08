@@ -119,7 +119,7 @@ function initMap() {
           const quanID = location.quanID;
           const loaivitri = location.loaivitri;
           const hinhanh1 = location.hinhanh;
-          const quyhoach = location.quyhoach;
+          let quyhoach = location.quyhoach;
           const toadoX = location.toadoX;
           const toadoY = location.toadoY;
 
@@ -158,7 +158,7 @@ function initMap() {
               const content = `
                 <form style="display: flex; flex-direction: column; align-items: center;">
                   <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-                    <span id="expirationImage${idCounter}" style="display: none;"><img src="` + hinhanh + `" alt="Cong Chao" style="width: 300px; height: auto; margin-bottom: 10px;"><br></span>
+                    <span id="expirationImage${idCounter}" style="display: none;"><img src="` + hinhanh + `" alt="Cong Chao" style="width: 300px; height: auto; margin-bottom: 10px; padding-left: 210px;"><br></span>
                     <b>` + loai + `</b><br>`
                     + diachi + `<br>
                     Kích thước: <b>` + kichthuoc + `</b><br>
@@ -301,7 +301,7 @@ function addAdvertisingLocation(latitude, longitude, advertisingData, imageQC, i
   // Thêm sự kiện khi di chuột vào marker
   marker.addListener('mouseover', function() {
     var content = generateInfoContent(advertisingData); // Tạo nội dung thông tin
-    var imageTag = '<img src="' + imageQC + '" alt="Ảnh mô tả" style="width: 500px; height: auto;">'; // Thẻ img với đường dẫn hình ảnh
+    var imageTag = '<img src="' + imageQC + '" alt="Ảnh mô tả" style="width: 500px; height: 300px; padding-left: 30px">'; // Thẻ img với đường dẫn hình ảnh
 
     // Bổ sung thẻ img vào nội dung thông tin
     content += imageTag;
@@ -426,7 +426,7 @@ function show(place, formattedAddress) {
   infor.setPosition(place.geometry.location);
 
   // Tính toán pixelOffset để đặt InfoWindow bên phải và lên phía trên vị trí được click
-  var pixelOffsetX = 100; // Điều chỉnh giá trị này để thay đổi khoảng cách về bên phải
+  var pixelOffsetX = 0; // Điều chỉnh giá trị này để thay đổi khoảng cách về bên phải
   var pixelOffsetY = -50; // Điều chỉnh giá trị này để thay đổi khoảng cách lên phía trên
 
   // Đặt pixelOffset cho InfoWindow
@@ -454,7 +454,7 @@ content += '</div>';
  
 // Kết thúc div address-info
 // Thêm nút "BÁO CÁO VI PHẠM" và căn chỉnh nó sang phía dưới bên phải
-content += '<div background-color: #bbdefb><button onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; align-self: flex-end; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div>';
+content += '<div background-color: #bbdefb><button onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; align-self: flex-end; border: 2px solid #f00; left: -100px;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div>';
 
 content += '</form>';
 
