@@ -1,4 +1,4 @@
-<body style=" margin-top: 70px">
+<body style=" margin-top: 70px; overflow-y: hidden; /* Hide vertical scrollbar */">
 
   <div id="map" style="height: 100%; width: 50%;" class="float-start"></div>
 
@@ -41,7 +41,7 @@
               </div> --}}
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <button id="phuong"
-                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Phường
                 </button>
@@ -64,7 +64,7 @@
               </div> --}}
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <button id="quan"
-                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Quận
                 </button>
@@ -79,7 +79,7 @@
               <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại vị trí</strong></h4>
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <button id="lvt"
-                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Loại vị trí
                 </button>
@@ -112,7 +112,7 @@
               </h4>
               <div class="mb-3 hinh-thuc-quang-cao-dropdown d-flex position-relative">
                 <button id="htqc"
-                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Hình thức quảng cáo
                 </button>
@@ -136,7 +136,7 @@
               </div> --}}
 
               <div class="mb-3 quy-hoach-dropdown d-flex position-relative">
-                <button id="qh" class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100"
+                <button id="qh" class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100"
                   type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Quy hoạch
                 </button>
@@ -167,6 +167,9 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
   <script>
+    function toggleLockScreen() {
+      document.body.classList.toggle('locked');
+    }
     function selectOption(buttonID, selectedText) {
       let button = document.getElementById(buttonID);
       button.innerHTML = selectedText;

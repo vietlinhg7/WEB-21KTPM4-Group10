@@ -39,7 +39,6 @@ router.get('/xoaReportType/:name',controller.isLoggedIn, controller.xoaReportTyp
 router.get('/showLocation',controller.isLoggedIn, controller.showLocation);
 router.post('/themHinhThucQC',controller.isLoggedIn, controller.themHinhThucQC);
 router.post('/themHinhThucBC',controller.isLoggedIn, controller.themHinhThucBC);
-
 router.get('/DDQCmap',controller.isLoggedIn, controller.DDQCmap);
 router.get('/deleteLocation',controller.isLoggedIn, controller.deleteLocation);
 router.get('/editLocation',controller.isLoggedIn, controller.editLocation);
