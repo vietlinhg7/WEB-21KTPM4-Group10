@@ -1,4 +1,4 @@
-<body style=" margin-top: 70px">
+<body style=" margin-top: 60px;">
 
   <div id="map" style="height: 100%; width: 50%;" class="float-start"></div>
 
@@ -19,7 +19,7 @@
               <label for="file-upload">file input</label>
               <input type="file" class="form-control-file" onclick="ChangeImage()" id="file-upload" required />
             </div>
-            <div class="col">
+            <div class="col-md-5">
               <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Thông tin địa
                   điểm</strong> </h4>
 
@@ -39,64 +39,52 @@
                 <input type="text" class="form-control my-3" name="keyword" id="adress" aria-describedby="helpId"
                   placeholder="Phường" value="Phường {{location.phuongID}}" required>
               </div> --}}
-              <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
-                <button id="phuong"
-                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
-                  data-bs-toggle="dropdown" aria-expanded="false">
-                  Phường
-                </button>
-                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 1')">Phường 1</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 2')">Phường 2</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 3')">Phường 3</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 4')">Phường 4</a></li>
-                </ul>
-              </div>
-              {{!-- Phường --}}
-              {{!-- <div class="mb-3">
-                <input type="text" class="form-control my-3" name="keyword" id="adress_type" aria-describedby="helpId"
-                  placeholder="Tên địa điểm" value="{{location.loaivitri}}" required>
-              </div> --}}
-              {{!-- Quận --}}
-              {{!-- <div class="mb-3">
-                <input type="text" class="form-control" name="keyword" id="name" aria-describedby="helpId"
-                  placeholder="Quận" value="Quận {{location.quanID}}" required>
-              </div> --}}
+
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <button id="quan"
-                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Quận
                 </button>
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('quan','Quận Bình Thạnh')">Quận Bình Thạnh</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('quan','Quận 5')">Quận 5</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('quan','Quận 1')">Quận 1</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('quan','Quận Thủ Đức')">Quận Thủ Đức</a></li>
+                  {{#each quan}}
+                  <li><a class="dropdown-item overflow-hidden text-truncate" id="select{{quanID}}"  onclick="selectOption('quan','Quận {{quanID}}')">Quận
+                      {{quanID}}</a></li>
+                  {{/each}}
+                  </li>
                 </ul>
               </div>
+
+              <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
+                <button id="phuong"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Phường
+                </button>
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 1')">Phường 1</a></li>
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 2')">Phường 2</a></li>
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 3')">Phường 3</a></li>
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 4')">Phường 4</a></li>
+                </ul>
+              </div>
+
+
               {{!-- Quận --}}
               <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại vị trí</strong></h4>
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <button id="lvt"
-                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-sm-auto w-100 overflow-hidden text-truncate" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Loại vị trí
                 </button>
 
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('lvt','Đất công')">Đất Công</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('lvt','Công viên')">Công viên</a></li>
-                  <li><a class="dropdown-item" href="#"
-                      onclick="selectOption('lvt','Hành lang an toàn giao thông')">Hành lang an toàn giao thông</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('lvt','Đất tư nhân/Nhà ở riêng lẻ')">Đất
-                      tư nhân/Nhà ở riêng lẻ</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('lvt','Trung tâm thương mại')">Trung tâm
-                      thương mại</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('lvt','Chợ')">Chợ</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('lvt','Cây xăng')">Cây xăng</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('lvt','Nhà chờ xe buýt')">Nhà chờ xe
-                      buýt</a></li>
+                  {{#each loaivitri}}
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('lvt','{{name}}')">{{name}}</a></li>
+                  {{/each}}
+                 
 
                 </ul>
               </div>
@@ -112,18 +100,15 @@
               </h4>
               <div class="mb-3 hinh-thuc-quang-cao-dropdown d-flex position-relative">
                 <button id="htqc"
-                  class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Hình thức quảng cáo
                 </button>
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('htqc','Cổ dộng chính trị')">Cổ động chính
-                      trị</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('htqc', 'Quảng cáo thương mại')">Quảng cáo
-                      thương
-                      mại</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('htqc', 'Xã hội hóa')">Xã
-                      hội hóa</a></li>
+                  {{#each hinhThuc}}
+                  <li><a class="dropdown-item" href="#" onclick="selectOption('htqc',{{hinhthuc}})">{{hinhthuc}}</a></li>
+                  {{/each}}
+
                 </ul>
               </div>
 
@@ -136,7 +121,7 @@
               </div> --}}
 
               <div class="mb-3 quy-hoach-dropdown d-flex position-relative">
-                <button id="qh" class="btn btn-secondary btn-lg btn-light border border-secondary dropdown-toggle w-100"
+                <button id="qh" class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100"
                   type="button" data-bs-toggle="dropdown" aria-expanded="false">
                   Quy hoạch
                 </button>
@@ -167,6 +152,9 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
   <script>
+    function toggleLockScreen() {
+      document.body.classList.toggle('locked');
+    }
     function selectOption(buttonID, selectedText) {
       let button = document.getElementById(buttonID);
       button.innerHTML = selectedText;

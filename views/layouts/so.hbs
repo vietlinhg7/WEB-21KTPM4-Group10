@@ -9,27 +9,41 @@
   <script src="script.js" defer></script>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css">
 </head>
 
 <body>
 
   <header class="containter-fluid bg-primary">
-    <nav class="navbar navbar-expand-sm bg-primary fixed-top">
-      <div class="container d-flex justify-content-between align-items-center flex-wrap">
+    <nav class="navbar navbar-expand-sm bg-primary fixed-top d-flex justify-content-around align-items-center flex-wrap">
+      
         {{!-- <a class="navbar-brand text-light" href="/showQuan">Ads Management</a> --}}
-        <a class="active text-light" style="text-decoration: none;" href="/showQuan">Danh sách Quận, Phường</a>
-        <a class="text-light " style="text-decoration: none;" href="/showLoaiQC">Loại quảng cáo, hình thức báo cáo</a>
+        <a class="active text-light" style="text-decoration: none;" href="/showQuan">Xem danh sách</a>
+        <a class="text-light " style="text-decoration: none;" href="/showLoaiQC">Loại quảng cáo &#38; hình thức báo cáo</a>
         <a class="text-light" style="text-decoration: none;" href="/showLocation">Điểm đặt quảng cáo</a>
         <!-- <a class="text-light"style="text-decoration: none;" href="../Assign/assign.html">Phân công khu vực quản lý</a> -->
+        {{!-- phân công khu vực quản lí --}}
+        <a class="active text-light" style="text-decoration: none;" href="/showRegister">Tạo tài khoản</a>
+
         <div class="dropdown">
           <a class="btn btn-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Phân công khu vực quản lí
+            Xét duyệt
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/showRegister">Tạo tài khoản cho cán bộ</a></li>
+            <li><a class="dropdown-item" href="#">Chỉnh sửa</a></li>
+            <li><a class="dropdown-item" href="#">Yêu cầu cấp phép</a></li>
           </ul>
         </div>
 
+        <div class="dropdown">
+          <a class="btn btn-primary" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Thống kê
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Báo Cáo</a></li>
+            <li><a class="dropdown-item" href="#">Xử lý</a></li>
+          </ul>
+        </div>
 
         <div id="avatar-dropdown" class="btn-group d-flex align-items-center justify-content-between">
           <img src="https://www.w3schools.com/bootstrap5/img_avatar1.png" alt="Avatar Logo" style="width:40px;"
@@ -45,7 +59,7 @@
           </ul>
         </div>
 
-      </div>
+      
     </nav>
   </header>
   {{{body}}}

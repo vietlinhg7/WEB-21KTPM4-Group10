@@ -1,65 +1,43 @@
 <body style="margin-top: 70px">
     <main>
-        <div class="container">
+        <div class="d-flex mx-5 justify-content-start container ">
             <!-- Row -->
-            <div class="row">
-                <div class="p-3 text-center col-md-4">
+            {{!-- <div class="row"> --}}
+                <div class="p-3 text-center col-md-4 flex-item mx-3">
                     <h2>Loại hình quảng cáo</h2>
-                    <div class="card-header">
-                        <table class="table table-bordered">
-   
-                            <tbody>
-                                {{#each loai}}
-                                <tr>
-                                    <td>
-                                        <form action="/suaLoai/{{loai}}" method="POST">
-
-                                            <a class="p-2 bi bi-pencil dropdown text-primary float-end "
-                                                id="dropdownMenuButton1" data-bs-toggle="dropdown"
-                                                aria-expanded="false"></a>
-                                            <a class="p-2 bi bi-trash-fill  float-end text-danger"
-                                                href="/xoaLoai/{{loai}}"></a>
-                                            <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                                <!-- Dropdown items -->
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Tên Loai</label>
-                                                    <input type="text" class="form-control" name="LID" id="phuongID"
-                                                        aria-describedby="helpId" placeholder="" required>
-                                                </div>
-                                                <button type="submit">Submit</button>
+                    <table class="table table-bordered table-striped">
+                        <tbody>
+                            {{#each loai}}
+                            <tr>
+                                <td>
+                                    <form action="/suaLoai/{{loai}}" method="POST">
+                                        <a class="p-2 bi bi-pencil-square dropdown text-primary float-end "
+                                            id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                            aria-expanded="false"></a>
+                                        <a class="p-2 bi bi-trash-fill  float-end text-danger"
+                                            href="/xoaLoai/{{loai}}"></a>
+                                        <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
+                                            <div class="mb-3">
+                                                <label for="" class="form-label fw-bold">Tên Loại</label>
+                                                <input type="text" class="form-control" name="LID" id="phuongID"
+                                                    aria-describedby="helpId" placeholder="" required>
                                             </div>
-
-                                        </form>{{loai}}
-                                    </td>
-                                </tr>
-                                {{/each}}
-                            </tbody>
-                            <form action="/themLoaiQC" method="POST">
-                                <div class="card-header">
-                                    <!-- Dropdown element -->
-                                    <button class="btn btn-secondary dropdown-toggle bg-primary float-end" type="button"
-                                        id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Tạo mới
-                                    </button>
-                                    <!-- Dropdown menu -->
-                                    <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                        <!-- Dropdown items -->
-                                        <div class="mb-3">
-                                            <label for="" class="form-label">Tên loại hình quảng cáo</label>
-                                            <input type="text" class="form-control" name="tenLoai" id="loaiID"
-                                                aria-describedby="helpId" placeholder="" required>
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn btn-primary mt-2" type="submit">Xác nhận</button>
+                                            </div>
                                         </div>
-                                        <button type="submit">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </table>
-                    </div>
+
+                                    </form>{{loai}}
+                                </td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="p-3 col-md-4 text-center">
+                <div class="p-3 text-center col-md-4 flex-item mx-3">
                     <h2>Hình thức quảng cáo</h2>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-striped">
 
                         <tbody>
                             {{#each hinhThuc}}
@@ -67,52 +45,33 @@
                                 <td>
 
                                     <form action="/suaHinhthuc/{{hinhthuc}}" method="POST">
-                                        <a class="p-2 bi bi-trash-fill  float-end text-danger"
-                                            href="/xoaHinhThuc/{{hinhthuc}}"></a>
-                                        <a class="p-2 bi bi-pencil dropdown text-danger float-end "
+                                        <a class="p-2 bi bi-pencil-square dropdown text-primary float-end "
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown"
                                             aria-expanded="false"></a>
+                                        <a class="p-2 bi bi-trash-fill  float-end text-danger"
+                                            href="/xoaHinhThuc/{{hinhthuc}}"></a>
                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
                                             <!-- Dropdown items -->
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Tên hình thức</label>
+                                                <label for="" class="form-label fw-bold">Tên hình thức</label>
                                                 <input type="text" class="form-control" name="HT" id="phuongID"
                                                     aria-describedby="helpId" placeholder="" required>
                                             </div>
-                                            <button type="submit">Submit</button>
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn btn-primary mt-2" type="submit">Xác nhận</button>
+                                            </div>
                                         </div>
-
                                     </form>{{hinhthuc}}
                                 </td>
                             </tr>
                             {{/each}}
                         </tbody>
-                        <form action="/themHinhThucQC" method="POST">
-                            <div class="card-header">
-                                <!-- Dropdown element -->
-                                <button class="btn btn-secondary dropdown-toggle bg-primary float-end" type="button"
-                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Tạo mới
-                                </button>
-                                <!-- Dropdown menu -->
-                                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                    <!-- Dropdown items -->
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Tên hình thức báo cáo</label>
-                                        <input type="text" class="form-control" name="tenHinhThuc" id="HTID"
-                                            aria-describedby="helpId" placeholder="" required>
-
-                                    </div>
-                                    <button type="submit">Submit</button>
-                                </div>
-                            </div>
-                        </form>
                     </table>
                 </div>
 
-                <div class="p-3 col-md-4 text-center">
+                <div class="p-3 col-md-4 text-center flex-item mx-3">
                     <h2>Hình thức báo cáo</h2>
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-striped">
 
                         <tbody>
                             {{#each reportType}}
@@ -120,19 +79,22 @@
                                 <td>
 
                                     <form action="/suaReportType/{{name}}" method="POST">
-                                        <a class="p-2 bi bi-trash-fill  float-end text-danger"
-                                            href="/xoaReportType/{{name}}"></a>
-                                        <a class="p-2 bi bi-pencil dropdown text-danger float-end "
+
+                                        <a class="p-2 bi bi-pencil-square dropdown text-primary float-end "
                                             id="dropdownMenuButton1" data-bs-toggle="dropdown"
                                             aria-expanded="false"></a>
+                                        <a class="p-2 bi bi-trash-fill  float-end text-danger"
+                                            href="/xoaReportType/{{name}}"></a>
                                         <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
                                             <!-- Dropdown items -->
                                             <div class="mb-3">
-                                                <label for="" class="form-label">Tên hình thức báo cáo</label>
+                                                <label for="" class="form-label fw-bold">Tên hình thức báo cáo</label>
                                                 <input type="text" class="form-control" name="HTBC" id="phuongID"
                                                     aria-describedby="helpId" placeholder="" required>
                                             </div>
-                                            <button type="submit">Submit</button>
+                                            <div class="d-flex justify-content-end">
+                                                <button class="btn btn-primary mt-2" type="submit">Xác nhận</button>
+                                            </div>
                                         </div>
 
                                     </form>{{name}}
@@ -140,30 +102,63 @@
                             </tr>
                             {{/each}}
                         </tbody>
-                        <form action="/themHinhThucBC" method="POST">
-                            <div class="card-header">
-                                <!-- Dropdown element -->
-                                <button class="btn btn-secondary dropdown-toggle bg-primary float-end" type="button"
-                                    id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    Tạo mới
-                                </button>
-                                <!-- Dropdown menu -->
-                                <div class="dropdown-menu " aria-labelledby="dropdownMenuButton1">
-                                    <!-- Dropdown items -->
-                                    <div class="mb-3">
-                                        <label for="" class="form-label">Tên hình thức báo cáo</label>
-                                        <input type="text" class="form-control" name="tenHinhThucBC" id="tenHinhThucBC"
-                                            aria-describedby="helpId" placeholder="" required>
-                                    </div>
 
-                                    
-
-                                    <button type="submit">Submit</button>
-                                </div>
-                            </div>
-                        </form>
                     </table>
                 </div>
+                {{!--
+            </div> --}}
+        </div>
+
+        <div class="fab-container ">
+
+            <ul class="fab-options list-unstyled">
+                <li onclick="toggleForm(event,'myFormHTBC','labelElementHTBC')" class="d-flex align-items-center">
+                    <form action="/themHinhThucBC" method="POST" id="myFormHTBC" class="me-3" style="display: none;">
+                        <label for="tenHinhThucBC" class="form-label fw-bold">Tên hình thức báo cáo</label>
+                        <input type="text" class="form-control" name="tenHinhThucBC" id="tenHinhThucBC"
+                            aria-describedby="helpId" placeholder="" autocomplete="off" required>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary mt-2" type="submit">Xác nhận</button>
+                        </div>
+                    </form>
+
+                    <span class="fab-label" id="labelElementHTBC">Hình thức báo cáo</span>
+                    <div class="fab-icon-holder ms-2" id="iconElement">
+                        <i class="bi bi-exclamation-octagon-fill d-flex align-items-center justify-content-center"></i>
+                    </div>
+                </li>
+                <li onclick="toggleForm(event,'myFormHTQC','labelElementHTQC')" class="d-flex align-items-center">
+                    <form action="/themHinhThucQC" method="POST" id="myFormHTQC" class="me-3" style="display: none;">
+                        <label for="" class="form-label fw-bold">Tên hình thức quảng cáo</label>
+                        <input type="text" class="form-control" name="tenHinhThuc" id="HTID" aria-describedby="helpId"
+                            placeholder="" autocomplete="off" required>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary mt-2" type="submit">Xác nhận</button>
+                        </div>
+                    </form>
+                    <span class="fab-label" id="labelElementHTQC">Hình thức quảng cáo</span>
+                    <div class="fab-icon-holder ms-2" id="iconElement">
+                        <i class="bi bi-columns d-flex align-items-center justify-content-center"></i>
+                    </div>
+                </li>
+                <li onclick="toggleForm(event,'myFormLQC','labelElementLQC')" class="d-flex align-items-center">
+                    <form action="/themLoaiQC" method="POST" id="myFormLQC" class="me-3" style="display: none;">
+                        <label for="" class="form-label fw-bold">Loại quảng cáo</label>
+                        <input type="text" class="form-control" name="tenLoai" id="loaiID" aria-describedby="helpId"
+                            placeholder="" autocomplete="off" required>
+                        <div class="d-flex justify-content-end">
+                            <button class="btn btn-primary mt-2" type="submit">Xác nhận</button>
+                        </div>
+                    </form>
+                    <span class="fab-label" id="labelElementLQC">Loại quảng cáo</span>
+                    <div class="fab-icon-holder ms-2" id="iconElement">
+                        <i class="bi bi-badge-ad d-flex align-items-center justify-content-center"></i>
+                    </div>
+                </li>
+            </ul>
+            <div
+                class="fab fab-icon-holder d-flex align-items-center justify-content-center bg-success mx-3 my-3 position-fixed bottom-0 end-0">
+                <i class="fas fa-solid fa-plus d-flex align-items-center justify-content-center"></i>
             </div>
         </div>
 
@@ -173,12 +168,31 @@
         </div>
         </div>
     </main>
+    <script>
+        function toggleForm(event, formID, labelID) {
+            /*var form = document.getElementById('myForm');*/
+            var form = document.getElementById(formID);
+            /*var labelElement = document.getElementById('labelElement');*/
+            var labelElement = document.getElementById(labelID);
 
+            // Check if the clicked element is within the form, label, or icon
+            if (!form.contains(event.target) && !labelElement.contains(event.target)) {
+                if (form.style.display === 'none' || form.style.display === '') {
+                    form.style.display = 'block';
+                    labelElement.style.display = 'none';
+                } else {
+                    form.style.display = 'none';
+                    labelElement.style.display = 'block';
+                }
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
         integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
         </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
         integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+
         </script>
 </body>

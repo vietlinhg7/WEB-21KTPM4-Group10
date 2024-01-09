@@ -23,3 +23,6 @@ function ChangeImage(){
       console.log(fileUpload.files[0].name);
   })
 }
+Handlebars.registerHelper('eq', function(a, b) {
+  return a === b;
+});
