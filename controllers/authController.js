@@ -612,4 +612,10 @@ controller.suaReportType = async (req, res) => {
         res.status(500).send('Server Error');
     }
 }
+
+controller.showRegister= async (req, res) => {
+    res.render('So-TTKCCB', {
+        layout: 'so'
+    });
+}
 module.exports = controller;

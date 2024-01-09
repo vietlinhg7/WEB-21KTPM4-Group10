@@ -43,5 +43,5 @@ router.post('/themHinhThucBC',controller.isLoggedIn, controller.themHinhThucBC);
 router.get('/DDQCmap',controller.isLoggedIn, controller.DDQCmap);
 router.get('/deleteLocation',controller.isLoggedIn, controller.deleteLocation);
 router.get('/editLocation',controller.isLoggedIn, controller.editLocation);
-
+router.get('/showRegister',controller.isLoggedIn,controller.showRegister);
 module.exports = router;
