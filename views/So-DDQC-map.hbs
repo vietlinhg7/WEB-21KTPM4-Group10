@@ -19,7 +19,7 @@
               <label for="file-upload">file input</label>
               <input type="file" class="form-control-file" onclick="ChangeImage()" id="file-upload" required />
             </div>
-            <div class="col">
+            <div class="col-md-5">
               <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Thông tin địa
                   điểm</strong> </h4>
 
@@ -75,14 +75,14 @@
               <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại vị trí</strong></h4>
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <button id="lvt"
-                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-sm-auto w-100 overflow-hidden text-truncate" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
                   Loại vị trí
                 </button>
 
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
                   {{#each loaivitri}}
-                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('lvt',{{name}})">{{name}}</a></li>
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('lvt','{{name}}')">{{name}}</a></li>
                   {{/each}}
                  
 
