@@ -110,168 +110,142 @@ function initMap() {
       // Kiểm tra nếu dữ liệu có tồn tại và là mảng
       if (Array.isArray(data)) {
         // Lặp qua mỗi mảng
-        data.forEach(async location => {
-          // Truy cập các biến c
-
-          const locationID = location.locationID;
-          const name = location.name;
-          const diachi = location.diachi;
-          const phuongID = location.phuongID;
-          const quanID = location.quanID;
-          const loaivitri = location.loaivitri;
-          const hinhanh1 = location.hinhanh;
-          let quyhoach = location.quyhoach;
-          const toadoX = location.toadoX;
-          const toadoY = location.toadoY;
-
-          if(quyhoach == "ĐÃ QUY HOẠCH" || quyhoach == "Đã quy hoạch"){
-            quyhoach = "ĐÃ QUY HOẠCH";
-          }else{
-            quyhoach = "CHƯA QUY HOẠCH";
-          }
-
-          console.log(`locationID: ${locationID}, Name: ${name}, diachi: ${diachi}, phuongID: ${phuongID}, quanID: ${quanID}, loaivitri: ${loaivitri}, hinhanh: ${hinhanh1}, quyhoach: ${quyhoach}, toadoX: ${toadoX}, toadoY: ${toadoY}`);
-
-          const billboardResponse = await fetch(`/billboards/${locationID}`);
-          const billboardData = await billboardResponse.json();
-
-          
-          const contentArray = [];
-          const newcontent = [];
-          var boardID;
-          
-          
-          if (Array.isArray(billboardData)) {
-
-            const promises = billboardData.map(async billboardData => {
-              const billboardID = billboardData.billboardID;
-              const loai = billboardData.loai;
-              const kichthuoc = billboardData.kichthuoc;
-              const hinhthuc = billboardData.hinhthuc;
-              const hinhanh = billboardData.hinhanh;
-              const ngayhethan = billboardData.ngayhethan;
-              const queryID = billboardID;
-              boardID = billboardID;
-
-
-              const reportArray = [];
-              
-
-              // Truy cập giá trị của thuộc tính billboardID trong vòng lặp
-              const content = `
-                <form style="display: flex; flex-direction: column; align-items: center;">
-                  <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-                    <span id="expirationImage${idCounter}" style="display: none;"><img src="` + hinhanh + `" alt="Cong Chao" style="width: 300px; height: auto; margin-bottom: 10px; padding-left: 210px;"><br></span>
-                    <b>` + loai + `</b><br>`
-                    + diachi + `<br>
-                    Kích thước: <b>` + kichthuoc + `</b><br>
-                    Số lượng: <b>1 trụ/bảng</b><br>
-                    Hình thức: <b>`+ hinhthuc+ `</b><br>
-                    Phân loại: <b>`+loaivitri+`</b><br>
-                    <span id="expirationDate${idCounter}" style="display: none;">Ngày hết hạn: <b>`+ngayhethan+ `</b><br></span>
-                  </div>
-                `;
-              contentArray.push(content);
-
-              idCounter++;
+        (async () => {
+          for (const location of data) {
+            // Truy cập các biến c
+            const locationID = location.locationID;
+            const name = location.name;
+            const diachi = location.diachi;
+            const phuongID = location.phuongID;
+            const quanID = location.quanID;
+            const loaivitri = location.loaivitri;
+            const hinhanh1 = location.hinhanh;
+            let quyhoach = location.quyhoach;
+            const toadoX = location.toadoX;
+            const toadoY = location.toadoY;
+            console.log('locationID');
+            console.log(locationID);
 
 
 
-              const reportResponse = await fetch(`/BC/${queryID}`);
-              const reportData = await reportResponse.json();
-                      
-              if (Array.isArray(reportData)) {
-                var amount = 'reportContent' + idReport;
+            if(quyhoach == "ĐÃ QUY HOẠCH" || quyhoach == "Đã quy hoạch"){
+              quyhoach = "ĐÃ QUY HOẠCH";
+            }else{
+              quyhoach = "CHƯA QUY HOẠCH";
+            }
 
-                let smallContent = `<div onclick="toggleReportList('` + amount  + `')" style="align-items: center; margin: 7px; padding: 5px;">
-                <div style="margin: 0px; padding: 10px; border: 2px solid; cursor: pointer; text-align: center;">
-                    <i class="fas fa-list-ul" style="margin-right: 0px; "></i><b> Danh sách báo cáo</b>
-                </div>
-                </div>
-                <span id="reportContent${idReport}" style="display: none">
-                `;
-                reportData.forEach(reportData => {
-                  const fullName = reportData.fullName;
-                  const reportContent = reportData.reportContent;
-                  const thoidiemgui = reportData.thoidiemgui;
-                  const tinhtrang = reportData.tinhtrang;
-                  const cachthucxuly = reportData.cachthucxuly;
+            console.log(`locationID: ${locationID}, Name: ${name}, diachi: ${diachi}, phuongID: ${phuongID}, quanID: ${quanID}, loaivitri: ${loaivitri}, hinhanh: ${hinhanh1}, quyhoach: ${quyhoach}, toadoX: ${toadoX}, toadoY: ${toadoY}`);
 
-                  const report = `
-                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
-                      <b>Họ tên: </b>` + fullName + `<br>
-                      <b>Nội dung báo cáo: </b>`+reportContent+`<br>
-                      <b>Thời điểm gửi: </b>`+ thoidiemgui+ `<br>
-                      <b>Tình trạng: </b>`+tinhtrang+`<br>
-                      <b>Cách thức xử lí: </b>`+cachthucxuly+`<br>
-                    </div>
-                  `;
+            const billboardResponse = await fetch(`/billboards/${locationID}`);
+            const billboardData = await billboardResponse.json();
 
-                  smallContent += report;
-
-                });
-                smallContent += `</span>`;
-                idReport++;
-                // Thêm đối tượng vào mảng
-                reportArray.push(smallContent);
-              }
-              //console.log(reportArray);
-
-              contentArray.forEach(contentArray => {
-                let  new_ = contentArray;
-                reportArray.forEach(reportArray => {
-                  let  x = reportArray;
-                  new_ += x;
-                });
-                new_ += `</form>`;
-                newcontent.push(new_);
-              });
-
-            });
-
-            await Promise.all(promises);
-
-          }
-          else{
-            console.log(`Không có locationID `, locationID);
             
-          }
+            
+            var boardID;
+            let content = '<div style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Danh sách các bảng quảng cáo</div>';
+            
+            if (Array.isArray(billboardData)) {
+              
+              
+              for (const billboardDat of billboardData) {
 
-          console.log(newcontent);
-          //console.log(contentArray);
-          // contentArray.forEach(a => {
-          //   console.log(a);
-          // })
+                const billboardID = billboardDat.billboardID;
+                const loai = billboardDat.loai;
+                const kichthuoc = billboardDat.kichthuoc;
+                const hinhthuc = billboardDat.hinhthuc;
+                const hinhanh = billboardDat.hinhanh;
+                const ngayhethan = billboardDat.ngayhethan;
+                const queryID = billboardID;
+                boardID = billboardID;
 
-          var Content = '<div style="text-align: center; font-size: 24px; font-weight: bold; margin-bottom: 10px;">Danh sách các bảng quảng cáo</div>' +
-          '<form action="/boardID" id="handleBoardIDPost" method="POST" style="display: flex; flex-direction: column; align-items: center; max-width: 900px; font-size: 20px; padding: 0px 50px 0px 0px;">'+
-          '<input type="hidden" name="boardID" id="boardID" value="' + boardID + '">';
+                
 
-          newcontent.forEach(content => {
-            var data1 = 'expirationDate' + idCount;
-            var data2 = 'expirationImage' + idCount;
-            console.log(data1);
-            console.log(data2);
+                // Truy cập giá trị của thuộc tính billboardID trong vòng lặp
+                var id1 = 'expirationDate' + idCounter;
+                var id2 = 'expirationImage' + idCounter;
+                content += '<form action="/boardID" id="handleBoardIDPost" method="POST" style="display: flex; flex-direction: column; align-items: center; max-width: 900px; font-size: 20px; padding: 0px 50px 0px 0px;">';  
+                content += '<div style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">';
+                content += `
+                  <form style="display: flex; flex-direction: column; align-items: center;">
+                    <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
+                      <span id="` + id1 + `" style="display: none;"><img src="` + hinhanh + `" alt="Logo" style="width: 300px; height: auto; margin-bottom: 10px; padding-left: 210px;"><br></span>
+                      <b>` + loai + `</b><br>`
+                      + diachi + `<br>
+                      Kích thước: <b>` + kichthuoc + `</b><br>
+                      Số lượng: <b>1 trụ/bảng</b><br>
+                      Hình thức: <b>`+ hinhthuc+ `</b><br>
+                      Phân loại: <b>`+loaivitri+`</b><br>
+                      <span id="` + id2 + `" style="display: none;">Ngày hết hạn: <b>`+ngayhethan+ `</b><br></span>
+                    </div>
+                  </form>`;
+                
+                idCounter++;
 
-            Content += '<div class="a" style="max-width: 800px; font-size: 20px; border: 2px solid #ccc; border-radius: 5px; padding: 20px; margin: 10px auto; width: 100%;">' + content + '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data1 + '\', \'' + data2 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button type="submit" onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div>';
-            idCount++;
-          });
-
-          Content += '</form>';
+                const reportResponse = await fetch(`/BC/${queryID}`);
+                const reportData = await reportResponse.json();
+                    
+                if (Array.isArray(reportData)) {
           
-          //console.log(Content);
+            
+                  var amount = 'reportContent' + idReport;
 
+                  content += `<div onclick="toggleReportList('` + amount  + `')" style="align-items: center; margin: 7px; padding: 5px;">
+                  <div style="margin: 0px; padding: 10px; border: 2px solid; cursor: pointer; text-align: center;">
+                      <i class="fas fa-list-ul" style="margin-right: 0px; "></i><b> Danh sách báo cáo</b>
+                  </div>
+                  </div>
+                  <span id="` + amount + `" style="display: none">
+                  `;
+                  let small_small = '';
+                  reportData.forEach(reportData => {
+                    const fullName = reportData.fullName;
+                    const reportContent = reportData.reportContent;
+                    const thoidiemgui = reportData.thoidiemgui;
+                    const tinhtrang = reportData.tinhtrang;
+                    const cachthucxuly = reportData.cachthucxuly;
 
-          var advertisingData = { type: name, text1: loaivitri, text2: diachi, infor: quyhoach };
-          var icon;
-          if(quyhoach == "ĐÃ QUY HOẠCH" || quyhoach == "Đã quy hoạch"){
-            icon = '/Dan/images/icon1.png';
-          }else{
-            icon = '/Dan/images/icon2.png';
-          }
-          addAdvertisingLocation(toadoX, toadoY, advertisingData, hinhanh1, icon,  Content, isVariableTrue, markerCluster);
+                    const report = `
+                      <div style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 10px;">
+                        <b>Họ tên: </b>` + fullName + `<br>
+                        <b>Nội dung báo cáo: </b>`+reportContent+`<br>
+                        <b>Thời điểm gửi: </b>`+ thoidiemgui+ `<br>
+                        <b>Tình trạng: </b>`+tinhtrang+`<br>
+                        <b>Cách thức xử lí: </b>`+cachthucxuly+`<br>
+                      </div>
+                    `;
 
-        });
+                    small_small += report;
+                    
+                  });
+
+                  content += small_small;
+                  content += `</span>`;
+                  idReport++;
+                }
+                var data1 = 'expirationDate' + idCount;
+                var data2 = 'expirationImage' + idCount;  
+                content += '<input type="hidden" name="boardID" id="boardID" value="' + boardID + '">';
+                content += '<div style="display: flex; justify-content: center; width: 100%;"><div onclick="toggleExpirationDate(\'' + data1 + '\', \'' + data2 + '\')" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #00f; cursor: pointer;"><i class="fas fa-info-circle" style="margin-right: 5px; color: #00f;"></i><b style="color: #00f;">CHI TIẾT</b></div><button type="submit" onclick="redirectToReportPage()" style="margin: 10px; padding: 10px; flex: 1; border: 2px solid #f00;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div> </div> </form>';
+                idCount++;
+
+              };
+            }
+            else{
+              console.log(`Không có locationID `, locationID);
+              
+            }
+            var advertisingData = { type: name, text1: loaivitri, text2: diachi, infor: quyhoach };
+            var icon;
+            if(quyhoach == "ĐÃ QUY HOẠCH" || quyhoach == "Đã quy hoạch"){
+              icon = '/Dan/images/icon1.png';
+            }else{
+              icon = '/Dan/images/icon2.png';
+            }
+            addAdvertisingLocation(toadoX, toadoY, advertisingData, hinhanh1, icon,  content, isVariableTrue, markerCluster);
+
+            };
+        })();
+      
       } else {  
         console.error('Dữ liệu không phải là mảng hoặc không tồn tại.');
       }
