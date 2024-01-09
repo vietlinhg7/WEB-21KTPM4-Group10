@@ -1,4 +1,4 @@
-<body style=" margin-top: 70px;">
+<body style=" margin-top: 60px;">
 
   <div id="map" style="height: 100%; width: 50%;" class="float-start"></div>
 
@@ -48,7 +48,7 @@
                 </button>
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
                   {{#each quan}}
-                  <li><a id="select{{quanID}}"  onclick="selectOption('quan','Quận {{quanID}}')">Quận
+                  <li><a class="dropdown-item overflow-hidden text-truncate" id="select{{quanID}}"  onclick="selectOption('quan','Quận {{quanID}}')">Quận
                       {{quanID}}</a></li>
                   {{/each}}
                   </li>
@@ -63,12 +63,10 @@
                 </button>
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
 
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 1')">Phường 1</a></li>
-
-
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 2')">Phường 2</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 3')">Phường 3</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('phuong','Phường 4')">Phường 4</a></li>
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 1')">Phường 1</a></li>
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 2')">Phường 2</a></li>
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 3')">Phường 3</a></li>
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 4')">Phường 4</a></li>
                 </ul>
               </div>
 
@@ -84,7 +82,7 @@
 
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
                   {{#each loaivitri}}
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('lvt',{{loaivitri}})">{{name}}</a></li>
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('lvt',{{name}})">{{name}}</a></li>
                   {{/each}}
                  
 
