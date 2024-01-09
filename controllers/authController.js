@@ -175,9 +175,16 @@ controller.showProfile = (req, res) => {
 };
 
 controller.DDQCmap = async (req, res) => {
-
+    let quan = await Quan.find({});
+    let phuong = await Phuong.find({});
+    let loaivitri = await Loaivitri.find({});
+    let hinhThuc = await Hinhthuc.find({});
     res.render('So-DDQC-map', {
         layout: 'So',
+        quan: quan,
+        phuong: phuong,
+        loaivitri : loaivitri,
+        hinhThuc : hinhThuc,
 
     });
 }
