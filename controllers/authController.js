@@ -14,6 +14,19 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { notify } = require('../routes/authRouter');
 
+controller.showPhuongDDQC = async(req, res) => {
+    let locations = await Location.find({
+        phuongID: req.session.user.phuong,
+        quanID: req.session.user.quan
+    });
+    res.locals.location = locations;
+    console.log(res.locals.location);
+    res.render('Phuong-DDQC', {
+        layout: 'Phuong'
+    });
+
+};
+
 controller.showChangePass = async(req, res) => {
     
 };
@@ -222,13 +235,13 @@ controller.DDQCmap = async (req, res) => {
 controller.showLocation = async (req, res) => {
     let location = await Location.find({});
 
-    res.render('So-ThongKeBaoCao', {
-        layout: 'So'
-    });
-    // res.render('So-DDQC', {
-    //     layout: 'So',
-    //     location: location
+    // res.render('So-ThongKeBaoCao', {
+    //     layout: 'So'
     // });
+    res.render('So-DDQC', {
+        layout: 'So',
+        location: location
+    });
 }
 controller.themHinhThucQC = async (req, res) => {
 

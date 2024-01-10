@@ -33,6 +33,7 @@ router.post('/themLoaiQC',controller.isLoggedIn, controller.themLoaiQC);
 
 router.get('/Phuong-Map', controller.isLoggedIn, controller.showPhuongMap);
 router.get('/Phuong-Map-Detail', controller.isLoggedIn, controller.showPhuongMapDetail);
+router.get('/Phuong-DDQC', controller.isLoggedIn, controller.showPhuongDDQC)
 router.post('/suaHinhThuc/:hinhthuc',controller.isLoggedIn, controller.suaHinhThuc);
 router.get('/xoaHinhthuc/:hinhthuc',controller.isLoggedIn, controller.xoaHinhThuc);
 router.post('/suaReportType/:name',controller.isLoggedIn, controller.suaReportType);
