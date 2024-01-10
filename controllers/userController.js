@@ -1,6 +1,8 @@
 const Report = require('../models/report');
 const Billboard = require('../models/billboard');
 const Location = require('../models/location');
+const LocatioAny = require('../models/locationAny');
+
 const cloudinary = require("../cloudImage/cloudinary");
 const axios = require('axios');
 
@@ -41,6 +43,36 @@ const getNewReportID = async () => {
     } 
 };
 
+const findMaxNumericQueryID = async () => {
+    try {
+      const result = await Report.aggregate([
+        {
+          $match: {
+            queryID: { $regex: /^\d+$/ } // Lọc các documents có queryID là số
+          }
+        },
+        {
+          $group: {
+            _id: null,
+            maxQueryID: { $max: '$queryID' } // Tìm queryID lớn nhất
+          }
+        }
+      ]);
+  
+      if (result.length > 0) {
+        const maxQueryID = result[0].maxQueryID;
+        const nextNumericQueryID = (parseInt(maxQueryID) + 1).toString();
+        return nextNumericQueryID;
+      } else {
+        // Không có document nào có queryID là số
+        return '1'; // Trường hợp đặc biệt nếu không có document nào
+      }
+    } catch (error) {
+      console.error('Error finding max numeric queryID:', error);
+      throw error;
+    }
+  };
+
 controller.showMap = (req, res) => {
     res.render('Map', {
         layout: 'Map-layout',
@@ -70,6 +102,26 @@ controller.handleBoardIDPost = async (req, res) => {
     }
 };
 
+controller.handlelocationAnyPost = async (req, res) => {
+    try {
+        console.log(req.body);
+        const nameAny = req.body.nameAny; 
+        const diachiAny = req.body.diachiAny; 
+        const locationAnyID = await findMaxNumericQueryID();
+
+        await LocatioAny.create({
+            locationAnyID,
+            nameAny,
+            diachiAny,
+        });
+
+        res.redirect('/report');
+    } catch (error) {
+        console.error('Error handling:', error);
+        res.status(400).json({ success: false, message: 'Error handling', error: error.message });
+    }
+};
+
 controller.addReport = async (req, res) => {
 
     console.log(req.body);
@@ -81,6 +133,13 @@ controller.addReport = async (req, res) => {
     var email = req.body.email;
     var phone = req.body.phone;
     var reportContent = req.body.reportContent;
+    var queryID = '';
+    if (currentBoardID == '') {
+        queryID = await findMaxNumericQueryID();
+    }
+    else{
+        queryID = currentBoardID;
+    }
     
     const reportID = await getNewReportID(); // Lấy reportID mới
     
@@ -125,7 +184,7 @@ controller.addReport = async (req, res) => {
                         thoidiemgui: new Date(),
                         tinhtrang: "Chưa xử lí",
                         cachthucxuly: 'null',
-                        queryID: currentBoardID,
+                        queryID,
                         image1,
                         image2
                     });

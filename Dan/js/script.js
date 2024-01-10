@@ -93,6 +93,11 @@ function initMap() {
     maxZoom: 13
   });
 
+  showLocationText();
+  hideLocationText();
+  showQC();
+  hideQC();
+
   // // Thêm sự kiện zoom_changed để theo dõi thay đổi zoom
   // google.maps.event.addListener(map, 'zoom_changed', function() {
   //   updateClusterIcons(map, markerCluster);
@@ -430,10 +435,13 @@ content += '<div class="preserve-whitespace"> <b>          Loại hình kinh doa
 content += '</div>';
 content += '</form>';
 
- 
+  
 // Kết thúc div address-info
 // Thêm nút "BÁO CÁO VI PHẠM" và căn chỉnh nó sang phía dưới bên phải
-content += '<div background-color: #bbdefb><button onclick="redirectToReportPage()" style="margin: 10px 10px 0px 400px; padding: 10px; align-self: flex-end; border: 2px solid #f00; left: -100px;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div>';
+content += '<form action="/locationAny" id="handlelocationAnyPost" method="POST"><div background-color: #bbdefb>' + 
+'<input type="hidden" name="nameAny" id="nameAny" value="' + formattedAddress + '">' +
+'<input type="hidden" name="diachiAny" id="diachiAny" value="' + place.name + '">' +
+'<button type="submit" style="margin: 10px 10px 0px 400px; padding: 10px; align-self: flex-end; border: 2px solid #f00; left: -100px;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div></form>';
 
 
 
