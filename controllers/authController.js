@@ -222,13 +222,17 @@ controller.DDQCmap = async (req, res) => {
 controller.showLocation = async (req, res) => {
     let location = await Location.find({});
 
-    res.render('So-ThongKeXuLy', {
+    res.render('So-ThongKeBaoCao', {
         layout: 'So'
     });
     // res.render('So-DDQC', {
     //     layout: 'So',
     //     location: location
     // });
+    res.render('So-DDQC', {
+        layout: 'So',
+        location: location
+    });
 }
 controller.themHinhThucQC = async (req, res) => {
 
@@ -652,6 +656,27 @@ controller.suaReportType = async (req, res) => {
 
 controller.showRegister= async (req, res) => {
     res.render('So-TTKCCB', {
+        layout: 'so'
+    });
+}
+
+controller.showTKBC= async (req, res) => {
+    res.render('So-ThongKeBaoCao', {
+        layout: 'so'
+    });
+}
+controller.showTKCXL= async (req, res) => {
+    res.render('So-ThongKeCXL', {
+        layout: 'so'
+    });
+}
+controller.xetDuyetChinhSua= async (req, res) => {
+    res.render('So-XDCS', {
+        layout: 'so'
+    });
+}
+controller.yeuCauCapPhep= async (req, res) => {
+    res.render('So-YCCP', {
         layout: 'so'
     });
 }
