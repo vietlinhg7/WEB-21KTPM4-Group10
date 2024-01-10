@@ -666,4 +666,14 @@ controller.showTKCXL= async (req, res) => {
         layout: 'so'
     });
 }
+controller.xetDuyetChinhSua= async (req, res) => {
+    res.render('So-XDCS', {
+        layout: 'so'
+    });
+}
+controller.yeuCauCapPhep= async (req, res) => {
+    res.render('So-YCCP', {
+        layout: 'so'
+    });
+}
 module.exports = controller;

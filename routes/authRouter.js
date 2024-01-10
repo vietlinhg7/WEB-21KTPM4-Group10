@@ -47,6 +47,8 @@ router.get('/editLocation',controller.isLoggedIn, controller.editLocation);
 router.get('/showRegister',controller.isLoggedIn,controller.showRegister);
 router.get('/showTKBaoCao',controller.isLoggedIn, controller.showTKBC);
 router.get('/showTKCXL',controller.isLoggedIn, controller.showTKCXL);
+router.get('/XetDuyetChinhSua',controller.isLoggedIn, controller.xetDuyetChinhSua);
+router.get('/YeuCauCapPhep',controller.isLoggedIn, controller.yeuCauCapPhep);
 
 
 module.exports = router;
