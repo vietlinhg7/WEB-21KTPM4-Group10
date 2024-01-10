@@ -14,34 +14,44 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { notify } = require('../routes/authRouter');
 
+controller.showPhuongDDQC = async(req, res) => {
+    let locations = await Location.find({
+        phuongID: req.session.user.phuong,
+        quanID: req.session.user.quan
+    });
+    res.locals.location = locations;
+    console.log(res.locals.location);
+    res.render('Phuong-DDQC', {
+        layout: 'Phuong'
+    });
+
+};
+
 controller.showChangePass = async(req, res) => {
-    
+    res.render('changePass', {
+        layout: req.session.user.chucvu
+    });
 };
 
 controller.changePass = async (req, res) => {
-    let { password, verify } = req.body;
-    if (password === verify) {
-        let email = req.session.email;
-        let user = await User.findOne({ email });
+    let { curpassword, newpassword, verify } = req.body;
+    if (await bcrypt.compare(curpassword, req.session.user.password) && newpassword === verify) {
+        let user = await User.findOne({ userID: req.session.user.userID });
         if (user) {
             let salt = await bcrypt.genSalt(10);
-            let hashedPassword = await bcrypt.hash(password, salt);
+            let hashedPassword = await bcrypt.hash(newpassword, salt);
             user.password = hashedPassword;
             await user.save();
-            res.render('login', {
-                layout: false,
-                message: 'Password changed successfully'
-            });
-        } else {
-            res.render('changePassword', {
-                layout: false,
-                message: 'No user found with this email'
+            req.session.user = await User.findOne({ userID: req.session.user.userID });
+            res.render('changePass', {
+                layout: req.session.user.chucvu,
+                message: 'Thay đổi mật khẩu thành công'
             });
         }
     }
-    else res.render('changePassword', {
-        layout: false,
-        message: 'Passwords do not match'
+    else res.render('changePass', {
+        layout: req.session.user.chucvu,
+        message: 'Mật khẩu cũ nhập sai hoặc mật khẩu mới nhập không khớp'
     });
 };
 
@@ -224,6 +234,10 @@ controller.showLocation = async (req, res) => {
     //     layout: 'So'
     // });
     let location = await Location.find({});
+    // res.render('So-DDQC', {
+    //     layout: 'So',
+    //     location: location
+    // });
     res.render('So-DDQC', {
         layout: 'So',
         location: location
