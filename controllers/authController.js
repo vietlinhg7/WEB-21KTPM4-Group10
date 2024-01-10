@@ -14,6 +14,37 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { notify } = require('../routes/authRouter');
 
+controller.showChangePass = async(req, res) => {
+    
+};
+
+controller.changePass = async (req, res) => {
+    let { password, verify } = req.body;
+    if (password === verify) {
+        let email = req.session.email;
+        let user = await User.findOne({ email });
+        if (user) {
+            let salt = await bcrypt.genSalt(10);
+            let hashedPassword = await bcrypt.hash(password, salt);
+            user.password = hashedPassword;
+            await user.save();
+            res.render('login', {
+                layout: false,
+                message: 'Password changed successfully'
+            });
+        } else {
+            res.render('changePassword', {
+                layout: false,
+                message: 'No user found with this email'
+            });
+        }
+    }
+    else res.render('changePassword', {
+        layout: false,
+        message: 'Passwords do not match'
+    });
+};
+
 controller.editLocation = async (req, res) => {
     const keyword = req.query.keyword;
     let location = await Location.findOne({ locationID: keyword });
