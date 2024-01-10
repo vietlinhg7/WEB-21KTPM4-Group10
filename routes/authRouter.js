@@ -8,14 +8,13 @@ router.get('/login', controller.showLogin);
 router.get('/logout', controller.logout);
 router.get('/forgot', controller.showForgot);
 router.get('/resend', controller.resend);
-router.get('/changePass', controller.showChangePass);
-
 router.post('/login', controller.login);
 router.post('/forgot', controller.forgot);
 router.post('/verify', controller.verify);
 router.post('/changePassword', controller.changePassword);
-router.post('/changePass', controller.changePass);
 
+router.get('/changePass', controller.isLoggedIn, controller.showChangePass);
+router.post('/changePass', controller.isLoggedIn, controller.changePass);
 router.get('/profile', controller.isLoggedIn, controller.showProfile);
 router.post('/addQuan',controller.isLoggedIn, controller.addQuan);
 router.get('/showQuan',controller.isLoggedIn, controller.showQuan);
@@ -46,4 +45,10 @@ router.get('/DDQCmap',controller.isLoggedIn, controller.DDQCmap);
 router.get('/deleteLocation',controller.isLoggedIn, controller.deleteLocation);
 router.get('/editLocation',controller.isLoggedIn, controller.editLocation);
 router.get('/showRegister',controller.isLoggedIn,controller.showRegister);
+router.get('/showTKBaoCao',controller.isLoggedIn, controller.showTKBC);
+router.get('/showTKCXL',controller.isLoggedIn, controller.showTKCXL);
+router.get('/XetDuyetChinhSua',controller.isLoggedIn, controller.xetDuyetChinhSua);
+router.get('/YeuCauCapPhep',controller.isLoggedIn, controller.yeuCauCapPhep);
+
+
 module.exports = router;

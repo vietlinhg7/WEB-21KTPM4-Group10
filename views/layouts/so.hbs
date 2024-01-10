@@ -14,7 +14,7 @@
 
 <body>
 
-  <header class="containter-fluid bg-primary">
+  <div class="containter-fluid bg-primary">
     <nav class="navbar navbar-expand-sm bg-primary fixed-top d-flex justify-content-around align-items-center flex-wrap">
       
         {{!-- <a class="navbar-brand text-light" href="/showQuan">Ads Management</a> --}}
@@ -30,8 +30,8 @@
             Xét duyệt
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Chỉnh sửa</a></li>
-            <li><a class="dropdown-item" href="#">Yêu cầu cấp phép</a></li>
+            <li><a class="dropdown-item" href="/XetDuyetChinhSua">Chỉnh sửa</a></li>
+            <li><a class="dropdown-item" href="/YeuCauCapPhep">Yêu cầu cấp phép</a></li>
           </ul>
         </div>
 
@@ -40,8 +40,8 @@
             Thống kê
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Báo Cáo</a></li>
-            <li><a class="dropdown-item" href="#">Xử lý</a></li>
+            <li><a class="dropdown-item" href="/showTKBaoCao">Báo Cáo</a></li>
+            <li><a class="dropdown-item" href="/showTKCXL">Xử lý</a></li>
           </ul>
         </div>
 
@@ -55,7 +55,7 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="/changePassword">Đổi mật khẩu</a></li>
+            <li><a class="dropdown-item" href="/changePass">Đổi mật khẩu</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -65,7 +65,7 @@
 
       
     </nav>
-  </header>
+  </div>
   {{{body}}}
 
 </body>

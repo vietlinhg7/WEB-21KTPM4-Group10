@@ -28,33 +28,30 @@ controller.showPhuongDDQC = async(req, res) => {
 };
 
 controller.showChangePass = async(req, res) => {
-    
+    res.render('changePass', {
+        layout: req.session.user.chucvu
+    });
 };
 
 controller.changePass = async (req, res) => {
-    let { password, verify } = req.body;
-    if (password === verify) {
-        let email = req.session.email;
-        let user = await User.findOne({ email });
+    let { curpassword, newpassword, verify } = req.body;
+    if (await bcrypt.compare(curpassword, req.session.user.password) && newpassword === verify) {
+        let user = await User.findOne({ userID: req.session.user.userID });
         if (user) {
             let salt = await bcrypt.genSalt(10);
-            let hashedPassword = await bcrypt.hash(password, salt);
+            let hashedPassword = await bcrypt.hash(newpassword, salt);
             user.password = hashedPassword;
             await user.save();
-            res.render('login', {
-                layout: false,
-                message: 'Password changed successfully'
-            });
-        } else {
-            res.render('changePassword', {
-                layout: false,
-                message: 'No user found with this email'
+            req.session.user = await User.findOne({ userID: req.session.user.userID });
+            res.render('changePass', {
+                layout: req.session.user.chucvu,
+                message: 'Thay đổi mật khẩu thành công'
             });
         }
     }
-    else res.render('changePassword', {
-        layout: false,
-        message: 'Passwords do not match'
+    else res.render('changePass', {
+        layout: req.session.user.chucvu,
+        message: 'Mật khẩu cũ nhập sai hoặc mật khẩu mới nhập không khớp'
     });
 };
 
@@ -665,6 +662,27 @@ controller.suaReportType = async (req, res) => {
 
 controller.showRegister= async (req, res) => {
     res.render('So-TTKCCB', {
+        layout: 'so'
+    });
+}
+
+controller.showTKBC= async (req, res) => {
+    res.render('So-ThongKeBaoCao', {
+        layout: 'so'
+    });
+}
+controller.showTKCXL= async (req, res) => {
+    res.render('So-ThongKeCXL', {
+        layout: 'so'
+    });
+}
+controller.xetDuyetChinhSua= async (req, res) => {
+    res.render('So-XDCS', {
+        layout: 'so'
+    });
+}
+controller.yeuCauCapPhep= async (req, res) => {
+    res.render('So-YCCP', {
         layout: 'so'
     });
 }

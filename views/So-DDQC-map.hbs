@@ -48,7 +48,7 @@
                 </button>
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
                   {{#each quan}}
-                  <li><a class="dropdown-item overflow-hidden text-truncate" id="select{{quanID}}"  onclick="selectOption('quan','Quận {{quanID}}')">Quận
+                  <li><a class="dropdown-item overflow-hidden text-truncate" id="selectQ{{quanID}}"  onclick="selectOption('quan','Quận {{quanID}}')">Quận
                       {{quanID}}</a></li>
                   {{/each}}
                   </li>
@@ -62,14 +62,11 @@
                   Phường
                 </button>
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
-
-                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 1')">Phường 1</a></li>
-                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 2')">Phường 2</a></li>
-                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 3')">Phường 3</a></li>
-                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('phuong','Phường 4')">Phường 4</a></li>
+                  {{#each phuong}}
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" id="selectP{{phuongID}}" onclick="selectOption('phuong','Phường {{phuongID}}')">{{phuongID}}</a></li>
+                  {{/each}}
                 </ul>
               </div>
-
 
               {{!-- Quận --}}
               <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại vị trí</strong></h4>
@@ -82,10 +79,8 @@
 
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
                   {{#each loaivitri}}
-                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('lvt','{{name}}')">{{name}}</a></li>
+                  <li><a id="selectLVT{{name}}" class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('lvt','{{name}}')">{{name}}</a></li>
                   {{/each}}
-                 
-
                 </ul>
               </div>
 
@@ -106,7 +101,7 @@
                 </button>
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
                   {{#each hinhThuc}}
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('htqc',{{hinhthuc}})">{{hinhthuc}}</a></li>
+                  <li><a id="selectHTQC{{hinhthuc}}" class="dropdown-item" href="#" onclick="selectOption('htqc',{{hinhthuc}})">{{hinhthuc}}</a></li>
                   {{/each}}
 
                 </ul>
@@ -126,9 +121,9 @@
                   Quy hoạch
                 </button>
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('qh', 'Đã quy hoạch')">Đã quy
+                  <li><a id="QH" class="dropdown-item" href="#" onclick="selectOption('qh', 'Đã quy hoạch')">Đã quy
                       hoạch</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="selectOption('qh', 'Chưa quy hoạch')">Chưa quy
+                  <li><a id="CQH" class="dropdown-item" href="#" onclick="selectOption('qh', 'Chưa quy hoạch')">Chưa quy
                       hoạch</a></li>
                 </ul>
               </div>
