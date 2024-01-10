@@ -47,16 +47,20 @@
         <a class="active text-light" href="Phuong-Map.html">Báo cáo</a>
         <a class="active text-light" href="Phuong-Map.html">Cấp phép</a>
         <div id="avatar-dropdown" class="btn-group d-flex align-items-center justify-content-between">
-          <img src="https://www.w3schools.com/bootstrap5/img_avatar1.png" alt="Avatar Logo" style="width:40px;"
+          <img src="https://www.w3schools.com/bootstrap5/img_avatar1.png" alt="Avatar Logo" style="height: 40px; width: auto"
             class="rounded-pill">
           <button class="btn text-light dropdown-toggle ms-3" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false">Username</button>
+            aria-expanded="false">{{user.hoTen}}</button>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Hồ sơ cá nhân</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li>
+            <li><a class="dropdown-item" href="/changePassword">Đổi mật khẩu</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="/logout">Đăng xuất</a></li> 
           </ul>
         </div>
       </div>

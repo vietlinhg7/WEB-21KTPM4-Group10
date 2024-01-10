@@ -79,7 +79,6 @@
 
 #submit-create-account {
   background-color: rgb(40, 167, 69);
-  ;
   color: rgba(255, 255, 255, 0.8);
   transition: all 0.2s ease-in-out;
   border: none;
@@ -156,4 +155,12 @@
 
 .form-container {
   display: none;
+}
+
+.table-striped tbody tr:hover {
+  background-color: #f0f8ff;
+}
+
+.bi-pencil-square:hover{
+  cursor: pointer;
 }
