@@ -230,14 +230,14 @@ controller.DDQCmap = async (req, res) => {
     });
 }
 controller.showLocation = async (req, res) => {
-    res.render('So-XDCS-Details', {
-        layout: 'So'
-    });
-    // let location = await Location.find({});
-    // res.render('So-DDQC', {
-    //     layout: 'So',
-    //     location: location
+    // res.render('Phuong-ChinhSuaDDQC', {
+    //     layout: 'So'
     // });
+    let location = await Location.find({});
+    res.render('So-DDQC', {
+        layout: 'So',
+        location: location
+    });
     
 }
 controller.themHinhThucQC = async (req, res) => {
