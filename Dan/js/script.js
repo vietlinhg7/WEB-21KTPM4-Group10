@@ -93,10 +93,6 @@ function initMap() {
     maxZoom: 13
   });
 
-  showLocationText();
-  hideLocationText();
-  showQC();
-  hideQC();
 
   // // Thêm sự kiện zoom_changed để theo dõi thay đổi zoom
   // google.maps.event.addListener(map, 'zoom_changed', function() {
@@ -128,8 +124,8 @@ function initMap() {
             let quyhoach = location.quyhoach;
             const toadoX = location.toadoX;
             const toadoY = location.toadoY;
-            console.log('locationID');
-            console.log(locationID);
+            // console.log('locationID');
+            // console.log(locationID);
 
 
 
@@ -139,7 +135,7 @@ function initMap() {
               quyhoach = "CHƯA QUY HOẠCH";
             }
 
-            console.log(`locationID: ${locationID}, Name: ${name}, diachi: ${diachi}, phuongID: ${phuongID}, quanID: ${quanID}, loaivitri: ${loaivitri}, hinhanh: ${hinhanh1}, quyhoach: ${quyhoach}, toadoX: ${toadoX}, toadoY: ${toadoY}`);
+            // console.log(`locationID: ${locationID}, Name: ${name}, diachi: ${diachi}, phuongID: ${phuongID}, quanID: ${quanID}, loaivitri: ${loaivitri}, hinhanh: ${hinhanh1}, quyhoach: ${quyhoach}, toadoX: ${toadoX}, toadoY: ${toadoY}`);
 
             const billboardResponse = await fetch(`/billboards/${locationID}`);
             const billboardData = await billboardResponse.json();
@@ -440,7 +436,7 @@ content += '</form>';
 // Thêm nút "BÁO CÁO VI PHẠM" và căn chỉnh nó sang phía dưới bên phải
 content += '<form action="/locationAny" id="handlelocationAnyPost" method="POST"><div background-color: #bbdefb>' + 
 '<input type="hidden" name="nameAny" id="nameAny" value="' + formattedAddress + '">' +
-'<input type="hidden" name="diachiAny" id="diachiAny" value="' + place.name + '">' +
+'<input type="hidden" name="diachiAny" id="diachiAny" value="' + place.name + '">' + 
 '<button type="submit" style="margin: 10px 10px 0px 400px; padding: 10px; align-self: flex-end; border: 2px solid #f00; left: -100px;"><i class="fas fa-exclamation-triangle" style="margin-right: 5px; color: #f00;"></i><b style="color: #f00;">BÁO CÁO VI PHẠM</b></button></div></form>';
 
 
@@ -548,4 +544,32 @@ function updateClusterIcons(map, markerCluster) {
     }
   });
 }
+
+function displayReportList(reportData) {
+
+  const reportListElement = document.getElementById('reportList');
+  reportListElement.innerHTML = ''; // Clear previous results
+
+  if (reportData.length > 0) {
+    reportData.forEach(report => {
+      const listItem = document.createElement('li');
+
+      // Lặp qua thuộc tính của đối tượng Report và in ra
+      for (const key in report) {
+        if (report.hasOwnProperty(key)) {
+          const propertyItem = document.createElement('div');
+          propertyItem.textContent = `${key}: ${report[key]}`;
+          listItem.appendChild(propertyItem);
+        }
+      }
+
+      reportListElement.appendChild(listItem);
+    });
+  } else {
+    const listItem = document.createElement('li');
+    listItem.textContent = 'Không tìm thấy kết quả.';
+    reportListElement.appendChild(listItem);
+  }
+}
+
 

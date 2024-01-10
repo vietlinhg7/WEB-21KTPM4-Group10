@@ -20,6 +20,8 @@ router.get('/', controller.showMap);
 router.post('/reports',upload.array("images", 2), controller.addReport); 
 router.post('/boardID', controller.handleBoardIDPost);
 router.post('/locationAny', controller.handlelocationAnyPost);
+router.post('/findSDT', controller.findBC);
+
 
 
 router.get('/billboards/:locationID', controller.getBillboards);

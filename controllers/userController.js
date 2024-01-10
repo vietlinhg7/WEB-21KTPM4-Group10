@@ -122,6 +122,27 @@ controller.handlelocationAnyPost = async (req, res) => {
     }
 };
 
+controller.findBC = async (req, res) => {
+    try {
+        console.log(req.body);
+        const phone = req.body.BC; 
+
+        const reportData = await Report.find({ phone });
+
+
+        if (!reportData || reportData.length === 0) {
+            res.status(404).json({ success: false, message: 'Không tìm thấy dữ liệu.' });
+            return;
+        }
+
+        // Trả về dữ liệu
+        res.json({ success: true, reportData });
+    } catch (error) {
+        console.error('Error handling:', error);
+        res.status(400).json({ success: false, message: 'Error handling', error: error.message });
+    }
+};
+
 controller.addReport = async (req, res) => {
 
     console.log(req.body);
