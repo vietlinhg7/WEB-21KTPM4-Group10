@@ -8,11 +8,13 @@ router.get('/login', controller.showLogin);
 router.get('/logout', controller.logout);
 router.get('/forgot', controller.showForgot);
 router.get('/resend', controller.resend);
+router.get('/changePass', controller.showChangePass);
 
 router.post('/login', controller.login);
 router.post('/forgot', controller.forgot);
 router.post('/verify', controller.verify);
 router.post('/changePassword', controller.changePassword);
+router.post('/changePass', controller.changePass);
 
 router.get('/profile', controller.isLoggedIn, controller.showProfile);
 router.post('/addQuan',controller.isLoggedIn, controller.addQuan);
