@@ -1118,7 +1118,7 @@ controller.register = async (req, res) => {
     const firstname = req.body.firstname;
     const date = req.body.date;
     const username = req.body.username;
-    const password = req.body.password;
+    let password = req.body.password;
     const quan = req.body.quan;
     const phuong = req.body.phuong;
     const telephone = req.body.telephone;
@@ -1128,6 +1128,9 @@ controller.register = async (req, res) => {
     if (temp != null) {
         res.send('<script>alert("user name is defined"); window.location="/showRegister";</script>');
     } else {
+        let salt = await bcrypt.genSalt(10);
+        let hashedPassword = await bcrypt.hash(password, salt);
+        password = hashedPassword;
         const newUser = new User({
             userID: username,
             password: password,
