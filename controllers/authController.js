@@ -256,12 +256,6 @@ controller.showLocation = async (req, res) => {
     //     layout: 'So',
     //     location: location
     // });
-
-    let location = await Location.find({});
-    res.render('So-DDQC', {
-        layout: 'So',
-        location: location
-    });
 }
 controller.themHinhThucQC = async (req, res) => {
 
