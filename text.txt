@@ -5,3 +5,83 @@ npm install mongodb
 
 npm install mongoose
 
+window.onload = function () {
+      var chart = new CanvasJS.Chart("chartContainer", {
+        title: {
+          text: "Thống kê cách xử lý"
+        },
+        axisY: {
+          maximum: 100
+        },
+        data: [
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Số lượng",
+            color: "gold",
+            dataPoints: [
+              { y: 21, label: "Xây mới hoàn toàn"},
+              { y: 11, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 78, label: "Thay đổi nội dung quảng cáo" },
+              { y: 42, label: "Thay đổi kích thước" },
+              { y: 63, label: "Phá dỡ" },
+            ]
+          },
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Quy hoạch",
+            color: "#198754",
+            dataPoints: [
+              { y: 85, label: "Xây mới hoàn toàn"},
+              { y: 28, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 72, label: "Thay đổi nội dung quảng cáo"  },
+              { y: 96, label: "Thay đổi kích thước" },
+              { y: 66, label: "Phá dỡ"},
+              
+            ]
+          },
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Chưa quy hoạch",
+            color: "#dc3545",
+            dataPoints: [
+              { y: 58, label: "Xây mới hoàn toàn"},
+              { y: 74, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 65, label: "Thay đổi nội dung quảng cáo"  },
+              { y: 79, label: "Thay đổi kích thước" },
+              { y: 5, label: "Phá dỡ"},
+            ]
+          },
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Quận 1",
+            color: "#3333ff",
+            dataPoints: [
+              { y: 18, label: "Xây mới hoàn toàn"},
+              { y: 30, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 56, label: "Thay đổi nội dung quảng cáo"  },
+              { y: 90, label: "Thay đổi kích thước" },
+              { y: 87, label: "Phá dỡ"},
+            ]
+          },
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Quận 5",
+            color: "#990066",
+            dataPoints: [
+              { y: 13, label: "Xây mới hoàn toàn"},
+              { y: 40, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 32, label: "Thay đổi nội dung quảng cáo"  },
+              { y: 22, label: "Thay đổi kích thước" },
+              { y: 12, label: "Phá dỡ"},
+            ]
+          }
+        ]
+      });
+
+      chart.render();
+    }

@@ -34,85 +34,84 @@
   </style>
   <script type="text/javascript">
     window.onload = function () {
-      var chart = new CanvasJS.Chart("chartContainer", {
-        title: {
-          text: "Thống kê cách xử lý"
-        },
-        axisY: {
-          maximum: 100
-        },
-        data: [
-          {
-            type: "bar",
-            showInLegend: true,
-            legendText: "Số lượng",
-            color: "gold",
-            dataPoints: [
-              { y: 21, label: "Xây mới hoàn toàn"},
-              { y: 11, label: "Thay đổi loại bảng quảng cáo" },
-              { y: 78, label: "Thay đổi nội dung quảng cáo" },
-              { y: 42, label: "Thay đổi kích thước" },
-              { y: 63, label: "Phá dỡ" },
-            ]
-          },
-          {
-            type: "bar",
-            showInLegend: true,
-            legendText: "Quy hoạch",
-            color: "#198754",
-            dataPoints: [
-              { y: 85, label: "Xây mới hoàn toàn"},
-              { y: 28, label: "Thay đổi loại bảng quảng cáo" },
-              { y: 72, label: "Thay đổi nội dung quảng cáo"  },
-              { y: 96, label: "Thay đổi kích thước" },
-              { y: 66, label: "Phá dỡ"},
-              
-            ]
-          },
-          {
-            type: "bar",
-            showInLegend: true,
-            legendText: "Chưa quy hoạch",
-            color: "#dc3545",
-            dataPoints: [
-              { y: 58, label: "Xây mới hoàn toàn"},
-              { y: 74, label: "Thay đổi loại bảng quảng cáo" },
-              { y: 65, label: "Thay đổi nội dung quảng cáo"  },
-              { y: 79, label: "Thay đổi kích thước" },
-              { y: 5, label: "Phá dỡ"},
-            ]
-          },
-          {
-            type: "bar",
-            showInLegend: true,
-            legendText: "Quận 1",
-            color: "#3333ff",
-            dataPoints: [
-              { y: 18, label: "Xây mới hoàn toàn"},
-              { y: 30, label: "Thay đổi loại bảng quảng cáo" },
-              { y: 56, label: "Thay đổi nội dung quảng cáo"  },
-              { y: 90, label: "Thay đổi kích thước" },
-              { y: 87, label: "Phá dỡ"},
-            ]
-          },
-          {
-            type: "bar",
-            showInLegend: true,
-            legendText: "Quận 5",
-            color: "#990066",
-            dataPoints: [
-              { y: 13, label: "Xây mới hoàn toàn"},
-              { y: 40, label: "Thay đổi loại bảng quảng cáo" },
-              { y: 32, label: "Thay đổi nội dung quảng cáo"  },
-              { y: 22, label: "Thay đổi kích thước" },
-              { y: 12, label: "Phá dỡ"},
-            ]
-          }
-        ]
+      fetch('/infoReport')
+        .then(response => response.json())
+        .then(data => {
+        console.log('Dữ liệu từ server:', data);
+
+          // Xử lý dữ liệu và cập nhật biểu đồ
+          const processedData = processData(data);
+          updateChart(processedData);
+        })
+        .catch(error => {
+          console.error('Lỗi khi tải dữ liệu:', error);
+      });
+    };
+
+    function processData(data) {
+      const reportCachthuc = {};
+
+
+      
+          data.forEach(item => {
+            
+            
+            console.log('cachthuc: ', item.cachthucxuly);
+              // Đếm cho reportType
+            reportCachthuc[item.cachthucxuly] = (reportCachthuc[item.cachthucxuly] || 0) + 1;
+
+          
+            
+          });
+
+      // Lấy tất cả các reportType từ dữ liệu
+      const allReportTypes = Array.from(new Set(data.map(item => item.cachthucxuly)));
+
+      // Đảm bảo rằng mỗi reportType đều có giá trị (thậm chí là 0) trong các đối tượng đếm
+      allReportTypes.forEach(cachthucxuly => {
+        reportCachthuc[cachthucxuly] = reportCachthuc[cachthucxuly] || 0;
       });
 
-      chart.render();
+      // Chuyển đổi số lượng đếm thành định dạng dataPoints
+      const reportTypeDataPoints = allReportTypes.map(cachthucxuly => {
+        return { y: reportCachthuc[cachthucxuly], label: cachthucxuly };
+      });
+
+      
+      return { cachthucxuly: reportTypeDataPoints};
     }
+
+    function updateChart(data) {
+    
+      try {
+          var chart = new CanvasJS.Chart("chartContainer", {
+          title: {
+            text: "Thống kê báo cáo"
+          },
+          axisY: {
+            maximum: 20
+          },
+          data: [
+            {
+              type: "bar",
+              showInLegend: true,
+              legendText: "Số lượng",
+              color: "gold",
+              dataPoints: data.cachthucxuly
+            },
+          ]
+        });
+
+        
+
+        chart.render();
+      }catch (error) {
+        console.error('Lỗi khi vẽ biểu đồ:', error);
+      }
+      
+    }
+
+
 
   </script>
   <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
