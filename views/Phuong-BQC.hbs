@@ -11,17 +11,24 @@
                 </div>
                 <p class="overflow-hidden text-truncate">
                     Kích thước: {{kichthuoc}} <br>
-                    Hình thức: {{hinhthuc}}
+                    Hình thức: {{hinhthuc}} <br>
+                    Số lượng: {{soluong}}
 
 
                 </p>
                 <p class="col-6 text-start text-nowrap text-capitalize fst-italic fw-bold fs-5 mb-0">
-                    Số lượng: {{soluong}}
+                    {{tinhtrangcapphep}}
 
                 </p>
-                <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
+                <div class="button-area d-flex align-items-end justify-content-end flex-nowrap flex-row">
                     <a class="col-3 btn btn-success mx-2" href="/billboardInfo?keyword={{billboardID}}" role="button">
                         <i class="bi bi-pencil-square"></i>
+                    </a>
+                </div>
+
+                <div class="button-area d-flex align-items-end justify-content-end flex-nowrap flex-row">
+                    <a class="col-3 btn btn-primary mx-2" href="/taoCapPhep?keyword={{billboardID}}" role="button">
+                        <i class="bi bi-clipboard2-plus-fill"></i>
                     </a>
                 </div>
             </div>

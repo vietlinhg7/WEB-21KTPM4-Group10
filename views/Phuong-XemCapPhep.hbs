@@ -1,0 +1,92 @@
+<body>
+  <form action="#" method="post">
+  <div class="container py-3">
+    <div class="card">
+      <div class="card-body">
+        <div class="row">
+          <div class="col">
+            <h4 class="card-header"><i class="bi bi-building-fill"></i><strong> Thông tin công ty quảng cáo</strong> </h4>
+
+              
+              <h5 class="mx-5 my-3"><strong>Tên công ty quảng cáo</strong></h5>
+              <div class="mb-3">
+                <input type="text" class="form-control" name="congty" id="congty" aria-describedby="helpId"
+                placeholder="Tên công ty"
+                value="{{capphep.congty}}" required readonly>
+              </div>
+              
+              <h5 class="mx-5 my-3"><strong>Email liên hệ</strong></h5>
+              <div class="mb-3">
+                <input type="text" class="form-control" name="email" id="email" aria-describedby="helpId"
+                placeholder="Email"
+                value="{{capphep.email}}" required readonly>
+              </div>
+
+              <h5 class="mx-5 my-3"><strong>Số điện thoại liên hệ</strong></h5>
+              <div class="mb-3">
+                <input type="text" class="form-control" name="dienthoai" id="dienthoai" aria-describedby="helpId"
+                placeholder="Điện thoại"
+                value="{{capphep.dienthoai}}" required readonly>
+              </div>
+
+              <h5 class="mx-5 my-3"><strong>Địa chỉ công ty quảng cáo</strong></h5>
+              <div class="mb-3">
+                <input type="text" class="form-control" name="diachi" id="diachi" aria-describedby="helpId"
+                placeholder="Địa chỉ"
+                value="{{capphep.diachi}}" required readonly>
+              </div>
+              
+            <h4 class="card-header"><i class="bi bi-calendar-fill"></i><strong> Thông tin thời hạn quảng cáo</strong></h5>
+              <h5 class="mx-5 my-3"><strong>Ngày bắt đầu</strong></h5>
+              <input type="text" class="form-control" id="datepicker1" name="ngaybatdau" value={{capphep.ngaybatdau}}>
+              </script>
+
+              <h5 class="mx-5 my-3"><strong>Ngày kết thúc</strong></h5>
+              <input type="text" class="form-control" id="datepicker2" name="ngayhethan" value={{capphep.ngayketthuc}}>
+              </div>
+
+              <div class="col align-self-center">
+                <h4 class="card-header"><i class="bi bi-clipboard-fill"></i><strong> Nội dung cấp phép</strong></h5>
+                <h5 class="mx-5 my-3"><strong>Nội dung</strong></h5>
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="noidung" id="noidung" aria-describedby="helpId"
+                  placeholder="Nội dung cấp phép" value="{{capphep.noidung}}" required readonly>
+                </div>
+                <h5 class="mx-5 my-3"><strong>Hình ảnh minh họa</strong></h5>
+                <div class="mb-3">
+                  <input type="text" class="form-control" name="hinhAnh" id="hinhAnh" aria-describedby="helpId"
+                  placeholder="Link ảnh minh họa" value="{{capphep.hinhAnh}}" required readonly>
+                </div>
+                <img src="{{capphep.hinhAnh}}" alt="" class="img-thumbnail" id="image">
+              </div>
+            </div>
+          </div>
+          <input type="hidden" id="locationID" name="locationID" value="{{locationID}}">
+          <input type="hidden" id="billboardID" name="billboardID" value="{{billboardID}}">
+          <div class="card-footer">
+            <!-- Dropdown element -->
+           
+        </div>
+      </div>
+    </div>
+    
+  </form>
+  <script>
+    $(document).ready(function() {
+      $('#hinhAnh').on('input', function() {
+        var imageUrl = $(this).val();
+        $('#image').attr('src', imageUrl);
+      });
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+  integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+  integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>

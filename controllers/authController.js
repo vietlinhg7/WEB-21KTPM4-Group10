@@ -10,10 +10,13 @@ const Hinhthuc = require('../models/hinhthuc');
 const ReportType = require('../models/reportType');
 const Loaivitri = require('../models/loaivitri');
 const Report = require('../models/report');
-const Request = require('../models/request')
+const Request = require('../models/request');
+const Capphep = require('../models/capphep')
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { notify } = require('../routes/authRouter');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
 
 let transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -23,13 +26,129 @@ let transporter = nodemailer.createTransport({
     }
 });
 
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'ndvlinh21@clc.fitus.edu.vn',
-        pass: 'gkil ziel tfsx rldr'
+controller.deleteLicense = async (req,res) => {
+    await Capphep.deleteOne({licenseID: req.query.keyword});
+    res.redirect('/ChuaPheDuyet');
+}
+controller.showLicenseInfo = async (req,res) => {
+    capphep = await Capphep.findOne({licenseID: req.query.keyword}).lean();
+    let date = new Date(capphep.ngaybatdau);
+    let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    let year = date.getFullYear(); // Get the full year
+    capphep.ngaybatdau = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+    date = new Date(capphep.ngayketthuc);
+    day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    year = date.getFullYear(); // Get the full year
+    capphep.ngayketthuc= `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+    res.locals.capphep = capphep;
+    res.render('Phuong-XemCapPhep', {
+        layout: 'Phuong',
+    });
+
+}
+controller.showDaPheDuyet = async (req,res) => {
+    cappheps = await Capphep.find({tinhtrang: 'Đã xét duyệt'}).lean();
+    for (capphep of cappheps) {
+        let date = new Date(capphep.ngaybatdau);
+        let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        let year = date.getFullYear(); // Get the full year
+        capphep.ngaybatdau = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        date = new Date(capphep.ngayketthuc);
+        day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        year = date.getFullYear(); // Get the full year
+        capphep.ngayketthuc= `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        let location = await Location.findOne({locationID: capphep.locationID});
+        capphep.location = location.name;
+        let billboard = await Billboard.findOne({billboardID: capphep.billboardID});
+        capphep.billboard = billboard.loai;
     }
-});
+    res.locals.cappheps = cappheps;
+    res.render('Phuong-DaCapPhep', {
+        layout: 'Phuong',
+    });
+}
+
+controller.showChuaPheDuyet = async (req,res) => {
+    cappheps = await Capphep.find({tinhtrang: 'Chưa xét duyệt'}).lean();
+    for (capphep of cappheps) {
+        let date = new Date(capphep.ngaybatdau);
+        let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        let year = date.getFullYear(); // Get the full year
+        capphep.ngaybatdau = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        date = new Date(capphep.ngayketthuc);
+        day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        year = date.getFullYear(); // Get the full year
+        capphep.ngayketthuc= `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        let location = await Location.findOne({locationID: capphep.locationID});
+        capphep.location = location.name;
+        let billboard = await Billboard.findOne({billboardID: capphep.billboardID});
+        capphep.billboard = billboard.loai;
+    }
+    res.locals.cappheps = cappheps;
+    res.render('Phuong-ChuaCapPhep', {
+        layout: 'Phuong',
+    });
+}
+
+controller.taoCapPhep = async (req, res) => {
+    billboardID = req.query.keyword;
+    billboard = await Billboard.findOne({ billboardID });
+    res.locals.billboardID = billboardID;
+    res.locals.locationID = billboard.locationID;
+    if (await Capphep.findOne({billboardID}))
+    {
+        capphep = await Capphep.findOne({billboardID}).lean();
+        let date = new Date(capphep.ngaybatdau);
+        let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        let year = date.getFullYear(); // Get the full year
+        capphep.ngaybatdau = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        date = new Date(capphep.ngayketthuc);
+        day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        year = date.getFullYear(); // Get the full year
+        capphep.ngayketthuc= `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        res.locals.capphep = capphep;
+    }
+    else {
+        res.locals.capphep = new Capphep({ });
+    }
+    res.render('Phuong-CapPhep', {
+        layout: 'Phuong',
+    });
+}
+
+controller.luuCapPhep = async (req, res) => {
+    let licenseID = '0';
+    while (await Capphep.findOne({ licenseID })) {
+        licenseID = (parseInt(licenseID) + 1).toString();
+    }
+    let locationID = req.body.locationID;
+    let billboardID = req.body.billboardID;
+    console.log(req.body);
+    const capphep = new Capphep({
+        licenseID: licenseID,
+        locationID: locationID,
+        billboardID: billboardID,
+        noidung: req.body.noidung,
+        hinhAnh: req.body.hinhAnh,
+        congty: req.body.congty,
+        email: req.body.email,
+        dienthoai: req.body.dienthoai,
+        diachi: req.body.diachi,
+        ngaybatdau: new Date(req.body.ngaybatdau),
+        ngayketthuc: new Date(req.body.ngayhethan),
+        tinhtrang: 'Chưa xét duyệt'
+    });
+    await capphep.save();
+    res.redirect('/Phuong-BQC?keyword='+req.body.locationID);
+}
 
 controller.saveLocation = async (req, res) => {
     locationID = req.query.keyword;
@@ -58,7 +177,7 @@ controller.saveLocation = async (req, res) => {
         tinhtrang: "Chưa xử lý"
     });
     await newRequest.save();
-    res.redirect('/Phuong-DDQC');
+    res.redirect('/Phuong-BQC?keyword='+req.body.locationID);
 }
 controller.saveBillboard = async(req, res) => {
     billboardID = req.query.keyword;
@@ -177,8 +296,18 @@ controller.showReportInfo = async(req, res) => {
 controller.showPhuongBQC = async(req, res) => {
     let billboards = await Billboard.find({
         locationID: req.query.keyword
-    });
-    
+    }).lean();
+    for (let billboard of billboards) {
+        if (await Capphep.findOne({billboardID: billboard.billboardID, tinhtrang: "Đã xét duyệt"}))
+        {
+            billboard.tinhtrangcapphep = "Đã cấp phép";
+        } else if (await Capphep.findOne({billboardID: billboard.billboardID,})) {
+            billboard.tinhtrangcapphep = "Đã tạo chưa cấp phép";
+        }
+        else {
+            billboard.tinhtrangcapphep = "Chưa cấp phép";
+        }
+    }
     res.locals.billboards = billboards;
     res.render('Phuong-BQC', {
         layout: 'Phuong'
