@@ -17,26 +17,9 @@
               <img src="{{location.hinhanh}}" alt="" class="img-thumbnail" id="image">
               <label for="url-input">Enter image URL</label>
               <input name="imgurl" type="text" class="form-control" id="url-input" />
-              <img
-                src="{{location.hinhanh}}"
-                alt="" class="img-thumbnail" id="image">
-              <label for="file-upload">file input</label>
-              <input type="file" class="form-control-file" onclick="ChangeImage()" id="file-upload" />
+
             </div>
             <div class="col-md-5">
-              <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Thông tin địa
-                  điểm</strong> </h4>
-
-              <div class="mb-3">
-                <input type="text" class="form-control my-3" name="address" id="address" aria-describedby="helpId"
-                  placeholder="Tên địa điểm" value="{{location.name}}" required>
-              </div>
-
-
-              <div class="mb-3">
-                <input type="text" class="form-control" name="address_detail" id="address_detail"
-                  aria-describedby="helpId" placeholder="Địa chỉ" value="{{location.diachi}}" required>
-              </div>
               <h4 class="card-header"><i class="bi bi-geo-alt-fill mb-3"></i><strong> Khu vực</strong></h4>
               {{!-- Phường --}}
               {{!-- <div class="mb-3">
@@ -48,14 +31,14 @@
                 <button id="quan"
                   class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
                   data-bs-toggle="dropdown" aria-expanded="false">
-                  Quận
+                  Quận {{phuong.[0].quanID}}
                 </button>
-                <input type="hidden" id="QIDD" name="QIDD" value="">
+                <input type="hidden" id="QIDD" name="QIDD" value="{{phuong.[0].quanID}}">
 
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
                   {{#each quan}}
                   <li><a class="dropdown-item overflow-hidden text-truncate" id="selectQ{{quanID}}"
-                      onclick="selectOption('quan','Quận {{quanID}}')">Quận
+                      onclick="selectOption('quan','Quận {{quanID}}')" href="/showEditLocation?keyword={{quanID}}">Quận
                       {{quanID}}</a></li>
                   {{/each}}
                   </li>
@@ -77,6 +60,20 @@
                   {{/each}}
                 </ul>
               </div>
+              <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Thông tin địa
+                  điểm</strong> </h4>
+
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="address" id="address" aria-describedby="helpId"
+                  placeholder="Tên địa điểm" value="{{location.name}}" required>
+              </div>
+
+
+              <div class="mb-3">
+                <input type="text" class="form-control" name="address_detail" id="address_detail"
+                  aria-describedby="helpId" placeholder="Địa chỉ" value="{{location.diachi}}" required>
+              </div>
+              
 
               {{!-- Quận --}}
               <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại vị trí</strong></h4>

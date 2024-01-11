@@ -306,8 +306,10 @@ controller.showProfile = (req, res) => {
 };
 
 controller.DDQCmap = async (req, res) => {
+    const keyword = req.query.keyword;
+
     let quan = await Quan.find({});
-    let phuong = await Phuong.find({});
+    let phuong = await Phuong.find({quanID: keyword});
     let loaivitri = await Loaivitri.find({});
     let hinhThuc = await Hinhthuc.find({});
     res.render('So-DDQC-map', {
