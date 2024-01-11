@@ -14,11 +14,9 @@
         <div class="card-body">
           <div class="row">
             <div class="col align-self-center">
-              <img
-                src="https://cdnphoto.dantri.com.vn/vdDPWOVB1hcODVeyES8rD1GTLio=/zoom/1200_630/2019/04/23/truong-dh-khoa-hoc-tu-nhien-tphcm-1555986970839.jpg"
-                alt="" class="img-thumbnail" id="image">
-              <label for="file-upload">file input</label>
-              <input type="file" class="form-control-file" onclick="ChangeImage()" id="file-upload" />
+              <img src="{{location.hinhanh}}" alt="" class="img-thumbnail" id="image">
+              <label for="url-input">Enter image URL</label>
+              <input name="imgurl" type="text" class="form-control" id="url-input" />
             </div>
             <div class="col-md-5">
               <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Thông tin địa
@@ -170,6 +168,11 @@
     integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
     crossorigin="anonymous"></script>
   <script>
+    document.getElementById('url-input').addEventListener('change', function () {
+      var url = this.value;
+      document.getElementById('image').src = url;
+    });
+
     function toggleLockScreen() {
       document.body.classList.toggle('locked');
     }

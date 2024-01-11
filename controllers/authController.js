@@ -89,6 +89,7 @@ controller.editLocation = async (req, res) => {
     const pid = req.body.PIDD;
     const address = req.body.address;
     const addressdetail = req.body.address_detail;
+    const imgurl= req.body.imgurl;
     // console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
 
 
@@ -103,7 +104,7 @@ controller.editLocation = async (req, res) => {
         phuongID: pid,
         quanID: qid,
         loaivitri: lvt,
-        hinhanh: 'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
+        hinhanh: imgurl,
         hinhthuc: htqc,
         quyhoach: QHCQH,
         toadoX: lat,
@@ -279,15 +280,15 @@ controller.DDQCmap = async (req, res) => {
 
 }
 controller.showLocation = async (req, res) => {
-    res.render('Phuong-taoCapPhepQuangCao', {
-        layout: 'So'
-    });
-    
-    // let location = await Location.find({});
-    // res.render('So-DDQC', {
-    //     layout: 'So',
-    //     location: location
+    // res.render('Phuong-taoCapPhepQuangCao', {
+    //     layout: 'So'
     // });
+    
+    let location = await Location.find({});
+    res.render('So-DDQC', {
+        layout: 'So',
+        location: location
+    });
 }
 controller.themHinhThucQC = async (req, res) => {
 
@@ -739,6 +740,7 @@ controller.addLocation = async (req, res) => {
     const pid = req.body.PIDD;
     const address = req.body.address;
     const addressdetail = req.body.address_detail;
+    const imgurl = req.body.imgrul;
     console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
 
     const temp = await Location.findOne({ toadoX: lat, toadoY: lng });
@@ -754,7 +756,7 @@ controller.addLocation = async (req, res) => {
             phuongID: pid,
             quanID: qid,
             loaivitri: lvt,
-            hinhanh: 'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
+            hinhanh: imgurl,
             hinhthuc: htqc,
             quyhoach: QHCQH,
             toadoX: lat,
