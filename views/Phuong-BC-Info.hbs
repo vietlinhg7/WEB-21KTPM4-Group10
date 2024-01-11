@@ -1,0 +1,87 @@
+<body>
+
+
+  <form action="#" method="post" class="form float-end" style="height: 100%; width: 100%;">
+      <div class="container py-3" style="width: 100%">
+        <div class="card">
+          <div class="card-header text-center">
+            <h1>
+
+            </h1>
+          </div>
+          <div class="card-body">
+          <div class="row">
+            <div class="col align-self-center d-flex flex-row align-items-start"  style="width: 80%;">
+              <img
+                  src="{{report.image1}}"
+                  alt="" 
+                  class="img-thumbnail" 
+                  id="image"
+                  style="max-height: 50%; max-width: 50%; height: auto; width: auto;">
+                {{#if report.image2}}
+                  <img
+                    src={{report.image2}}
+                    alt="" 
+                    class="img-thumbnail" 
+                    id="image"
+                    style="max-height: 50%; max-width: 50%; height: auto; width: auto;">
+                {{/if}}
+            </div>
+              <h4 class="card-header"><i class="bi bi-info-square-fill"></i><strong> Hình thức báo cáo</strong> </h4>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="kichthuoc" id="kichthuoc" aria-describedby="helpId"
+                  placeholder="kichthuoc" value="{{report.reportType}}" required readonly>
+              </div>
+              <h4 class="card-header"><i class="bi bi-person-fill"></i><strong> Họ tên người báo cáo</strong></h4>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="kichthuoc" id="kichthuoc" aria-describedby="helpId"
+                  placeholder="kichthuoc" value="{{report.fullName}}" required readonly>
+              </div>
+              <h4 class="card-header"><i class="bi bi-envelope-fill"></i><strong> Email người báo cáo</strong></h4>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="kichthuoc" id="kichthuoc" aria-describedby="helpId"
+                  placeholder="kichthuoc" value="{{report.email}}" required readonly>
+              </div>
+              <h4 class="card-header"><i class="bi bi-telephone-fill"></i><strong> Số điện thoại người báo cáo</strong></h4>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="kichthuoc" id="kichthuoc" aria-describedby="helpId"
+                  placeholder="kichthuoc" value="{{report.phone}}" required readonly>
+              </div>
+              <h4 class="card-header"><i class="bi bi-clipboard-fill"></i><strong> Nội dung báo cáo</strong></h4>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="kichthuoc" id="kichthuoc" aria-describedby="helpId"
+                  placeholder="kichthuoc" value="{{report.reportContent}}" required readonly>
+              </div>
+
+              <h4 class="card-header"><i class="bi bi-calendar-fill"></i><strong> Thời điểm báo cáo</strong></h4>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="kichthuoc" id="kichthuoc" aria-describedby="helpId"
+                  placeholder="kichthuoc" value="{{report.thoidiemgui}}" required readonly>
+              </div>
+
+              <h4 class="card-header"><i class="bi bi-hammer"></i><strong> Cách thức xử lý</strong></h4>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="xuly" id="xuly" aria-describedby="helpId"
+                  placeholder="Nhập cách thức xử lý để gửi cho người dân tại đây" required>
+              </div>
+
+              <div class="d-flex justify-content-end mt-3">
+                <form action="/requestInfo" method="post">
+                  <input class="btn btn-primary" type="submit" id="saveButton" value="Gửi">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+
+
+</body>

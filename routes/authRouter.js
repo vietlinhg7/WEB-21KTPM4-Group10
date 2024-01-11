@@ -35,10 +35,15 @@ router.post('/locationInfo',controller.isLoggedIn, controller.saveLocation);
 router.get('/billboardInfo',controller.isLoggedIn, controller.showBillboardInfo);
 router.post('/billboardInfo',controller.isLoggedIn, controller.saveBillboard);
 
+router.get('/reportInfo', controller.isLoggedIn, controller.showReportInfo);
+router.post('/reportInfo', controller.isLoggedIn, controller.solveReport);
+
+
 router.get('/Phuong-Map', controller.isLoggedIn, controller.showPhuongMap);
 router.get('/Phuong-Map-Detail', controller.isLoggedIn, controller.showPhuongMapDetail);
-router.get('/Phuong-DDQC', controller.isLoggedIn, controller.showPhuongDDQC)
-router.get('/Phuong-BQC', controller.isLoggedIn, controller.showPhuongBQC)
+router.get('/Phuong-DDQC', controller.isLoggedIn, controller.showPhuongDDQC);
+router.get('/Phuong-BQC', controller.isLoggedIn, controller.showPhuongBQC);
+router.get('/Phuong-BC', controller.isLoggedIn, controller.showPhuongBC);
 router.post('/suaHinhThuc/:hinhthuc',controller.isLoggedIn, controller.suaHinhThuc);
 router.get('/xoaHinhthuc/:hinhthuc',controller.isLoggedIn, controller.xoaHinhThuc);
 router.post('/suaReportType/:name',controller.isLoggedIn, controller.suaReportType);

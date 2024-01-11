@@ -11,6 +11,8 @@ const reportSchema = new Schema({
     thoidiemgui: Date,
     tinhtrang: String,
     cachthucxuly: String,
+    image1: String,
+    image2: String,
     queryID: { type: String, required: true },
 });
 

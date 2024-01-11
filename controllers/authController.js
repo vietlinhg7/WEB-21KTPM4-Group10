@@ -15,6 +15,14 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { notify } = require('../routes/authRouter');
 
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'ndvlinh21@clc.fitus.edu.vn',
+        pass: 'gkil ziel tfsx rldr'
+    }
+});
+
 controller.saveLocation = async(req, res) => {
     locationID = req.query.keyword;
     let requestID = '0';
@@ -50,7 +58,6 @@ controller.saveBillboard = async(req, res) => {
     while (await Request.findOne({ requestID })) {
         requestID = (parseInt(requestID) + 1).toString();
     }
-    console.log(req.body);
     const thongtinmoi = new Billboard({
         billboardID: billboardID,
         kichthuoc: req.body.kichthuoc,
@@ -71,6 +78,50 @@ controller.saveBillboard = async(req, res) => {
     await newRequest.save();
     res.redirect('/Phuong-BQC?keyword='+req.body.locationID);
 }
+
+controller.solveReport = async(req, res) => {
+    reportID = req.query.keyword;
+    await Report.updateOne({ reportID: reportID }, {
+        tinhtrang: "Đã xử lí",
+        cachthucxuly: req.body.xuly,
+    });
+    report =  await Report.findOne({ reportID }).lean();
+    let date = new Date(report.thoidiemgui);
+    let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    let year = date.getFullYear(); // Get the full year
+    report.thoidiemgui = `${day}-${month}-${year}`; // Combine the day, month, and year into a string
+    console.log(report.email);
+    let mailOptions = {
+        from: 'ndvlinh21@clc.fitus.edu.vn',
+        to: report.email,
+        subject: 'Cách thức xử lý cho báo cáo của bạn',
+        text: `
+        Gửi ${report.fullName},
+
+        Chúng tôi đã nhận được báo cáo của bạn về việc ${report.reportType} vào ngày ${report.thoidiemgui}
+
+        Mail này nhằm thông báo rằng báo cáo của bạn đã được xử lý bởi cán bộ phường phụ trách phường ${req.session.user.phuongID} thuộc quận ${req.session.user.quanID}
+
+        Hãy xử lý vấn đề của bạn theo cách thức được đề xuất sau đây:
+
+        ${report.cachthucxuly}
+
+        Chúc vấn đề của bạn sớm được giải quyết
+
+        Trân trọng,
+        Nhóm 10`
+    };
+    try {
+        transporter.sendMail(mailOptions);
+        res.redirect('/Phuong-BC');
+    } catch (err) {
+        console.log('error');
+        res.redirect('/Phuong-BC');
+    }
+    
+}
+
 controller.showLocationInfo = async(req, res) => {
     locationID = req.query.keyword;
     res.locals.location = await Location.findOne({ locationID });
@@ -93,13 +144,28 @@ controller.showBillboardInfo = async(req, res) => {
     res.locals.billboard = billboard;
     let loai = await Loai.find({});
     let hinhThuc = await Hinhthuc.find({});
-    console.log(loai);
     res.render('Phuong-BQC-Info', {
         layout: 'Phuong', 
         loai: loai,
         hinhThuc: hinhThuc
     })
 }
+
+controller.showReportInfo = async(req, res) => {
+    reportID = req.query.keyword;
+    report = await Report.findOne({ reportID }).lean();
+    let date = new Date(report.thoidiemgui);
+    let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    let year = date.getFullYear(); // Get the full year
+    report.thoidiemgui = `${day}-${month}-${year}`; // Combine the day, month, and year into a string
+    res.locals.report = report;
+    res.render('Phuong-BC-Info', {
+        layout: 'Phuong'
+    })
+}
+
+
 controller.showPhuongBQC = async(req, res) => {
     let billboards = await Billboard.find({
         locationID: req.query.keyword
@@ -107,6 +173,48 @@ controller.showPhuongBQC = async(req, res) => {
     
     res.locals.billboards = billboards;
     res.render('Phuong-BQC', {
+        layout: 'Phuong'
+    });
+
+};
+
+controller.showPhuongBC = async(req, res) => {
+    let locations = await Location.find({
+        phuongID: req.session.user.phuong,
+        quanID: req.session.user.quan
+    });
+    let reports = [];
+    for (location of locations) {
+        let locationReports = await Report.find({
+            queryID: location.locationID,
+            tinhtrang: "Chưa xử lí"
+         }).lean();
+         
+        billboards = await Billboard.find({
+            locationID: location.locationID
+         }).lean();
+         
+         let combinedReports = [];
+         for (let billboard of billboards) {
+            let billboardReports = await Report.find({
+                queryID: billboard.billboardID,
+                tinhtrang: "Chưa xử lí"
+            }).lean();
+     
+            // Combine reports
+            combinedReports = combinedReports.concat(locationReports, billboardReports);
+         };
+         reports = reports.concat(combinedReports);
+     };
+    for (let report of reports) {
+        let date = new Date(report.thoidiemgui);
+        let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        let year = date.getFullYear(); // Get the full year
+        report.thoidiemgui = `${day}-${month}-${year}`; // Combine the day, month, and year into a string
+    }
+    res.locals.reports=reports;
+    res.render('Phuong-BC', {
         layout: 'Phuong'
     });
 
@@ -225,13 +333,6 @@ controller.deleteLocation = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'ndvlinh21@clc.fitus.edu.vn',
-        pass: 'gkil ziel tfsx rldr'
-    }
-});
 
 controller.showForgot = (req, res) => {
     res.render('Forgot', {
@@ -509,7 +610,6 @@ controller.xoaPhuong = async (req, res) => {
         const qid = req.params.quanID;
         const pid = req.params.phuongID;
         await Phuong.deleteOne({ phuongID: pid, quanID: qid });
-        console.log(qid, pid);
         res.redirect('/chiTiet?keyword=' + qid);
     } catch (error) {
         console.log(error);
@@ -612,12 +712,12 @@ controller.showPhuongMap = async (req, res) => {
         quanID: req.session.user.quan
     }).lean();
     for (location of locations) {
-        location.hasReport = !!await Report.findOne({ queryID: location.locationID });
+        location.hasReport = !!await Report.findOne({ queryID: location.locationID , tinhtrang: "Chưa xử lí"});
         location.billboard = await Billboard.find({ locationID: location.locationID });
         if (location.hasReport == false) {
             for (billboard of location.billboard) {
                 if (location.hasReport == false) {
-                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID });
+                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID , tinhtrang: "Chưa xử lí"});
                 }
                 else break;
             }
@@ -634,12 +734,12 @@ controller.showPhuongMapDetail = async (req, res) => {
         quanID: req.session.user.quan
     }).lean();
     for (location of locations) {
-        location.hasReport = !!await Report.findOne({ queryID: location.locationID });
+        location.hasReport = !!await Report.findOne({ queryID: location.locationID, tinhtrang: "Chưa xử lí"});
         location.billboard = await Billboard.find({ locationID: location.locationID });
         if (location.hasReport == false) {
             for (billboard of location.billboard) {
                 if (location.hasReport == false) {
-                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID });
+                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID, tinhtrang: "Chưa xử lí" });
                 }
                 else break;
             }
@@ -753,7 +853,6 @@ controller.isLoggedIn = async (req, res, next) => {
 controller.themHinhThucBC = async (req, res) => {
 
     const ten = req.body.tenHinhThucBC;
-    console.log(ten);
     const newReportType = new ReportType({ name: ten });
     try {
         await newReportType.save();
@@ -833,11 +932,9 @@ controller.addLocation = async (req, res) => {
     const pid = req.body.PIDD;
     const address = req.body.address;
     const addressdetail = req.body.address_detail;
-    console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
 
     const temp = await Location.findOne({ toadoX: lat, toadoY: lng });
     const num = await Location.find({ quanID: qid, phuongID: pid });
-    //console.log(num.length);
     if (temp != null) {
         res.send('<script>alert("Location is defined"); window.location="/DDQCmap";</script>');
     } else {
@@ -882,9 +979,7 @@ controller.register = async (req, res) => {
     const telephone = req.body.telephone;
     const email = req.body.email;
     const chucvu = req.body.chucvu;
-    console.log(lastname, firstname, date, username, password, quan, phuong, telephone, email, chucvu);
     const temp = await User.findOne({ userID: username });
-    //console.log(num.length);
     if (temp != null) {
         res.send('<script>alert("user name is defined"); window.location="/showRegister";</script>');
     } else {
