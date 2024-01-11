@@ -57,11 +57,12 @@ controller.changePass = async (req, res) => {
 
 controller.editLocation = async (req, res) => {
     const keyword = req.query.keyword;
-    let location = await Location.findOne({ locationID: keyword });
+    let location = await Location.find({ locationID: keyword });
     let quan = await Quan.find({});
     let phuong = await Phuong.find({});
     let loaivitri = await Loaivitri.find({});
     let hinhThuc = await Hinhthuc.find({});
+    console.log(location.length);
     try {
         res.render('So-DDQC-edit', {
             layout: 'So',
@@ -705,17 +706,20 @@ controller.addLocation = async (req, res) => {
     const pid = req.body.PIDD;
     const address = req.body.address;
     const addressdetail = req.body.address_detail;
-    console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
+   // console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
 
-    const temp = await Location.findOne({ lat: lat, lng: lng });
+    const temp = await Location.findOne({ toadoX: lat, toadoY: lng });
+    const num = await Location.find({quanID: qid, phuongID: pid }) ;
+    //console.log(num.length);
     if (temp != null) {
         res.send('<script>alert("Location is defined"); window.location="/DDQCmap";</script>');
     } else {
         const newLocation = new Location({
-            locationID: 'p' + pid + 'q' + qid +'_3' ,
+            locationID:  pid+ qid +'_' + num.length,
             name: address,
             diachi: addressdetail,
             phuongID :pid,
+            quanID: qid,
             loaivitri: lvt,
             hinhanh:   'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
             hinhthuc: htqc,
@@ -725,7 +729,7 @@ controller.addLocation = async (req, res) => {
         });
         try {
             await newLocation.save();
-            res.redirect('/'); // or wherever you want to redirect after saving
+            res.redirect('/showLocation'); // or wherever you want to redirect after saving
         } catch (err) {
             console.error(err);
             res.status(500).send('Server Error');
