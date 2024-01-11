@@ -230,17 +230,17 @@ controller.DDQCmap = async (req, res) => {
     });
 }
 controller.showLocation = async (req, res) => {
-    // res.render('Phuong-ChinhSuaDDQC', {
-    //     layout: 'So'
-    // });
+    res.render('Phuong-YCCP-Censored-list', {
+        layout: 'So'
+    });
     // res.render('DanhSachBaoCao', {
     //     layout: 'So'
     // });
-    let location = await Location.find({});
-    res.render('So-DDQC', {
-        layout: 'So',
-        location: location
-    });
+    // let location = await Location.find({});
+    // res.render('So-DDQC', {
+    //     layout: 'So',
+    //     location: location
+    // });
     
 }
 controller.themHinhThucQC = async (req, res) => {
