@@ -1,22 +1,22 @@
 <body style="margin-top: 70px">
   <div class="container center-container my-4">
-    <form class="row g-3">
+    <form class="row g-3" action="/register" method="post">
       <div class="col-md-3">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="inputLastName" placeholder="Nguyễn">
+          <input type="text" class="form-control" id="inputLastName" name="lastname" placeholder="Nguyễn" required>
           <label for="inputLastName" class="form-label">Họ:</label>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="inputFirstName" placeholder="Linh">
+          <input type="text" class="form-control" id="inputFirstName" name="firstname" placeholder="Linh" required>
           <label for="inputFirstName" class="form-label">Tên:</label>
         </div>
       </div>
       <div class="col-md-3">
         <label for="birthday" class="form-label fs-6 mb-0">Tháng / Ngày / Năm sinh</label>
         <div class="form-floating mb-3">
-          <input type="date" id="birthday">
+          <input type="date" id="birthday" name="date" required>
         </div>
       </div>
       <script>
@@ -31,7 +31,9 @@
           if (inputLevel.value === 'Cán bộ quận') {
             inputWard.disabled = true;
             inputWard.value = 'Ô này đã bị vô hiệu hóa';  // Clear the value to prevent submitting disabled input
+            document.getElementById('chucvu').value='quan';
           } else {
+            document.getElementById('chucvu').value='phuong';
             inputWard.disabled = false;
             inputWard.value = '';
           }
@@ -39,13 +41,13 @@
       </script>
       <div class="col-12">
         <div class="form-floating mb-1">
-          <input type="email" class="form-control" id="emailInput" placeholder="name@gmail.com">
+          <input name="email" type="email" class="form-control" id="emailInput" placeholder="name@gmail.com" required>
           <label for="emailInput" class="form-label">Email:</label>
         </div>
       </div>
       <div class="col-12">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="phonenumberInput" placeholder="024-19xx-xxxx">
+          <input name="telephone" type="text" class="form-control" id="phonenumberInput" placeholder="024-19xx-xxxx" required>
           <label for="phonenumberInput" class="form-label">Số điện thoại:</label>
         </div>
       </div>
@@ -55,33 +57,31 @@
           <option>Cán bộ phường</option>
           <option>Cán bộ quận</option>
         </select>
+        <input type="hidden" name="chucvu" id="chucvu" required>
       </div>
       <div class="col-md-5">
         <label for="inputDistrict" class="form-label">Quận</label>
-        <input type="text" class="form-control" id="inputDistrict" placeholder="Nhập quận">
+        <input name="quan" type="text" class="form-control" id="inputDistrict" placeholder="Nhập quận" required>
       </div>
       <div class="col-md-5">
         <label for="inputWard" class="form-label">Phường</label>
-        <input type="text" class="form-control" id="inputWard" placeholder="Nhập phường">
+        <input name="phuong" type="text" class="form-control" id="inputWard" placeholder="Nhập phường" required>
       </div>
 
       <div class="col-md-6">
         <div class="form-floating mb-3">
-          <input type="text" class="form-control" id="inputUserID" placeholder="caubengoknghek">
+          <input name="username" type="text" class="form-control" id="inputUserID" placeholder="caubengoknghek">
           <label for="inputUserID" class="form-label">Tên đăng nhập:</label>
         </div>
       </div>
       <div class="col-md-6">
         <div class="form-floating mb-3">
-          <input type="password" class="form-control" id="inputPassword" placeholder="caubengoknghek">
+          <input name="password" type="password" class="form-control" id="inputPassword" placeholder="caubengoknghek">
           <label for="inputPassword" class="form-label">Mật khẩu:</label>
         </div>
       </div>
       <div class="col-12 d-flex justify-content-end align-items-end">
-        <button type="button" class="btn btn-danger me-3" id="discard-create-account">
-          Hủy bỏ
-        </button>
-        <button type="button" class="btn btn-success" id="submit-create-account">
+        <button type="submit" class="btn btn-success" id="submit-create-account">
           Xác nhận
         </button>
       </div>

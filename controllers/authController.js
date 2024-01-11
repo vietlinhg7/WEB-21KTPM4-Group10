@@ -95,7 +95,7 @@ controller.editLocation = async (req, res) => {
     //console.log(num.length);
     const num = await Location.find({ quanID: qid, phuongID: pid });
     const lid = pid + qid + '_' + num.length;
-    await Billboard.updateMany({locationID:keyword },{locationID :lid });
+    await Billboard.updateMany({ locationID: keyword }, { locationID: lid });
     await Location.updateOne({ locationID: keyword }, {
         locationID: lid,
         name: address,
@@ -736,7 +736,7 @@ controller.addLocation = async (req, res) => {
     const pid = req.body.PIDD;
     const address = req.body.address;
     const addressdetail = req.body.address_detail;
-     console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
+    console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
 
     const temp = await Location.findOne({ toadoX: lat, toadoY: lng });
     const num = await Location.find({ quanID: qid, phuongID: pid });
@@ -774,4 +774,43 @@ controller.addLocation = async (req, res) => {
     //     res.status(500).send('Server Error');
     // }
 };
+controller.register = async (req, res) => {
+    const lastname = req.body.lastname;
+    const firstname = req.body.firstname;
+    const date = req.body.date;
+    const username = req.body.username;
+    const password = req.body.password;
+    const quan = req.body.quan;
+    const phuong = req.body.phuong;
+    const telephone = req.body.telephone;
+    const email = req.body.email;
+    const chucvu = req.body.chucvu;
+    console.log(lastname, firstname, date, username, password, quan, phuong, telephone, email, chucvu);
+    const temp = await User.findOne({ userID: username });
+    //console.log(num.length);
+    if (temp != null) {
+        res.send('<script>alert("user name is defined"); window.location="/showRegister";</script>');
+    } else {
+        const newUser = new User({
+            userID: username,
+            password: password,
+            chucvu: chucvu,
+            hoTen: lastname + ' ' + firstname,
+            nsinh: date,
+            email: email,
+            sdt: telephone,
+            phuong: phuong,
+            quan: quan,
+
+        });
+        try {
+            await newUser.save();
+            res.send('<script>alert("new user is added"); window.location="/showRegister";</script>');
+
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server Error');
+        }
+    }
+}
 module.exports = controller;
