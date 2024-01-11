@@ -1,29 +1,26 @@
 <body>
     <main>
         <div class="d-flex align-items-stretch flex-wrap flex-row bd-highlight ms-5 ps-5">
-            {{#each location}}
+            {{#each billboards}}
             <div id="ddqc-item" class="col-3 mx-4 my-3 px-1 border border-white rounded px-2 py-2 d-flex flex-column">
                 <div id="ad-purpose"
                     class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
                     <div class="fw-bold align-self-center fs-7">
-                        {{hinhthuc}}
+                        {{loai}}
                     </div>
-                    <button id="info-btn" type="button" class="btn btn-primary" aria-label="Close" onclick="window.location.href='/Phuong-BQC?keyword={{locationID}}'">
-                        <i class="bi bi-info-circle"></i>
-                    </button>
                 </div>
                 <p class="overflow-hidden text-truncate">
-                    {{loaivitri}} <br>
-                    {{diachi}}
+                    Kích thước: {{kichthuoc}} <br>
+                    Hình thức: {{hinhthuc}}
 
 
                 </p>
                 <p class="col-6 text-start text-nowrap text-capitalize fst-italic fw-bold fs-5 mb-0">
-                    {{quyhoach}}
+                    Số lượng: {{soluong}}
 
                 </p>
                 <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
-                    <a class="col-3 btn btn-success mx-2" href="/locationInfo?keyword={{locationID}}" role="button">
+                    <a class="col-3 btn btn-success mx-2" href="/billboardInfo?keyword={{billboardID}}" role="button">
                         <i class="bi bi-pencil-square"></i>
                     </a>
                 </div>

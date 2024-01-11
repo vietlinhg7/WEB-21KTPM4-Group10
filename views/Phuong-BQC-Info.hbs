@@ -1,55 +1,145 @@
-<body style=" margin-top: 65px;">
-  <div class="d-flex flex-row justify-content-between align-items-stretch flex-wrap align-content-start bd-highlight"
-    style="margin-top: 65px">
-    <div id="left-section"
-      class="col-6 border border-dark border-3 rounded px-1 py-2 d-flex flex-column align-items-center justify-content-center text-center">
-      <h2>Hình ảnh bảng quảng cáo mới</h2>
-      <img class="mx-1 my-2 px-1 py-1 border border-dark border-2 img-fluid"
-        src="https://saigoncpa.vn/uploads/source/Thi%20C%C3%B4ng%20Qu%E1%BA%A3ng%20C%C3%A1o/BANG_QUANG_CAO_NGOAI_TROI/thi-cong-quang-cao-ngoai-troi-anh-1.jpg">
-      <img class="mx-1 my-2 px-1 py-1 border border-dark border-2 img-fluid"
-        src="https://solution.com.vn/upload_images/images/2017-tin-tuc/thiet-ke-bien-quang-cao/thiet-ke-bien-quang-cao-ngoai-troi.jpg">
-    </div>
+<body>
 
-    <div id="right-section"
-      class="col-6 border border-dark border-3 rounded px-1 py-2 d-flex flex-row align-contents-center rounded">
-      <button type="button" class="btn btn-close text-dark position-absolute top-4 end-0 m-3"
-        aria-label="Close"></button>
-      <div class="card-header col-12">
-        <h4 class="mb-3 fs-2"><i class="bi bi-geo-alt-fill mb-3"></i><strong> Thông tin địa điểm:</strong> </h4>
-        <h5 class="mb-3 fs-3 border border-2 border-secondary rounded px-1 py-1">Trường THCS Nguyễn Du</h5>
-        <h5 class="mb-3 fs-3 border border-2 border-secondary rounded px-1 py-1">Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1</h5>
-        <h4 class="mb-3 fs-2"><i class="bi bi-geo-alt-fill mb-3"></i><strong>Loại bảng quảng cáo: </strong></h4>
-        <h5 class="mb-3 fs-3 border border-2 border-secondary rounded px-1 py-1">Trụ treo băng rôn ngang</h5>
-        <h4 class="mb-3 fs-2"><i class="bi bi-geo-alt-fill mb-3"></i><strong>Kích thước: </strong></h4>
-        <h5 class="mb-3 fs-3 border border-2 border-secondary rounded px-1 py-1">2.5m x 10m</h5>
-        <h4 class="mb-3 fs-2"><i class="bi bi-geo-alt-fill mb-3"></i><strong> Số lượng: </strong></h4>
-        <h5 class="mb-3 fs-3 border border-2 border-secondary rounded px-1 py-1">1 trụ/bảng</h5>
-        <h4 class="mb-3 fs-2"><i class="bi bi-geo-alt-fill mb-3"></i><strong>Hình thức: </strong></h4>
-        <h5 class="mb-3 fs-3 border border-2 border-secondary rounded px-1 py-1">Cổ động chính trị</h5>
-        <h4 class="mb-3 fs-2"><i class="bi bi-geo-alt-fill mb-3"></i><strong>Phân loại: </strong></h4>
-        <h5 class="mb-3 fs-3 border border-2 border-secondary rounded px-1 py-1">Đất công/Công viên/Hành lang an toàn giao thông</h5>
-        <h4 class="mb-3 fs-2"><i class="bi bi-geo-alt-fill mb-3"></i><strong> Lý do chỉnh sửa: </strong></h4>
-        <h6
-          class="dflex fs-4 justify-content-start align-items-center mb-3 border border-2 border-secondary rounded px-1 py-1 flex-wrap">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod
-          tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-          laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
-          esse</h6>
-        {{!-- <div class="d-flex justify-content-end">
-          <button type="button" class="btn btn-danger fs-4 me-2">Từ chối</button>
-          <button type="button" class="btn btn-success fs-4">Đồng ý</button>
-        </div> --}}
+
+  <form action="#" method="post" class="form float-end" style="height: 100%; width: 100%;">
+      <div class="container py-3" style="width: 100%">
+        <div class="card">
+          <div class="card-header text-center">
+            <h1>
+
+            </h1>
+          </div>
+          <div class="card-body">
+          <div class="row">
+            <div class="col align-self-center d-flex flex-column align-items-start"  style="width: 50%;">
+              <img
+                  src={{billboard.hinhanh}}
+                  alt="" 
+                  class="img-thumbnail" 
+                  id="image"
+                  style="max-height: 50%; max-width: 50%; height: auto; width: auto;">
+                <input type="text" class="form-control my-3" name="hinhanh" id="hinhanh" aria-describedby="helpId"
+                  placeholder="Hình ảnh" value="{{billboard.hinhanh}}" required disabled>
+            </div>
+              <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Kích thước bảng quảng cáo</strong> </h4>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="kichthuoc" id="kichthuoc" aria-describedby="helpId"
+                  placeholder="kichthuoc" value="{{billboard.kichthuoc}}" required disabled>
+              </div>
+              <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại bảng quảng cáo</strong></h4>
+              <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
+                <button id="l"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-sm-auto w-100 overflow-hidden text-truncate" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                  {{billboard.loai}}
+                </button>
+
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+                  {{#each loai}}
+                  <li><a id="selectL{{loai}}" class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('l','{{loai}}')">{{loai}}</a></li>
+                  {{/each}}
+                </ul>
+              </div>
+
+              <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Hình thức quảng cáo</strong>
+              </h4>
+              <div class="mb-3 hinh-thuc-quang-cao-dropdown d-flex position-relative">
+                <button id="htqc"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100 overflow-hidden text-truncate" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                  {{billboard.hinhthuc}}
+                </button>
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+                  {{#each hinhThuc}}
+                  <li><a id="selectHTQC{{hinhthuc}}" class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('htqc','{{hinhthuc}}')">{{hinhthuc}}</a></li>
+                  {{/each}}
+
+                </ul>
+              </div>
+              <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Số lượng</strong> </h4>
+              <div class="mb-3">
+                <input type="number" min="1" class="form-control my-3" name="soluong" id="solulong" aria-describedby="helpId"
+ placeholder="soluong" value="{{billboard.soluong}}" required disabled>
+              </div>
+
+              <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Ngày hết hạn</strong></h4>
+              <input type="text" class="form-control" id="datepicker" name="ngayhethan" value={{billboard.ngayhethan}} disabled>
+              <script>
+                $(document).ready(function(){
+                  $('#datepicker').datepicker({
+                      format: 'yyyy-mm-dd',
+                      autoclose: true
+                  });
+                });
+              </script>
+              {{!-- <div class="mb-3">
+                <input type="text" class="form-control my-3" name="keyword" id="adress_type" aria-describedby="helpId"
+                  placeholder="Tên địa điểm" value="{{location.quyhoach}}" required>
+              </div> --}}
+
+              
+              <div class="d-flex justify-content-end mt-3">
+                <input class="btn btn-success mx-3" type="button" id="editButton" onclick="edit()" value="Edit">
+                <form action="/billboardInfo" method="post">
+                  <input class="btn btn-primary" type="submit" id="saveButton" value="Save" disabled>
+                </form>
+              </div>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="lydo" id="lydo" aria-describedby="helpId"
+                  placeholder="Lý do" value="" required hidden>
+              </div>
+              <input type="hidden" id="loai" name="loai">
+              <input type="hidden" id="hinhthuc" name="hinhthuc">
+              <input type="hidden" id="locationID" name="locationID" value={{billboard.locationID}}>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+  </form>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
 
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5paKst7kP-INwPaSuqoak2nRGeJOSTQc&callback=initMap"
+    async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
+  <script>
+    function selectOption(buttonID, selectedText) {
+      let button = document.getElementById(buttonID);
+      button.innerHTML = selectedText;
+      let l = document.getElementById('l');
+      let htqc = document.getElementById('htqc');
+      document.getElementById('loai').value = l.innerText;
+      document.getElementById('hinhthuc').value = htqc.innerText;
+    }
+    function edit() {
+      
+      // Select all input fields except those with IDs "phuong" and "quan"
+      let readonlyInputs = document.querySelectorAll('input:not([placeholder="Phường"]):not([placeholder="Quận"])');
+      
+      
+      // Remove the 'disabled' attribute from these input fields
+      readonlyInputs.forEach((input) => {
+        input.removeAttribute('disabled');
+      });
 
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5paKst7kP-INwPaSuqoak2nRGeJOSTQc&callback=initMap"
-      async defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"></script>
+      let disableddropdown = document.querySelectorAll('.btn-secondary');
+      disableddropdown.forEach((button) => {
+        button.removeAttribute('disabled');
+      });
+      editEnabled = true;
+      document.getElementById('lydo').removeAttribute('hidden');
+      document.getElementById('editButton').setAttribute('disabled', 'true');
+      document.getElementById('saveButton').removeAttribute('disabled');
+      let l = document.getElementById('l');
+      let htqc = document.getElementById('htqc');
+      document.getElementById('loai').value = l.innerText;
+      document.getElementById('hinhthuc').value = htqc.innerText;
+    }
+  </script>
 
 
 </body>

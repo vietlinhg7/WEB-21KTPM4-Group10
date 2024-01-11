@@ -37,12 +37,39 @@ controller.saveLocation = async(req, res) => {
     const newRequest = new Request({
         requestID: requestID,
         thongtinmoi: thongtinmoi,
-        lydo: "None",
+        lydo: req.body.lydo,
         queryID: locationID,
         tinhtrang: "Chưa xử lý"
     });
     await newRequest.save();
+    res.redirect('/Phuong-DDQC');
+}
+controller.saveBillboard = async(req, res) => {
+    billboardID = req.query.keyword;
+    let requestID = '0';
+    while (await Request.findOne({ requestID })) {
+        requestID = (parseInt(requestID) + 1).toString();
+    }
     console.log(req.body);
+    const thongtinmoi = new Billboard({
+        billboardID: billboardID,
+        kichthuoc: req.body.kichthuoc,
+        hinhthuc: req.body.hinhthuc,
+        hinhanh: req.body.hinhanh,
+        ngayhethan: new Date(req.body.ngayhethan),
+        locationID: req.body.locationID,
+        loai: req.body.loai,
+        soluong: req.body.soluong
+    });
+    const newRequest = new Request({
+        requestID: requestID,
+        thongtinmoi: thongtinmoi,
+        lydo: req.body.lydo,
+        queryID: billboardID,
+        tinhtrang: "Chưa xử lý"
+    });
+    await newRequest.save();
+    res.redirect('/Phuong-BQC?keyword='+req.body.locationID);
 }
 controller.showLocationInfo = async(req, res) => {
     locationID = req.query.keyword;
@@ -55,6 +82,35 @@ controller.showLocationInfo = async(req, res) => {
         hinhThuc: hinhThuc
     })
 }
+controller.showBillboardInfo = async(req, res) => {
+    billboardID = req.query.keyword;
+    billboard = await Billboard.findOne({ billboardID }).lean();
+    let date = new Date(billboard.ngayhethan);
+    let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    let year = date.getFullYear(); // Get the full year
+    billboard.ngayhethan = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+    res.locals.billboard = billboard;
+    let loai = await Loai.find({});
+    let hinhThuc = await Hinhthuc.find({});
+    console.log(loai);
+    res.render('Phuong-BQC-Info', {
+        layout: 'Phuong', 
+        loai: loai,
+        hinhThuc: hinhThuc
+    })
+}
+controller.showPhuongBQC = async(req, res) => {
+    let billboards = await Billboard.find({
+        locationID: req.query.keyword
+    });
+    
+    res.locals.billboards = billboards;
+    res.render('Phuong-BQC', {
+        layout: 'Phuong'
+    });
+
+};
 
 controller.showPhuongDDQC = async(req, res) => {
     let locations = await Location.find({
