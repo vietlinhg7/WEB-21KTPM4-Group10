@@ -6,8 +6,8 @@
                 <a href="/DDQCmap"><i class="bi bi-database-add custom-icon"></i></a>
             </button>
         </div>
- 
- 
+
+
         <div class="d-flex align-items-stretch flex-wrap flex-row bd-highlight ms-5 ps-5">
             {{#each location}}
             {{!-- flex item 1 --}}
@@ -18,7 +18,9 @@
                         {{hinhthuc}}
                     </div>
                     <button id="info-btn" type="button" class="btn btn-primary" aria-label="Close">
-                        <i class="bi bi-info-circle"></i>
+                        <a href="/DDQCdetail?keyword={{locationID}}">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
                     </button>
                 </div>
 

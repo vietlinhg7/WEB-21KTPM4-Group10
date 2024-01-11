@@ -58,10 +58,18 @@ controller.changePass = async (req, res) => {
 controller.editLocation = async (req, res) => {
     const keyword = req.query.keyword;
     let location = await Location.findOne({ locationID: keyword });
+    let quan = await Quan.find({});
+    let phuong = await Phuong.find({});
+    let loaivitri = await Loaivitri.find({});
+    let hinhThuc = await Hinhthuc.find({});
     try {
         res.render('So-DDQC-edit', {
             layout: 'So',
-            location: location
+            location: location,
+            quan: quan,
+            phuong: phuong,
+            loaivitri : loaivitri,
+            hinhThuc : hinhThuc
         });
         // or wherever you want to redirect after saving
     } catch (err) {
@@ -230,17 +238,17 @@ controller.DDQCmap = async (req, res) => {
     });
 }
 controller.showLocation = async (req, res) => {
-    res.render('Phuong-YCCP-Censored-list', {
-        layout: 'So'
-    });
+    // res.render('Phuong-ChinhSuaDDQC', {
+    //     layout: 'So'
+    // });
     // res.render('DanhSachBaoCao', {
     //     layout: 'So'
     // });
-    // let location = await Location.find({});
-    // res.render('So-DDQC', {
-    //     layout: 'So',
-    //     location: location
-    // });
+    let location = await Location.find({});
+    res.render('So-DDQC', {
+        layout: 'So',
+        location: location
+    });
     
 }
 controller.themHinhThucQC = async (req, res) => {
@@ -416,9 +424,6 @@ controller.themPhuong = async (req, res) => {
         }
     }
 };
-
-
-
 controller.chiTiet = async (req, res) => {
     const keyword = req.query.keyword;
     let quan = await Quan.findOne({ quanID: keyword });
@@ -430,7 +435,6 @@ controller.chiTiet = async (req, res) => {
         quan: quan
     });
 };
-
 controller.xoaQuan = async (req, res) => {
     try {
         const keyword = req.query.keyword;
@@ -450,8 +454,6 @@ controller.showQuan = async (req, res) => {
         layout: 'So',
     });
 }
-
-
 controller.addQuan = async (req, res) => {
     const keyword = req.body.QID;
 
@@ -469,8 +471,6 @@ controller.addQuan = async (req, res) => {
         }
     }
 };
-
-
 controller.showPhuongMap = async (req, res) => {
     let locations = await Location.find({
         phuongID: req.session.user.phuong,
@@ -493,7 +493,6 @@ controller.showPhuongMap = async (req, res) => {
         layout: 'Phuong'
     });
 };
-
 controller.showPhuongMapDetail = async (req, res) => {
     let locations = await Location.find({
         phuongID: req.session.user.phuong,
@@ -553,7 +552,6 @@ controller.showPhuongMapDetail = async (req, res) => {
         layout: 'Phuong'
     });
 };
-
 controller.showIndex = async (req, res) => {
     if (req.session.user.chucvu == 'phuong') {
         res.redirect('/Phuong-Map');
@@ -565,7 +563,6 @@ controller.showIndex = async (req, res) => {
     if (req.session.user.chucvu == 'so')
         res.redirect('/showQuan');
 };
-
 controller.showLogin = (req, res) => {
     let reqUrl = req.query.reqUrl ? req.query.reqUrl : '/';
     if (req.session.user) {
@@ -578,7 +575,6 @@ controller.showLogin = (req, res) => {
         password: req.signedCookies.password,
     });
 };
-
 controller.login = async (req, res) => {
     let { username, password, rememberMe } = req.body;
     let user = await User.findOne({ userID: username });
@@ -604,14 +600,12 @@ controller.login = async (req, res) => {
         message: 'Tên tài khoản hoặc mật khẩu sai'
     });
 };
-
 controller.logout = (req, res, next) => {
     req.session.destroy(function (error) {
         if (error) return next(error);
         res.redirect('/login');
     });
 };
-
 controller.isLoggedIn = async (req, res, next) => {
     if (req.session.user) {
         res.locals.user = req.session.user;
@@ -621,8 +615,6 @@ controller.isLoggedIn = async (req, res, next) => {
         res.redirect('/login');
     }
 };
-
-
 controller.themHinhThucBC = async (req, res) => {
 
     const ten = req.body.tenHinhThucBC;
@@ -646,7 +638,6 @@ controller.xoaReportType = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
-
 controller.suaReportType = async (req, res) => {
     const ht = req.params.name;
 
@@ -662,13 +653,11 @@ controller.suaReportType = async (req, res) => {
         res.status(500).send('Server Error');
     }
 }
-
 controller.showRegister= async (req, res) => {
     res.render('So-TTKCCB', {
         layout: 'so'
     });
 }
-
 controller.showTKBC= async (req, res) => {
     res.render('So-ThongKeBaoCao', {
         layout: 'so'
@@ -687,6 +676,16 @@ controller.xetDuyetChinhSua= async (req, res) => {
 controller.yeuCauCapPhep= async (req, res) => {
     res.render('So-YCCP', {
         layout: 'so'
+    });
+}
+controller.DDQCdetail= async (req, res) => {
+    const keyword = req.query.keyword;
+    let location = await Location.findOne({locationID : keyword});
+    let billboard = await Billboard.find({locationID : keyword});
+    res.render('So-DDQC-detail', {
+        layout: 'so',
+        billboard : billboard,
+        location : location
     });
 }
 module.exports = controller;
