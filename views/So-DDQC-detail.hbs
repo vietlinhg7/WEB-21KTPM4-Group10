@@ -1,0 +1,106 @@
+<body style="margin-top: 70px">
+  <style>
+    /* Custom CSS */
+    .truncated-content {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .show-all {
+      white-space: normal !important;
+    }
+  </style>
+  <div class="d-flex align-items-stretch flex-wrap flex-row bd-highlight mx-4">
+    <div
+      class="col-3 bg-body mx-5 my-4 border border-secondary border-1 rounded px-2 py-2 d-flex flex-column ddqc-detail-item">
+      <div class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
+        <div class="align-self-center fs-7">
+          <h4>Trụ, cụm pano</h4>
+        </div>
+        <button type="button" class="btn btn-primary" aria-label="Close" onclick="toggleOverflow(this)">
+          <i class="bi bi-info-circle"></i>
+        </button>
+      </div>
+      <p class="fs-7 text-secondary">Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1</p>
+      <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
+        <span class="me-1 align-self-start">Số lượng:</span>
+        <span class="fw-bold truncated-content quantity">1 trụ/bảng</span>
+      </span>
+      <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
+        <span class="me-1 align-self-start">Hình thức:</span>
+        <span class="fw-bold truncated-content format">Cổ động chính trị</span>
+      </span>
+      <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
+        <span class="me-1 align-self-start">Phân loại:</span>
+        <span class="fw-bold truncated-content classification">Đất công/Công viên/Hành lang an toàn giao thông</span>
+      </span>
+    </div>
+    <div class="col-3 bg-body mx-5 my-4 border border-secondary border-1 rounded px-2 py-2 d-flex flex-column ddqc-detail-item">
+        <div class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
+            <div class="align-self-center fs-7">
+                <h4>Trụ, cụm pano</h4>
+            </div>
+            <button type="button" class="btn btn-primary" aria-label="Close" onclick="toggleOverflow(this)">
+                <i class="bi bi-info-circle"></i>
+            </button>
+        </div>
+        <p class="fs-7 text-secondary">Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1</p>
+        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
+            <span class="me-1 align-self-start">Số lượng:</span>
+            <span class="fw-bold truncated-content quantity">1 trụ/bảng</span>
+        </span>
+        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
+            <span class="me-1 align-self-start">Hình thức:</span>
+            <span class="fw-bold truncated-content format">Cổ động chính trị</span>
+        </span>
+        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
+            <span class="me-1 align-self-start">Phân loại:</span>
+            <span class="fw-bold truncated-content classification">Đất công/Công viên/Hành lang an toàn giao thông</span>
+        </span>
+    </div>
+    <div class="col-3 bg-body mx-5 my-4 border border-secondary border-1 rounded px-2 py-2 d-flex flex-column ddqc-detail-item">
+        <div class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
+            <div class="align-self-center fs-7">
+                <h4>Trụ, cụm pano</h4>
+            </div>
+            <button type="button" class="btn btn-primary" aria-label="Close" onclick="toggleOverflow(this)">
+                <i class="bi bi-info-circle"></i>
+            </button>
+        </div>
+        <p class="fs-7 text-secondary">Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1</p>
+        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
+            <span class="me-1 align-self-start">Số lượng:</span>
+            <span class="fw-bold truncated-content quantity">1 trụ/bảng</span>
+        </span>
+        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
+            <span class="me-1 align-self-start">Hình thức:</span>
+            <span class="fw-bold truncated-content format">Cổ động chính trị</span>
+        </span>
+        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
+            <span class="me-1 align-self-start">Phân loại:</span>
+            <span class="fw-bold truncated-content classification">Đất công/Công viên/Hành lang an toàn giao thông</span>
+        </span>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    function toggleOverflow(button) {
+      var parent = button.closest('.ddqc-detail-item');
+      var elements = parent.querySelectorAll('.truncated-content');
+
+      elements.forEach(function (element) {
+        element.classList.toggle('show-all');
+      });
+    }
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+    </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>

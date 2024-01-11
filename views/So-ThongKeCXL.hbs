@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px; /* Đặt cỡ chữ to hơn theo nhu cầu */
+    }
+
+    @media only screen and (max-width: 600px) {
+      #chartContainer {
+        width: 100%;
+        height: 400px; /* Điều chỉnh chiều cao nếu cần thiết */
+      }
+    }
+
+    @media only screen and (min-width: 601px) and (max-width: 800px) {
+      #chartContainer {
+        width: 100%;
+        height: 500px; /* Điều chỉnh chiều cao nếu cần thiết */
+      }
+    }
+
+    /* Add more media queries as needed for different screen sizes */
+
+    /* Default styling for larger screens */
+    #chartContainer {
+      width: 100%;
+      height: 300px;
+    }
+  </style>
+  <script type="text/javascript">
+    window.onload = function () {
+      var chart = new CanvasJS.Chart("chartContainer", {
+        title: {
+          text: "Thống kê cách xử lý"
+        },
+        axisY: {
+          maximum: 100
+        },
+        data: [
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Số lượng",
+            color: "gold",
+            dataPoints: [
+              { y: 21, label: "Xây mới hoàn toàn"},
+              { y: 11, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 78, label: "Thay đổi nội dung quảng cáo" },
+              { y: 42, label: "Thay đổi kích thước" },
+              { y: 63, label: "Phá dỡ" },
+            ]
+          },
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Quy hoạch",
+            color: "#198754",
+            dataPoints: [
+              { y: 85, label: "Xây mới hoàn toàn"},
+              { y: 28, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 72, label: "Thay đổi nội dung quảng cáo"  },
+              { y: 96, label: "Thay đổi kích thước" },
+              { y: 66, label: "Phá dỡ"},
+              
+            ]
+          },
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Chưa quy hoạch",
+            color: "#dc3545",
+            dataPoints: [
+              { y: 58, label: "Xây mới hoàn toàn"},
+              { y: 74, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 65, label: "Thay đổi nội dung quảng cáo"  },
+              { y: 79, label: "Thay đổi kích thước" },
+              { y: 5, label: "Phá dỡ"},
+            ]
+          },
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Quận 1",
+            color: "#3333ff",
+            dataPoints: [
+              { y: 18, label: "Xây mới hoàn toàn"},
+              { y: 30, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 56, label: "Thay đổi nội dung quảng cáo"  },
+              { y: 90, label: "Thay đổi kích thước" },
+              { y: 87, label: "Phá dỡ"},
+            ]
+          },
+          {
+            type: "bar",
+            showInLegend: true,
+            legendText: "Quận 5",
+            color: "#990066",
+            dataPoints: [
+              { y: 13, label: "Xây mới hoàn toàn"},
+              { y: 40, label: "Thay đổi loại bảng quảng cáo" },
+              { y: 32, label: "Thay đổi nội dung quảng cáo"  },
+              { y: 22, label: "Thay đổi kích thước" },
+              { y: 12, label: "Phá dỡ"},
+            ]
+          }
+        ]
+      });
+
+      chart.render();
+    }
+
+  </script>
+  <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
+</head>
+
+<body>
+  <div id="chartContainer"></div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+    integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.min.js"
+    integrity="sha384-7VPbUDkoPSGFnVtYi0QogXtr74QeVeeIs99Qfg5YCF+TidwNdjvaKZX19NZ/e6oz" crossorigin="anonymous">
+  </script>
+</body>
+
+</html>
