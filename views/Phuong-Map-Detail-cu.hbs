@@ -15,7 +15,7 @@
     <style>
       var sidebar = document.getElementById("sidebar");
       var map = document.getElementById("map");
-      map.style.width = "70%"; 
+      map.style.width = "70%";
     </style>
     <div id="sidebar">
       <button class="close" onclick="window.location.href='/Phuong-Map'">Đóng</button>
@@ -28,7 +28,7 @@
           <div class="line3">Phường: {{querylocation.phuongID}} Quận: {{querylocation.quanID}}</div>
           <div class="line3">Loại vị trí: {{querylocation.loaivitri}}</div>
           <div class="line2">{{querylocation.quyhoach}}</div>
-          <a href="/Phuong-Map-Location?locationID={{querylocation.locationID}}">
+          <a href="/locationInfo?keyword={{querylocation.locationID}}">
             <img src="assets/img/infor.png" width=25px height=25px>
           </a>
           {{#if reports}}
@@ -42,7 +42,7 @@
                     <div class="line3">Email: {{email}}</div>
                     <div class="line3">Số điện thoại: {{phone}}</div>
                     <div class="line3">Thời điểm gửi: {{thoidiemgui}}</div>
-                    <a href="/Phuong-Map-Report?reportID={{reportID}}">
+                    <a href="/reportInfo?keyword={{reportID}}">
                       <img src="assets/img/infor.png" width=25px height=25px>
                     </a>
                   </div>
@@ -59,7 +59,7 @@
             <div class="line2">{{loai}}</div>
             <div class="line3">Kích thước: {{kichthuoc}}</div>
             <div class="line3">Hình thức: {{hinhthuc}}</div>
-            <a href="/Phuong-Map-Billboard?billboardID={{billboardID}}">
+            <a href="/billboardInfo?keyword={{billboardID}}">
               <img src="assets/img/infor.png" width=25px height=25px>
             </a>
             {{#if reports}}
@@ -73,7 +73,7 @@
                     <div class="line3">Email: {{email}}</div>
                     <div class="line3">Số điện thoại: {{phone}}</div>
                     <div class="line3">Thời điểm gửi: {{thoidiemgui}}</div>
-                    <a href="/Phuong-Map-Report?reportID={{reportID}}">
+                    <a href="/reportInfo?keyword={{reportID}}">
                       <img src="assets/img/infor.png" width=25px height=25px>
                     </a>
                   </div>

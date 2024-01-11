@@ -18,15 +18,18 @@
 
                 </p>
                 <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
+                    <a class="col-3 btn btn-danger mx-2" href="/deleteLicense?keyword={{licenseID}}" role="button">
+                        <i class="bi bi-trash-fill"></i>
+                    </a>
                     <a class="col-3 btn btn-primary mx-2" href="/licenseInfo?keyword={{licenseID}}" role="button">
                         <i class="bi bi-clipboard2-fill"></i>
                     </a>
                 </div>
-                <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
+                {{!-- <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
                     <a class="col-3 btn btn-danger mx-2" href="/deleteLicense?keyword={{licenseID}}" role="button">
                         <i class="bi bi-trash-fill"></i>
                     </a>
-                </div>
+                </div> --}}
             </div>
             {{/each}}
         </div>

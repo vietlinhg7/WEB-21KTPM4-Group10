@@ -21,16 +21,20 @@
 
                 </p>
                 <div class="button-area d-flex align-items-end justify-content-end flex-nowrap flex-row">
-                    <a class="col-3 btn btn-success mx-2" href="/billboardInfo?keyword={{billboardID}}" role="button">
-                        <i class="bi bi-pencil-square"></i>
-                    </a>
-                </div>
-
-                <div class="button-area d-flex align-items-end justify-content-end flex-nowrap flex-row">
                     <a class="col-3 btn btn-primary mx-2" href="/taoCapPhep?keyword={{billboardID}}" role="button">
                         <i class="bi bi-clipboard2-plus-fill"></i>
                     </a>
+                    <a class="col-3 btn btn-success mx-2" href="/billboardInfo?keyword={{billboardID}}" role="button">
+                        <i class="bi bi-pencil-square"></i>
+
+                    </a>
                 </div>
+
+                {{!-- <div class="button-area d-flex align-items-end justify-content-end flex-nowrap flex-row">
+                    <a class="col-3 btn btn-primary mx-2" href="/taoCapPhep?keyword={{billboardID}}" role="button">
+                        <i class="bi bi-clipboard2-plus-fill"></i>
+                    </a>
+                </div> --}}
             </div>
             {{/each}}
         </div>
