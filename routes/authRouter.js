@@ -53,5 +53,6 @@ router.get('/DDQCdetail',controller.isLoggedIn, controller.DDQCdetail);
 router.post('/addLocation',controller.isLoggedIn, controller.addLocation);
 
 router.post('/editLocation',controller.isLoggedIn, controller.editLocation);
+router.post('/register',controller.isLoggedIn, controller.register);
 
 module.exports = router;
