@@ -854,4 +854,14 @@ controller.register = async (req, res) => {
         }
     }
 }
+
+controller.getReports = async (req, res) => {
+    try {
+        // Lấy tất cả các bảng locations
+        const arrayReport = await Report.find({});
+        res.json(arrayReport); 
+    } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu:', error);
+    }
+};
 module.exports = controller;

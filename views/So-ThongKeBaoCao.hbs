@@ -33,56 +33,126 @@
     }
   </style>
   <script type="text/javascript">
+  
+    
     window.onload = function () {
-      var chart = new CanvasJS.Chart("chartContainer", {
-        title: {
-          text: "Thống kê báo cáo"
-        },
-        axisY: {
-          maximum: 100
-        },
-        data: [
-          {
-            type: "bar",
-            showInLegend: true,
-            legendText: "Số lượng",
-            color: "gold",
-            dataPoints: [
-              { y: 98, label: "Tố giác sai phạm" },
-              { y: 21, label: "Đăng ký nội dung" },
-              { y: 22, label: "Đóng góp ý kiến" },
-              { y: 36, label: "Giải đáp thắc mắc" },
-            ]
+      fetch('/infoReport')
+        .then(response => response.json())
+        .then(data => {
+        console.log('Dữ liệu từ server:', data);
+
+          // Xử lý dữ liệu và cập nhật biểu đồ
+          const processedData = processData(data);
+          updateChart(processedData);
+        })
+        .catch(error => {
+          console.error('Lỗi khi tải dữ liệu:', error);
+      });
+    };
+
+    function processData(data) {
+      const reportTypeCounts = {};
+      const tinhtrangCounts = {};
+      const tinhtrangCounts1 = {};
+
+
+      // Đếm số lượng xuất hiện cho từng reportType
+      data.forEach(item => {
+          // Đếm cho reportType
+        reportTypeCounts[item.reportType] = (reportTypeCounts[item.reportType] || 0) + 1;
+
+        // Đếm cho tinhtrang = "Đã xử lý xong"
+        if (item.tinhtrang == "Đã xử lý xong") {
+          console.log(item.tinhtrang);
+          tinhtrangCounts[item.reportType] = (tinhtrangCounts[item.reportType] || 0) + 1;
+        } else {
+          // Nếu không có "Đã xử lý xong", đặt giá trị là 0
+          tinhtrangCounts[item.reportType] = tinhtrangCounts[item.reportType] || 0;
+        }
+
+        // Đếm cho tinhtrang = "Đã xử lý xong"
+        if (item.tinhtrang == "Chưa xử lí") {
+          tinhtrangCounts1[item.reportType] = (tinhtrangCounts1[item.reportType] || 0) + 1;
+        } else {
+          // Nếu không có "Đã xử lý xong", đặt giá trị là 0
+          tinhtrangCounts1[item.reportType] = tinhtrangCounts1[item.reportType] || 0;
+        }
+        
+      });
+
+      // Lấy tất cả các reportType từ dữ liệu
+      const allReportTypes = ["Tố giác sai phạm", "Đăng ký nội dung", "Đóng góp ý kiến", "Giải đáp thắc mắc"];
+
+      // Đảm bảo rằng mỗi reportType đều có giá trị (thậm chí là 0) trong các đối tượng đếm
+      allReportTypes.forEach(reportType => {
+        reportTypeCounts[reportType] = reportTypeCounts[reportType] || 0;
+        tinhtrangCounts[reportType] = tinhtrangCounts[reportType] || 0;
+        tinhtrangCounts1[reportType] = tinhtrangCounts1[reportType] || 0;
+      });
+
+      // Chuyển đổi số lượng đếm thành định dạng dataPoints
+      const reportTypeDataPoints = allReportTypes.map(reportType => {
+        return { y: reportTypeCounts[reportType], label: reportType };
+      });
+
+      const tinhtrangDataPoints = allReportTypes.map(reportType => {
+        return { y: tinhtrangCounts[reportType], label: reportType };
+      });
+
+      const tinhtrangDataPoints1 = allReportTypes.map(reportType => {
+        return { y: tinhtrangCounts1[reportType], label: reportType };
+      });
+
+      return { reportType: reportTypeDataPoints, tinhtrang: tinhtrangDataPoints, tinhtrang1: tinhtrangDataPoints1 };
+    }
+
+    function updateChart(data) {
+      console.log('Dữ liệu cho tinhtrang:', data.reportType);
+      console.log('Dữ liệu cho tinhtrang:', data.tinhtrang);
+      console.log('Dữ liệu cho tinhtrang:', data.tinhtrang1);
+      try {
+          var chart = new CanvasJS.Chart("chartContainer", {
+          title: {
+            text: "Thống kê báo cáo"
           },
-          {
+          axisY: {
+            maximum: 100
+          },
+          data: [
+            {
+              type: "bar",
+              showInLegend: true,
+              legendText: "Số lượng",
+              color: "gold",
+              dataPoints: data.reportType
+            },
+            {
             type: "bar",
             showInLegend: true,
             legendText: "Đã xử lý xong",
             color: "#198754",
-            dataPoints: [
-              { y: 66, label: "Tố giác sai phạm" },
-              { y: 44, label: "Đăng ký nội dung" },
-              { y: 23, label: "Đóng góp ý kiến" },
-              { y: 72, label: "Giải đáp thắc mắc" },
-            ]
-          },
-          {
+            dataPoints: data.tinhtrang
+            },
+            {
             type: "bar",
             showInLegend: true,
             legendText: "Đang xử lý",
             color: "#dc3545",
-            dataPoints: [
-              { y: 85, label: "Tố giác sai phạm" },
-              { y: 28, label: "Đăng ký nội dung" },
-              { y: 72, label: "Đóng góp ý kiến" },
-              { y: 96, label: "Giải đáp thắc mắc" },
-            ]
-          }
-        ]
-      });
+            dataPoints: data.tinhtrang1
+            }
+          ]
+        });
 
-      chart.render();
+        
+
+        chart.render();
+      }catch (error) {
+        console.error('Lỗi khi vẽ biểu đồ:', error);
+      }
+      
     }
+
+
 
   </script>
   <script type="text/javascript" src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
