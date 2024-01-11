@@ -1,12 +1,12 @@
 <div id="map"></div>
 <input id="pac-input" class="controls" type="text" placeholder="Tìm kiếm trên Google Map">
 <form class="BC" action="/findSDT" id="findBC" method="POST">
-  <label for="BC" class="fas fa-list-ul"><b> Danh sách đã báo cáo:</b>  </label>
+  <label for="BC" class="fas fa-list-ul" onclick="toggleList()"><b> Danh sách đã báo cáo:</b>  </label>
   <input type="BC" id="BC" name="BC" placeholder="Nhập số điện thoại">
   <button type="submit">Tìm kiếm</button>
-  <div id="result">
+  <span id="result">
     <ul id="reportList"></ul>
-  </div>
+  </span>
 
 </form>
 <div id="locationBtn"  onmouseover="showLocationText()" onmouseout="hideLocationText()">
