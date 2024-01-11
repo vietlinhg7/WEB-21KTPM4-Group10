@@ -68,7 +68,7 @@ controller.showPhuongDDQC = async(req, res) => {
 
 };
 
-controller.showChangePass = async(req, res) => {
+controller.showChangePass = async (req, res) => {
     res.render('changePass', {
         layout: req.session.user.chucvu
     });
@@ -96,21 +96,22 @@ controller.changePass = async (req, res) => {
     });
 };
 
-controller.editLocation = async (req, res) => {
+controller.showEditLocation = async (req, res) => {
     const keyword = req.query.keyword;
     let location = await Location.findOne({ locationID: keyword });
     let quan = await Quan.find({});
     let phuong = await Phuong.find({});
     let loaivitri = await Loaivitri.find({});
     let hinhThuc = await Hinhthuc.find({});
+    console.log(keyword);
     try {
         res.render('So-DDQC-edit', {
             layout: 'So',
             location: location,
             quan: quan,
             phuong: phuong,
-            loaivitri : loaivitri,
-            hinhThuc : hinhThuc
+            loaivitri: loaivitri,
+            hinhThuc: hinhThuc
         });
         // or wherever you want to redirect after saving
     } catch (err) {
@@ -118,6 +119,45 @@ controller.editLocation = async (req, res) => {
         res.status(500).send('Server Error');
     }
 }
+controller.editLocation = async (req, res) => {
+    const keyword = req.query.keyword;
+    const lat = req.body.lat;
+    const lng = req.body.lng;
+    const htqc = req.body.HTQC;
+    const QHCQH = req.body.QHCQH;
+    const lvt = req.body.LVT;
+    const qid = req.body.QIDD;
+    const pid = req.body.PIDD;
+    const address = req.body.address;
+    const addressdetail = req.body.address_detail;
+    // console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
+
+
+    //console.log(num.length);
+    const num = await Location.find({ quanID: qid, phuongID: pid });
+    const lid = pid + qid + '_' + num.length;
+    await Billboard.updateMany({ locationID: keyword }, { locationID: lid });
+    await Location.updateOne({ locationID: keyword }, {
+        locationID: lid,
+        name: address,
+        diachi: addressdetail,
+        phuongID: pid,
+        quanID: qid,
+        loaivitri: lvt,
+        hinhanh: 'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
+        hinhthuc: htqc,
+        quyhoach: QHCQH,
+        toadoX: lat,
+        toadoY: lng,
+    });
+    try {
+        res.redirect('/showLocation'); // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
 
 controller.deleteLocation = async (req, res) => {
     try {
@@ -273,19 +313,22 @@ controller.DDQCmap = async (req, res) => {
         layout: 'So',
         quan: quan,
         phuong: phuong,
-        loaivitri : loaivitri,
-        hinhThuc : hinhThuc,
+        loaivitri: loaivitri,
+        hinhThuc: hinhThuc,
 
     });
+
 }
 controller.showLocation = async (req, res) => {
-
-    let location = await Location.find({});
-    res.render('So-DDQC', {
-        layout: 'So',
-        location: location
+    res.render('Phuong-taoCapPhepQuangCao', {
+        layout: 'So'
     });
     
+    // let location = await Location.find({});
+    // res.render('So-DDQC', {
+    //     layout: 'So',
+    //     location: location
+    // });
 }
 controller.themHinhThucQC = async (req, res) => {
 
@@ -689,39 +732,126 @@ controller.suaReportType = async (req, res) => {
         res.status(500).send('Server Error');
     }
 }
-controller.showRegister= async (req, res) => {
+controller.showRegister = async (req, res) => {
     res.render('So-TTKCCB', {
         layout: 'so'
     });
 }
-controller.showTKBC= async (req, res) => {
+controller.showTKBC = async (req, res) => {
     res.render('So-ThongKeBaoCao', {
         layout: 'so'
     });
 }
-controller.showTKCXL= async (req, res) => {
+controller.showTKCXL = async (req, res) => {
     res.render('So-ThongKeCXL', {
         layout: 'so'
     });
 }
-controller.xetDuyetChinhSua= async (req, res) => {
+controller.xetDuyetChinhSua = async (req, res) => {
     res.render('So-XDCS', {
         layout: 'so'
     });
 }
-controller.yeuCauCapPhep= async (req, res) => {
+controller.yeuCauCapPhep = async (req, res) => {
     res.render('So-YCCP', {
         layout: 'so'
     });
 }
-controller.DDQCdetail= async (req, res) => {
+controller.DDQCdetail = async (req, res) => {
     const keyword = req.query.keyword;
-    let location = await Location.findOne({locationID : keyword});
-    let billboard = await Billboard.find({locationID : keyword});
+    let location = await Location.findOne({ locationID: keyword });
+    let billboard = await Billboard.find({ locationID: keyword });
     res.render('So-DDQC-detail', {
         layout: 'so',
-        billboard : billboard,
-        location : location
+        billboard: billboard,
+        location: location
     });
+}
+controller.addLocation = async (req, res) => {
+    const lat = req.body.lat;
+    const lng = req.body.lng;
+    const htqc = req.body.HTQC;
+    const QHCQH = req.body.QHCQH;
+    const lvt = req.body.LVT;
+    const qid = req.body.QIDD;
+    const pid = req.body.PIDD;
+    const address = req.body.address;
+    const addressdetail = req.body.address_detail;
+    console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
+
+    const temp = await Location.findOne({ toadoX: lat, toadoY: lng });
+    const num = await Location.find({ quanID: qid, phuongID: pid });
+    //console.log(num.length);
+    if (temp != null) {
+        res.send('<script>alert("Location is defined"); window.location="/DDQCmap";</script>');
+    } else {
+        const newLocation = new Location({
+            locationID: pid + qid + '_' + num.length,
+            name: address,
+            diachi: addressdetail,
+            phuongID: pid,
+            quanID: qid,
+            loaivitri: lvt,
+            hinhanh: 'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
+            hinhthuc: htqc,
+            quyhoach: QHCQH,
+            toadoX: lat,
+            toadoY: lng,
+        });
+        try {
+            await newLocation.save();
+            res.redirect('/showLocation'); // or wherever you want to redirect after saving
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server Error');
+        }
+    }
+    // const newReportType = new ReportType({ name: ten });
+    // try {
+    //     await newReportType.save();
+    //     res.redirect('/showLoaiQC'); // or wherever you want to redirect after saving
+    // } catch (err) {
+    //     console.error(err);
+    //     res.status(500).send('Server Error');
+    // }
+};
+controller.register = async (req, res) => {
+    const lastname = req.body.lastname;
+    const firstname = req.body.firstname;
+    const date = req.body.date;
+    const username = req.body.username;
+    const password = req.body.password;
+    const quan = req.body.quan;
+    const phuong = req.body.phuong;
+    const telephone = req.body.telephone;
+    const email = req.body.email;
+    const chucvu = req.body.chucvu;
+    console.log(lastname, firstname, date, username, password, quan, phuong, telephone, email, chucvu);
+    const temp = await User.findOne({ userID: username });
+    //console.log(num.length);
+    if (temp != null) {
+        res.send('<script>alert("user name is defined"); window.location="/showRegister";</script>');
+    } else {
+        const newUser = new User({
+            userID: username,
+            password: password,
+            chucvu: chucvu,
+            hoTen: lastname + ' ' + firstname,
+            nsinh: date,
+            email: email,
+            sdt: telephone,
+            phuong: phuong,
+            quan: quan,
+
+        });
+        try {
+            await newUser.save();
+            res.send('<script>alert("new user is added"); window.location="/showRegister";</script>');
+
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server Error');
+        }
+    }
 }
 module.exports = controller;

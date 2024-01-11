@@ -52,7 +52,16 @@
       <a class="active text-light" href="Phuong-Map">Trang chủ</a>
       <a class="active text-light" href="Phuong-DDQC">Danh sách</a>
       <a class="active text-light" href="Phuong-Map">Báo cáo</a>
-      <a class="active text-light" href="Phuong-Map">Cấp phép</a>
+      {{!-- <a class="active text-light" href="Phuong-Map">Cấp phép</a> --}}
+      <div class="dropdown">
+          <a class="active text-light" href="Phuong-Map" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Cấp phép
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Đã phê duyệt</a></li>
+            <li><a class="dropdown-item" href="#">Chưa phê duyệt</a></li>
+          </ul>
+        </div>
       <div id="avatar-dropdown" class="btn-group d-flex align-items-center justify-content-between">
         <img src="https://www.w3schools.com/bootstrap5/img_avatar1.png" alt="Avatar Logo"
           style="height: 40px; width: auto" class="rounded-pill">

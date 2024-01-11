@@ -45,13 +45,16 @@ router.post('/themHinhThucQC',controller.isLoggedIn, controller.themHinhThucQC);
 router.post('/themHinhThucBC',controller.isLoggedIn, controller.themHinhThucBC);
 router.get('/DDQCmap',controller.isLoggedIn, controller.DDQCmap);
 router.get('/deleteLocation',controller.isLoggedIn, controller.deleteLocation);
-router.get('/editLocation',controller.isLoggedIn, controller.editLocation);
+router.get('/showEditLocation',controller.isLoggedIn, controller.showEditLocation);
 router.get('/showRegister',controller.isLoggedIn,controller.showRegister);
 router.get('/showTKBaoCao',controller.isLoggedIn, controller.showTKBC);
 router.get('/showTKCXL',controller.isLoggedIn, controller.showTKCXL);
 router.get('/XetDuyetChinhSua',controller.isLoggedIn, controller.xetDuyetChinhSua);
 router.get('/YeuCauCapPhep',controller.isLoggedIn, controller.yeuCauCapPhep);
 router.get('/DDQCdetail',controller.isLoggedIn, controller.DDQCdetail);
+router.post('/addLocation',controller.isLoggedIn, controller.addLocation);
 
+router.post('/editLocation',controller.isLoggedIn, controller.editLocation);
+router.post('/register',controller.isLoggedIn, controller.register);
 
 module.exports = router;
