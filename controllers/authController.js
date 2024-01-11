@@ -55,14 +55,14 @@ controller.changePass = async (req, res) => {
     });
 };
 
-controller.editLocation = async (req, res) => {
+controller.showEditLocation = async (req, res) => {
     const keyword = req.query.keyword;
-    let location = await Location.find({ locationID: keyword });
+    let location = await Location.findOne({ locationID: keyword });
     let quan = await Quan.find({});
     let phuong = await Phuong.find({});
     let loaivitri = await Loaivitri.find({});
     let hinhThuc = await Hinhthuc.find({});
-    console.log(location.length);
+    console.log(keyword);
     try {
         res.render('So-DDQC-edit', {
             layout: 'So',
@@ -78,6 +78,45 @@ controller.editLocation = async (req, res) => {
         res.status(500).send('Server Error');
     }
 }
+controller.editLocation = async (req, res) => {
+    const keyword = req.query.keyword;
+    const lat = req.body.lat;
+    const lng = req.body.lng;
+    const htqc = req.body.HTQC;
+    const QHCQH = req.body.QHCQH;
+    const lvt = req.body.LVT;
+    const qid = req.body.QIDD;
+    const pid = req.body.PIDD;
+    const address = req.body.address;
+    const addressdetail = req.body.address_detail;
+    // console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
+
+
+    //console.log(num.length);
+    const num = await Location.find({ quanID: qid, phuongID: pid });
+    const lid = pid + qid + '_' + num.length;
+    await Billboard.updateMany({locationID:keyword },{locationID :lid });
+    await Location.updateOne({ locationID: keyword }, {
+        locationID: lid,
+        name: address,
+        diachi: addressdetail,
+        phuongID: pid,
+        quanID: qid,
+        loaivitri: lvt,
+        hinhanh: 'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
+        hinhthuc: htqc,
+        quyhoach: QHCQH,
+        toadoX: lat,
+        toadoY: lng,
+    });
+    try {
+        res.redirect('/showLocation'); // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
 
 controller.deleteLocation = async (req, res) => {
     try {
@@ -705,24 +744,24 @@ controller.addLocation = async (req, res) => {
     const pid = req.body.PIDD;
     const address = req.body.address;
     const addressdetail = req.body.address_detail;
-   // console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
+     console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
 
     const temp = await Location.findOne({ toadoX: lat, toadoY: lng });
-    const num = await Location.find({quanID: qid, phuongID: pid }) ;
+    const num = await Location.find({ quanID: qid, phuongID: pid });
     //console.log(num.length);
     if (temp != null) {
         res.send('<script>alert("Location is defined"); window.location="/DDQCmap";</script>');
     } else {
         const newLocation = new Location({
-            locationID:  pid+ qid +'_' + num.length,
+            locationID: pid + qid + '_' + num.length,
             name: address,
             diachi: addressdetail,
-            phuongID :pid,
+            phuongID: pid,
             quanID: qid,
             loaivitri: lvt,
-            hinhanh:   'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
+            hinhanh: 'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
             hinhthuc: htqc,
-            quyhoach : QHCQH,
+            quyhoach: QHCQH,
             toadoX: lat,
             toadoY: lng,
         });
