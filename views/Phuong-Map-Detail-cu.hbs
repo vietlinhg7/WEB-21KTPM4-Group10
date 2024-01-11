@@ -18,6 +18,7 @@
       map.style.width = "70%"; 
     </style>
     <div id="sidebar">
+      /*<button class="close" onclick="window.location.href='/Phuong-Map'">Đóng</button>*/
       <div id="section1">
         <div class="line1 d-flex flex-row justify-content-between align-items-center mx-1">
           <div class="left-section">
@@ -28,17 +29,17 @@
             <i class="bi bi-x-square-fill text-danger"></i>
           </button>
         </div>
+        /*<img src="assets/img/location.png" width=25px height=25px display=inline-block>
+        <div class="line1" display="float">Thông tin địa điểm</div>*/
         <div id="locationInfo">
-          <div class="line2 mx-2">{{querylocation.name}}</div>
-          <div class="line3 mx-2">Địa chỉ: {{querylocation.diachi}}</div>
-          <div class="line3 mx-2">Phường: {{querylocation.phuongID}} Quận: {{querylocation.quanID}}</div>
-          <div class="line3 mx-2">Loại vị trí: {{querylocation.loaivitri}}</div>
-          <div class="d-flex justify-content-between align-items-start my-2 mx-3 ms-2">
-            <div class="line2">{{querylocation.quyhoach}}</div>
-            <a href="/Phuong-Map-Location?locationID={{querylocation.locationID}}">
-              <img class="align-self-start" src="assets/img/infor.png" width="25px" height="25px">
-            </a>
-          </div>
+          <div class="line2">{{querylocation.name}}</div>
+          <div class="line3">Địa chỉ: {{querylocation.diachi}}</div>
+          <div class="line3">Phường: {{querylocation.phuongID}} Quận: {{querylocation.quanID}}</div>
+          <div class="line3">Loại vị trí: {{querylocation.loaivitri}}</div>
+          <div class="line2">{{querylocation.quyhoach}}</div>
+          <a href="/Phuong-Map-Location?locationID={{querylocation.locationID}}">
+            <img src="assets/img/infor.png" width=25px height=25px>
+          </a>
           {{#if reports}}
             <div id="section2b">
               <img src="assets/img/alert.png" width=25px height=25px display=inline-block>
@@ -55,28 +56,21 @@
                     </a>
                   </div>
                 {{/each}}
-              </div>
-            {{/if}}
-        </div>
+            </div>
+          {{/if}}
+      </div>
       </div>
       <div id="section2a">
-        <div class="line1 d-flex flex-row justify-content-start align-items-center mx-1">
-          
-          <p class="fw-bold"><i class="bi bi-badge-ad-fill"></i> Thông tin quảng cáo:<p>
-        </div>
-        
-        
+        <img src="assets/img/ad.png" width=25px height=25px display=inline-block>
+        <div class="line1">Thông tin bảng quảng cáo:</div>
         {{#each billboards}}
           <div id="adInfo">
-            <div class="d-flex justify-content-between align-items-start mx-3 my-3">
-              <div class="line2">{{loai}}</div>
-              <a href="/Phuong-Map-Billboard?billboardID={{billboardID}}">
-                <img src="assets/img/infor.png" width="25px" height="25px">
-              </a>
-            </div>
-            <div class="line3 mx-3">Kích thước: {{kichthuoc}}</div>
-            <div class="line3 mx-3">Hình thức: {{hinhthuc}}</div>
-            
+            <div class="line2">{{loai}}</div>
+            <div class="line3">Kích thước: {{kichthuoc}}</div>
+            <div class="line3">Hình thức: {{hinhthuc}}</div>
+            <a href="/Phuong-Map-Billboard?billboardID={{billboardID}}">
+              <img src="assets/img/infor.png" width=25px height=25px>
+            </a>
             {{#if reports}}
               <div id="section2b">
                 <img src="assets/img/alert.png" width=25px height=25px display=inline-block>
