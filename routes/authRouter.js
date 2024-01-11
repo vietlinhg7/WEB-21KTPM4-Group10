@@ -50,6 +50,7 @@ router.get('/showTKCXL',controller.isLoggedIn, controller.showTKCXL);
 router.get('/XetDuyetChinhSua',controller.isLoggedIn, controller.xetDuyetChinhSua);
 router.get('/YeuCauCapPhep',controller.isLoggedIn, controller.yeuCauCapPhep);
 router.get('/DDQCdetail',controller.isLoggedIn, controller.DDQCdetail);
+router.post('/addLocation',controller.isLoggedIn, controller.addLocation);
 
 
 module.exports = router;

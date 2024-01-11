@@ -14,7 +14,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { notify } = require('../routes/authRouter');
 
-controller.showPhuongDDQC = async(req, res) => {
+controller.showPhuongDDQC = async (req, res) => {
     let locations = await Location.find({
         phuongID: req.session.user.phuong,
         quanID: req.session.user.quan
@@ -27,7 +27,7 @@ controller.showPhuongDDQC = async(req, res) => {
 
 };
 
-controller.showChangePass = async(req, res) => {
+controller.showChangePass = async (req, res) => {
     res.render('changePass', {
         layout: req.session.user.chucvu
     });
@@ -68,8 +68,8 @@ controller.editLocation = async (req, res) => {
             location: location,
             quan: quan,
             phuong: phuong,
-            loaivitri : loaivitri,
-            hinhThuc : hinhThuc
+            loaivitri: loaivitri,
+            hinhThuc: hinhThuc
         });
         // or wherever you want to redirect after saving
     } catch (err) {
@@ -232,10 +232,11 @@ controller.DDQCmap = async (req, res) => {
         layout: 'So',
         quan: quan,
         phuong: phuong,
-        loaivitri : loaivitri,
-        hinhThuc : hinhThuc,
+        loaivitri: loaivitri,
+        hinhThuc: hinhThuc,
 
     });
+
 }
 controller.showLocation = async (req, res) => {
     // res.render('Phuong-xemChiTietCapPhepQuangCao', {
@@ -255,6 +256,12 @@ controller.showLocation = async (req, res) => {
     //     layout: 'So',
     //     location: location
     // });
+
+    let location = await Location.find({});
+    res.render('So-DDQC', {
+        layout: 'So',
+        location: location
+    });
 }
 controller.themHinhThucQC = async (req, res) => {
 
@@ -658,39 +665,84 @@ controller.suaReportType = async (req, res) => {
         res.status(500).send('Server Error');
     }
 }
-controller.showRegister= async (req, res) => {
+controller.showRegister = async (req, res) => {
     res.render('So-TTKCCB', {
         layout: 'so'
     });
 }
-controller.showTKBC= async (req, res) => {
+controller.showTKBC = async (req, res) => {
     res.render('So-ThongKeBaoCao', {
         layout: 'so'
     });
 }
-controller.showTKCXL= async (req, res) => {
+controller.showTKCXL = async (req, res) => {
     res.render('So-ThongKeCXL', {
         layout: 'so'
     });
 }
-controller.xetDuyetChinhSua= async (req, res) => {
+controller.xetDuyetChinhSua = async (req, res) => {
     res.render('So-XDCS', {
         layout: 'so'
     });
 }
-controller.yeuCauCapPhep= async (req, res) => {
+controller.yeuCauCapPhep = async (req, res) => {
     res.render('So-YCCP', {
         layout: 'so'
     });
 }
-controller.DDQCdetail= async (req, res) => {
+controller.DDQCdetail = async (req, res) => {
     const keyword = req.query.keyword;
-    let location = await Location.findOne({locationID : keyword});
-    let billboard = await Billboard.find({locationID : keyword});
+    let location = await Location.findOne({ locationID: keyword });
+    let billboard = await Billboard.find({ locationID: keyword });
     res.render('So-DDQC-detail', {
         layout: 'so',
-        billboard : billboard,
-        location : location
+        billboard: billboard,
+        location: location
     });
 }
+controller.addLocation = async (req, res) => {
+    const lat = req.body.lat;
+    const lng = req.body.lng;
+    const htqc = req.body.HTQC;
+    const QHCQH = req.body.QHCQH;
+    const lvt = req.body.LVT;
+    const qid = req.body.QIDD;
+    const pid = req.body.PIDD;
+    const address = req.body.address;
+    const addressdetail = req.body.address_detail;
+    console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
+
+    const temp = await Location.findOne({ lat: lat, lng: lng });
+    if (temp != null) {
+        res.send('<script>alert("Location is defined"); window.location="/DDQCmap";</script>');
+    } else {
+        const newLocation = new Location({
+            locationID: 'p' + pid + 'q' + qid +'_3' ,
+            name: address,
+            diachi: addressdetail,
+            phuongID :pid,
+            loaivitri: lvt,
+            hinhanh:   'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
+            hinhthuc: htqc,
+            quyhoach : QHCQH,
+            toadoX: lat,
+            toadoY: lng,
+        });
+        try {
+            await newLocation.save();
+            res.redirect('/'); // or wherever you want to redirect after saving
+        } catch (err) {
+            console.error(err);
+            res.status(500).send('Server Error');
+        }
+    }
+    // const newReportType = new ReportType({ name: ten });
+    // try {
+    //     await newReportType.save();
+    //     res.redirect('/showLoaiQC'); // or wherever you want to redirect after saving
+    // } catch (err) {
+    //     console.error(err);
+    //     res.status(500).send('Server Error');
+    // }
+};
 module.exports = controller;
