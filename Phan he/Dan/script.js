@@ -431,6 +431,10 @@ function showMyLocation() {
         lng: position.coords.longitude
       };
 
+      // Hiển thị tọa độ trên console
+      console.log('Latitude:', userLocation.lat);
+      console.log('Longitude:', userLocation.lng);
+
       // Di chuyển bản đồ đến vị trí hiện tại của người dùng
       map.setCenter(userLocation);
 

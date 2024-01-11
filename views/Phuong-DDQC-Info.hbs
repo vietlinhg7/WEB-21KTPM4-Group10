@@ -3,23 +3,19 @@
   <div id="map" style="height: 100%; width: 50%;" class="float-start"></div>
 
   <form action="#" method="post" class="form float-end" style="height: 100%; width: 50%;">
-      <div class="container py-3" style="width: 100%">
-        <div class="card">
-          <div class="card-header text-center">
-            <h1>
+    <div class="container py-3" style="width: 100%">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>
 
-            </h1>
-          </div>
-          <div class="card-body">
+          </h1>
+        </div>
+        <div class="card-body">
           <div class="row">
-            <div class="col align-self-center d-flex flex-column align-items-start"  style="width: 50%;">
-              <img
-                  src={{location.hinhanh}}
-                  alt="" 
-                  class="img-thumbnail" 
-                  id="image"
-                  style="max-height: 50%; max-width: 100%; height: auto; width: auto;">
-              <input type="file" class="form-control-file" onclick="ChangeImage()" id="file-upload" disabled/>
+            <div class="col align-self-center d-flex flex-column align-items-start" style="width: 50%;">
+              <img src={{location.hinhanh}} alt="" class="img-thumbnail" id="image"
+                style="max-height: 50%; max-width: 100%; height: auto; width: auto;">
+              <input type="file" class="form-control-file" onclick="ChangeImage()" id="file-upload" disabled />
             </div>
             <div class="col-md-5" style="width: 50%;">
               <div class="mb-3">
@@ -52,31 +48,32 @@
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <div class="mb-3">
                   <input type="text" class="form-control" name="quan" id="adress_detail" aria-describedby="helpId"
-      placeholder="Quận" value="Quận {{location.quanID}}" style="width: 100%" required readonly>
+                    placeholder="Quận" value="Quận {{location.quanID}}" style="width: 100%" required readonly>
                 </div>
               </div>
 
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <div class="mb-3">
                   <input type="text" class="form-control" name="phuong" id="adress_detail" aria-describedby="helpId"
-      placeholder="Phường" value="Phường {{location.phuongID}}" style="width: 100%" required readonly>
+                    placeholder="Phường" value="Phường {{location.phuongID}}" style="width: 100%" required readonly>
                 </div>
               </div>
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-    crossorigin="anonymous"></script>
+              <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+                crossorigin="anonymous"></script>
               {{!-- Quận --}}
               <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại vị trí</strong></h4>
               <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
                 <button id="lvt"
-                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-sm-auto w-100 overflow-hidden text-truncate" type="button"
-                  data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-sm-auto w-100 overflow-hidden text-truncate"
+                  type="button" data-bs-toggle="dropdown" aria-expanded="false" disabled>
                   {{location.loaivitri}}
                 </button>
 
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
                   {{#each loaivitri}}
-                  <li><a id="selectLVT{{name}}" class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('lvt','{{name}}')">{{name}}</a></li>
+                  <li><a id="selectLVT{{name}}" class="dropdown-item overflow-hidden text-truncate" href="#"
+                      onclick="selectOption('lvt','{{name}}')">{{name}}</a></li>
                   {{/each}}
                 </ul>
               </div>
@@ -92,13 +89,14 @@
               </h4>
               <div class="mb-3 hinh-thuc-quang-cao-dropdown d-flex position-relative">
                 <button id="htqc"
-                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100 overflow-hidden text-truncate" type="button"
-                  data-bs-toggle="dropdown" aria-expanded="false" disabled>
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100 overflow-hidden text-truncate"
+                  type="button" data-bs-toggle="dropdown" aria-expanded="false" disabled>
                   {{location.hinhthuc}}
                 </button>
                 <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
                   {{#each hinhThuc}}
-                  <li><a id="selectHTQC{{hinhthuc}}" class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('htqc','{{hinhthuc}}')">{{hinhthuc}}</a></li>
+                  <li><a id="selectHTQC{{hinhthuc}}" class="dropdown-item overflow-hidden text-truncate" href="#"
+                      onclick="selectOption('htqc','{{hinhthuc}}')">{{hinhthuc}}</a></li>
                   {{/each}}
 
                 </ul>
@@ -151,16 +149,16 @@
   <script>
     let editEnabled = false;
     function ChangeImage() {
-    var inputFile = document.getElementById('file-upload');
-    var file = inputFile.files[0];
-    var reader = new FileReader();
+      var inputFile = document.getElementById('file-upload');
+      var file = inputFile.files[0];
+      var reader = new FileReader();
 
-    reader.onload = function(e) {
-      var imgElement = document.getElementById('image');
-      imgElement.src = e.target.result;
-    }
+      reader.onload = function (e) {
+        var imgElement = document.getElementById('image');
+        imgElement.src = e.target.result;
+      }
 
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
     }
     function toggleLockScreen() {
       document.body.classList.toggle('locked');
@@ -240,7 +238,7 @@
       map.setZoom(18);
 
       map.addListener('click', (mapsMouseEvent) => {
-          if (editEnabled) {
+        if (editEnabled) {
           infoWindow.close();
           infoWindow = new google.maps.InfoWindow({
             position: mapsMouseEvent.latLng
@@ -270,11 +268,11 @@
     function edit() {
       // Enable editing
       document.getElementById('file-upload').removeAttribute('disabled');
-      
+
       // Select all input fields except those with IDs "phuong" and "quan"
       let readonlyInputs = document.querySelectorAll('input:not([placeholder="Phường"]):not([placeholder="Quận"])');
 
-      
+
       // Remove the 'readonly' attribute from these input fields
       readonlyInputs.forEach((input) => {
         input.removeAttribute('readonly');
