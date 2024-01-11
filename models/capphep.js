@@ -2,9 +2,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const capphepSchema = new Schema({
-    licenseID: { type: String, required: true },
-    locationID: { type: String, required: true },
-    billboardID: { type: String, required: true },
+    licenseID: String,
+    locationID: String,
+    billboardID: String,
     noidung: String,
     hinhAnh: String,
     congty: String,
@@ -13,7 +13,7 @@ const capphepSchema = new Schema({
     diachi: String,
     ngaybatdau: Date,
     ngayketthuc: Date,
-    tinhtrang: Boolean
+    tinhtrang: String
 });
 
 const Capphep = mongoose.model('Capphep', capphepSchema);

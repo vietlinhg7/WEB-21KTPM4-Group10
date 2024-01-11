@@ -12,10 +12,15 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col align-self-center d-flex flex-column align-items-start" style="width: 50%;">
-              <img src={{location.hinhanh}} alt="" class="img-thumbnail" id="image"
-                style="max-height: 50%; max-width: 100%; height: auto; width: auto;">
-              <input type="file" class="form-control-file" onclick="ChangeImage()" id="file-upload" disabled />
+            <div class="col align-self-center d-flex flex-column align-items-start"  style="width: 50%;">
+              <img
+                  src={{location.hinhanh}}
+                  alt="" 
+                  class="img-thumbnail" 
+                  id="image"
+                  style="max-height: 50%; max-width: 100%; height: auto; width: auto;">
+                <input type="text" class="form-control my-3" name="hinhanh" id="hinhanh" aria-describedby="helpId"
+                  placeholder="Hình ảnh" value="{{location.hinhanh}}" required readonly>
             </div>
             <div class="col-md-5" style="width: 50%;">
               <div class="mb-3">
@@ -128,10 +133,13 @@
                   <input class="btn btn-primary" type="submit" id="saveButton" value="Save" disabled>
                 </form>
               </div>
+              <div class="mb-3">
+                <input type="text" class="form-control my-3" name="lydo" id="lydo" aria-describedby="helpId"
+                  placeholder="Lý do" value="" required hidden>
+              </div>
               <input type="hidden" id="loaivitri" name="loaivitri">
               <input type="hidden" id="hinhthuc" name="hinhthuc">
               <input type="hidden" id="quyhoach" name="quyhoach">
-              <input type="hidden" id="hinhanh" name="hinhanh" value={{location.hinhanh}}>
             </div>
           </div>
         </div>
@@ -266,13 +274,11 @@
       map.controls[google.maps.ControlPosition.TOP_CENTER].push(submitButtonDiv);
     }
     function edit() {
-      // Enable editing
-      document.getElementById('file-upload').removeAttribute('disabled');
-
+      
       // Select all input fields except those with IDs "phuong" and "quan"
       let readonlyInputs = document.querySelectorAll('input:not([placeholder="Phường"]):not([placeholder="Quận"])');
-
-
+      
+      
       // Remove the 'readonly' attribute from these input fields
       readonlyInputs.forEach((input) => {
         input.removeAttribute('readonly');
@@ -283,6 +289,7 @@
         button.removeAttribute('disabled');
       });
       editEnabled = true;
+      document.getElementById('lydo').removeAttribute('hidden');
       document.getElementById('editButton').setAttribute('disabled', 'true');
       document.getElementById('saveButton').removeAttribute('disabled');
       let lvt = document.getElementById('lvt');

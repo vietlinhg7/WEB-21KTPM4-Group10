@@ -10,10 +10,145 @@ const Hinhthuc = require('../models/hinhthuc');
 const ReportType = require('../models/reportType');
 const Loaivitri = require('../models/loaivitri');
 const Report = require('../models/report');
-const Request = require('../models/request')
+const Request = require('../models/request');
+const Capphep = require('../models/capphep')
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { notify } = require('../routes/authRouter');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/' });
+
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'ndvlinh21@clc.fitus.edu.vn',
+        pass: 'gkil ziel tfsx rldr'
+    }
+});
+
+controller.deleteLicense = async (req,res) => {
+    await Capphep.deleteOne({licenseID: req.query.keyword});
+    res.redirect('/ChuaPheDuyet');
+}
+controller.showLicenseInfo = async (req,res) => {
+    capphep = await Capphep.findOne({licenseID: req.query.keyword}).lean();
+    let date = new Date(capphep.ngaybatdau);
+    let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    let year = date.getFullYear(); // Get the full year
+    capphep.ngaybatdau = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+    date = new Date(capphep.ngayketthuc);
+    day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    year = date.getFullYear(); // Get the full year
+    capphep.ngayketthuc= `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+    res.locals.capphep = capphep;
+    res.render('Phuong-XemCapPhep', {
+        layout: 'Phuong',
+    });
+
+}
+controller.showDaPheDuyet = async (req,res) => {
+    cappheps = await Capphep.find({tinhtrang: 'Đã xét duyệt'}).lean();
+    for (capphep of cappheps) {
+        let date = new Date(capphep.ngaybatdau);
+        let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        let year = date.getFullYear(); // Get the full year
+        capphep.ngaybatdau = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        date = new Date(capphep.ngayketthuc);
+        day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        year = date.getFullYear(); // Get the full year
+        capphep.ngayketthuc= `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        let location = await Location.findOne({locationID: capphep.locationID});
+        capphep.location = location.name;
+        let billboard = await Billboard.findOne({billboardID: capphep.billboardID});
+        capphep.billboard = billboard.loai;
+    }
+    res.locals.cappheps = cappheps;
+    res.render('Phuong-DaCapPhep', {
+        layout: 'Phuong',
+    });
+}
+
+controller.showChuaPheDuyet = async (req,res) => {
+    cappheps = await Capphep.find({tinhtrang: 'Chưa xét duyệt'}).lean();
+    for (capphep of cappheps) {
+        let date = new Date(capphep.ngaybatdau);
+        let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        let year = date.getFullYear(); // Get the full year
+        capphep.ngaybatdau = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        date = new Date(capphep.ngayketthuc);
+        day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        year = date.getFullYear(); // Get the full year
+        capphep.ngayketthuc= `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        let location = await Location.findOne({locationID: capphep.locationID});
+        capphep.location = location.name;
+        let billboard = await Billboard.findOne({billboardID: capphep.billboardID});
+        capphep.billboard = billboard.loai;
+    }
+    res.locals.cappheps = cappheps;
+    res.render('Phuong-ChuaCapPhep', {
+        layout: 'Phuong',
+    });
+}
+
+controller.taoCapPhep = async (req, res) => {
+    billboardID = req.query.keyword;
+    billboard = await Billboard.findOne({ billboardID });
+    res.locals.billboardID = billboardID;
+    res.locals.locationID = billboard.locationID;
+    if (await Capphep.findOne({billboardID}))
+    {
+        capphep = await Capphep.findOne({billboardID}).lean();
+        let date = new Date(capphep.ngaybatdau);
+        let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        let year = date.getFullYear(); // Get the full year
+        capphep.ngaybatdau = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        date = new Date(capphep.ngayketthuc);
+        day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        year = date.getFullYear(); // Get the full year
+        capphep.ngayketthuc= `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+        res.locals.capphep = capphep;
+    }
+    else {
+        res.locals.capphep = new Capphep({ });
+    }
+    res.render('Phuong-CapPhep', {
+        layout: 'Phuong',
+    });
+}
+
+controller.luuCapPhep = async (req, res) => {
+    let licenseID = '0';
+    while (await Capphep.findOne({ licenseID })) {
+        licenseID = (parseInt(licenseID) + 1).toString();
+    }
+    let locationID = req.body.locationID;
+    let billboardID = req.body.billboardID;
+    console.log(req.body);
+    const capphep = new Capphep({
+        licenseID: licenseID,
+        locationID: locationID,
+        billboardID: billboardID,
+        noidung: req.body.noidung,
+        hinhAnh: req.body.hinhAnh,
+        congty: req.body.congty,
+        email: req.body.email,
+        dienthoai: req.body.dienthoai,
+        diachi: req.body.diachi,
+        ngaybatdau: new Date(req.body.ngaybatdau),
+        ngayketthuc: new Date(req.body.ngayhethan),
+        tinhtrang: 'Chưa xét duyệt'
+    });
+    await capphep.save();
+    res.redirect('/Phuong-BQC?keyword='+req.body.locationID);
+}
 
 controller.saveLocation = async (req, res) => {
     locationID = req.query.keyword;
@@ -37,14 +172,84 @@ controller.saveLocation = async (req, res) => {
     const newRequest = new Request({
         requestID: requestID,
         thongtinmoi: thongtinmoi,
-        lydo: "None",
+        lydo: req.body.lydo,
         queryID: locationID,
         tinhtrang: "Chưa xử lý"
     });
     await newRequest.save();
-    console.log(req.body);
+    res.redirect('/Phuong-BQC?keyword='+req.body.locationID);
 }
-controller.showLocationInfo = async (req, res) => {
+controller.saveBillboard = async(req, res) => {
+    billboardID = req.query.keyword;
+    let requestID = '0';
+    while (await Request.findOne({ requestID })) {
+        requestID = (parseInt(requestID) + 1).toString();
+    }
+    const thongtinmoi = new Billboard({
+        billboardID: billboardID,
+        kichthuoc: req.body.kichthuoc,
+        hinhthuc: req.body.hinhthuc,
+        hinhanh: req.body.hinhanh,
+        ngayhethan: new Date(req.body.ngayhethan),
+        locationID: req.body.locationID,
+        loai: req.body.loai,
+        soluong: req.body.soluong
+    });
+    const newRequest = new Request({
+        requestID: requestID,
+        thongtinmoi: thongtinmoi,
+        lydo: req.body.lydo,
+        queryID: billboardID,
+        tinhtrang: "Chưa xử lý"
+    });
+    await newRequest.save();
+    res.redirect('/Phuong-BQC?keyword='+req.body.locationID);
+}
+
+controller.solveReport = async(req, res) => {
+    reportID = req.query.keyword;
+    await Report.updateOne({ reportID: reportID }, {
+        tinhtrang: "Đã xử lí",
+        cachthucxuly: req.body.xuly,
+    });
+    report =  await Report.findOne({ reportID }).lean();
+    let date = new Date(report.thoidiemgui);
+    let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    let year = date.getFullYear(); // Get the full year
+    report.thoidiemgui = `${day}-${month}-${year}`; // Combine the day, month, and year into a string
+    console.log(report.email);
+    let mailOptions = {
+        from: 'ndvlinh21@clc.fitus.edu.vn',
+        to: report.email,
+        subject: 'Cách thức xử lý cho báo cáo của bạn',
+        text: `
+        Gửi ${report.fullName},
+
+        Chúng tôi đã nhận được báo cáo của bạn về việc ${report.reportType} vào ngày ${report.thoidiemgui}
+
+        Mail này nhằm thông báo rằng báo cáo của bạn đã được xử lý bởi cán bộ phường phụ trách phường ${req.session.user.phuongID} thuộc quận ${req.session.user.quanID}
+
+        Hãy xử lý vấn đề của bạn theo cách thức được đề xuất sau đây:
+
+        ${report.cachthucxuly}
+
+        Chúc vấn đề của bạn sớm được giải quyết
+
+        Trân trọng,
+        Nhóm 10`
+    };
+    try {
+        transporter.sendMail(mailOptions);
+        res.redirect('/Phuong-BC');
+    } catch (err) {
+        console.log('error');
+        res.redirect('/Phuong-BC');
+    }
+    
+}
+
+controller.showLocationInfo = async(req, res) => {
     locationID = req.query.keyword;
     res.locals.location = await Location.findOne({ locationID });
     let loaivitri = await Loaivitri.find({});
@@ -55,6 +260,102 @@ controller.showLocationInfo = async (req, res) => {
         hinhThuc: hinhThuc
     })
 }
+controller.showBillboardInfo = async(req, res) => {
+    billboardID = req.query.keyword;
+    billboard = await Billboard.findOne({ billboardID }).lean();
+    let date = new Date(billboard.ngayhethan);
+    let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    let year = date.getFullYear(); // Get the full year
+    billboard.ngayhethan = `${year}-${month}-${day}`; // Combine the day, month, and year into a string
+    res.locals.billboard = billboard;
+    let loai = await Loai.find({});
+    let hinhThuc = await Hinhthuc.find({});
+    res.render('Phuong-BQC-Info', {
+        layout: 'Phuong', 
+        loai: loai,
+        hinhThuc: hinhThuc
+    })
+}
+
+controller.showReportInfo = async(req, res) => {
+    reportID = req.query.keyword;
+    report = await Report.findOne({ reportID }).lean();
+    let date = new Date(report.thoidiemgui);
+    let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+    let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+    let year = date.getFullYear(); // Get the full year
+    report.thoidiemgui = `${day}-${month}-${year}`; // Combine the day, month, and year into a string
+    res.locals.report = report;
+    res.render('Phuong-BC-Info', {
+        layout: 'Phuong'
+    })
+}
+
+
+controller.showPhuongBQC = async(req, res) => {
+    let billboards = await Billboard.find({
+        locationID: req.query.keyword
+    }).lean();
+    for (let billboard of billboards) {
+        if (await Capphep.findOne({billboardID: billboard.billboardID, tinhtrang: "Đã xét duyệt"}))
+        {
+            billboard.tinhtrangcapphep = "Đã cấp phép";
+        } else if (await Capphep.findOne({billboardID: billboard.billboardID,})) {
+            billboard.tinhtrangcapphep = "Đã tạo chưa cấp phép";
+        }
+        else {
+            billboard.tinhtrangcapphep = "Chưa cấp phép";
+        }
+    }
+    res.locals.billboards = billboards;
+    res.render('Phuong-BQC', {
+        layout: 'Phuong'
+    });
+
+};
+
+controller.showPhuongBC = async(req, res) => {
+    let locations = await Location.find({
+        phuongID: req.session.user.phuong,
+        quanID: req.session.user.quan
+    });
+    let reports = [];
+    for (location of locations) {
+        let locationReports = await Report.find({
+            queryID: location.locationID,
+            tinhtrang: "Chưa xử lí"
+         }).lean();
+         
+        billboards = await Billboard.find({
+            locationID: location.locationID
+         }).lean();
+         
+         let combinedReports = [];
+         for (let billboard of billboards) {
+            let billboardReports = await Report.find({
+                queryID: billboard.billboardID,
+                tinhtrang: "Chưa xử lí"
+            }).lean();
+     
+            // Combine reports
+            combinedReports = combinedReports.concat(locationReports, billboardReports);
+         };
+         reports = reports.concat(combinedReports);
+     };
+    for (let report of reports) {
+        let date = new Date(report.thoidiemgui);
+        let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
+        let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
+        let year = date.getFullYear(); // Get the full year
+        report.thoidiemgui = `${day}-${month}-${year}`; // Combine the day, month, and year into a string
+    }
+    res.locals.reports=reports;
+    res.render('Phuong-BC', {
+        layout: 'Phuong'
+    });
+
+};
 
 controller.showPhuongDDQC = async (req, res) => {
     let locations = await Location.find({
@@ -170,13 +471,6 @@ controller.deleteLocation = async (req, res) => {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
-let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-        user: 'ndvlinh21@clc.fitus.edu.vn',
-        pass: 'gkil ziel tfsx rldr'
-    }
-});
 
 controller.showForgot = (req, res) => {
     res.render('Forgot', {
@@ -460,7 +754,6 @@ controller.xoaPhuong = async (req, res) => {
         const qid = req.params.quanID;
         const pid = req.params.phuongID;
         await Phuong.deleteOne({ phuongID: pid, quanID: qid });
-        console.log(qid, pid);
         res.redirect('/chiTiet?keyword=' + qid);
     } catch (error) {
         console.log(error);
@@ -563,12 +856,12 @@ controller.showPhuongMap = async (req, res) => {
         quanID: req.session.user.quan
     }).lean();
     for (location of locations) {
-        location.hasReport = !!await Report.findOne({ queryID: location.locationID });
+        location.hasReport = !!await Report.findOne({ queryID: location.locationID , tinhtrang: "Chưa xử lí"});
         location.billboard = await Billboard.find({ locationID: location.locationID });
         if (location.hasReport == false) {
             for (billboard of location.billboard) {
                 if (location.hasReport == false) {
-                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID });
+                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID , tinhtrang: "Chưa xử lí"});
                 }
                 else break;
             }
@@ -585,12 +878,12 @@ controller.showPhuongMapDetail = async (req, res) => {
         quanID: req.session.user.quan
     }).lean();
     for (location of locations) {
-        location.hasReport = !!await Report.findOne({ queryID: location.locationID });
+        location.hasReport = !!await Report.findOne({ queryID: location.locationID, tinhtrang: "Chưa xử lí"});
         location.billboard = await Billboard.find({ locationID: location.locationID });
         if (location.hasReport == false) {
             for (billboard of location.billboard) {
                 if (location.hasReport == false) {
-                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID });
+                    location.hasReport = !!await Report.findOne({ queryID: billboard.billboardID, tinhtrang: "Chưa xử lí" });
                 }
                 else break;
             }
@@ -704,7 +997,6 @@ controller.isLoggedIn = async (req, res, next) => {
 controller.themHinhThucBC = async (req, res) => {
 
     const ten = req.body.tenHinhThucBC;
-    console.log(ten);
     const newReportType = new ReportType({ name: ten });
     try {
         await newReportType.save();
@@ -792,7 +1084,6 @@ controller.addLocation = async (req, res) => {
 
     const temp = await Location.findOne({ toadoX: lat, toadoY: lng });
     const num = await Location.find({ quanID: qid, phuongID: pid });
-    //console.log(num.length);
     if (temp != null) {
         res.send('<script>alert("Location is defined"); window.location="/DDQCmap";</script>');
     } else {
@@ -831,18 +1122,19 @@ controller.register = async (req, res) => {
     const firstname = req.body.firstname;
     const date = req.body.date;
     const username = req.body.username;
-    const password = req.body.password;
+    let password = req.body.password;
     const quan = req.body.quan;
     const phuong = req.body.phuong;
     const telephone = req.body.telephone;
     const email = req.body.email;
     const chucvu = req.body.chucvu;
-    console.log(lastname, firstname, date, username, password, quan, phuong, telephone, email, chucvu);
     const temp = await User.findOne({ userID: username });
-    //console.log(num.length);
     if (temp != null) {
         res.send('<script>alert("user name is defined"); window.location="/showRegister";</script>');
     } else {
+        let salt = await bcrypt.genSalt(10);
+        let hashedPassword = await bcrypt.hash(password, salt);
+        password = hashedPassword;
         const newUser = new User({
             userID: username,
             password: password,
