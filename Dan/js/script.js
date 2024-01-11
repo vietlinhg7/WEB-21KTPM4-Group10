@@ -89,8 +89,8 @@ function initMap() {
   // Khởi tạo MarkerClusterer
   markerCluster = new MarkerClusterer(map, [], {
     imagePath: '/Dan/images/',
-    gridSize: 50,
-    maxZoom: 13
+    gridSize: 20,
+    maxZoom: 30
   });
 
 
