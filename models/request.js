@@ -7,6 +7,7 @@ const requestSchema = new Schema({
     thoidiem: { type: Date, default: Date.now },
     lydo: String,
     queryID: { type: String, required: true },
+    tinhtrang: String,
 });
 
 const Request = mongoose.model('Request', requestSchema);

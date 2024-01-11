@@ -10,9 +10,50 @@ const Hinhthuc = require('../models/hinhthuc');
 const ReportType = require('../models/reportType');
 const Loaivitri = require('../models/loaivitri');
 const Report = require('../models/report');
+const Request = require('../models/request')
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { notify } = require('../routes/authRouter');
+
+controller.saveLocation = async(req, res) => {
+    locationID = req.query.keyword;
+    let requestID = '0';
+    while (await Request.findOne({ requestID })) {
+        requestID = (parseInt(requestID) + 1).toString();
+    }
+    const thongtinmoi = new Location({
+        locationID: locationID,
+        name: req.body.ten,
+        diachi: req.body.diachi,
+        phuongID: req.body.phuong,
+        quanID: req.body.quan,
+        loaivitri: req.body.loaivitri,
+        hinhanh: req.body.hinhanh,
+        hinhthuc: req.body.hinhthuc,
+        quyhoach: req.body.quyhoach,
+        toadoX: req.body.toadoX,
+        toadoY: req.body.toadoY
+    });
+    const newRequest = new Request({
+        requestID: requestID,
+        thongtinmoi: thongtinmoi,
+        lydo: "None",
+        queryID: locationID
+    });
+    await newRequest.save();
+    console.log(req.body);
+}
+controller.showLocationInfo = async(req, res) => {
+    locationID = req.query.keyword;
+    res.locals.location = await Location.findOne({ locationID });
+    let loaivitri = await Loaivitri.find({});
+    let hinhThuc = await Hinhthuc.find({});
+    res.render('Phuong-DDQC-Info', {
+        layout: 'Phuong', 
+        loaivitri: loaivitri,
+        hinhThuc: hinhThuc
+    })
+}
 
 controller.showPhuongDDQC = async(req, res) => {
     let locations = await Location.find({
@@ -20,7 +61,6 @@ controller.showPhuongDDQC = async(req, res) => {
         quanID: req.session.user.quan
     });
     res.locals.location = locations;
-    console.log(res.locals.location);
     res.render('Phuong-DDQC', {
         layout: 'Phuong'
     });

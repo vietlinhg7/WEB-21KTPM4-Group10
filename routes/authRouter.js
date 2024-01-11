@@ -28,7 +28,9 @@ router.get('/showLoaiQC',controller.isLoggedIn, controller.showLoaiQC);
 router.get('/xoaLoai/:loai',controller.isLoggedIn, controller.xoaLoai);
 router.post('/suaLoai/:loai',controller.isLoggedIn, controller.suaLoai);
 
+router.get('/locationInfo',controller.isLoggedIn, controller.showLocationInfo);
 router.post('/themLoaiQC',controller.isLoggedIn, controller.themLoaiQC);
+router.post('/locationInfo',controller.isLoggedIn, controller.saveLocation);
 
 router.get('/Phuong-Map', controller.isLoggedIn, controller.showPhuongMap);
 router.get('/Phuong-Map-Detail', controller.isLoggedIn, controller.showPhuongMapDetail);
