@@ -38,7 +38,8 @@ controller.saveLocation = async(req, res) => {
         requestID: requestID,
         thongtinmoi: thongtinmoi,
         lydo: "None",
-        queryID: locationID
+        queryID: locationID,
+        tinhtrang: "Chưa xử lý"
     });
     await newRequest.save();
     console.log(req.body);
