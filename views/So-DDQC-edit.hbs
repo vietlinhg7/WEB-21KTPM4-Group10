@@ -1,4 +1,4 @@
-<body style=" margin-top: 70px">
+<body style=" margin-top: 60px;">
 
   <div id="map" style="height: 100%; width: 50%;" class="float-start"></div>
 
@@ -13,11 +13,13 @@
         <div class="card-body">
           <div class="row">
             <div class="col align-self-center">
-              <img src="https://cdnphoto.dantri.com.vn/vdDPWOVB1hcODVeyES8rD1GTLio=/zoom/1200_630/2019/04/23/truong-dh-khoa-hoc-tu-nhien-tphcm-1555986970839.jpg" alt="" class="img-thumbnail" id="image">
+              <img
+                src="https://cdnphoto.dantri.com.vn/vdDPWOVB1hcODVeyES8rD1GTLio=/zoom/1200_630/2019/04/23/truong-dh-khoa-hoc-tu-nhien-tphcm-1555986970839.jpg"
+                alt="" class="img-thumbnail" id="image">
               <label for="file-upload">file input</label>
               <input type="file" class="form-control-file" onclick="ChangeImage()" id="file-upload" required />
             </div>
-            <div class="col">
+            <div class="col-md-5">
               <h4 class="card-header"><i class="bi bi-geo-alt-fill"></i><strong> Thông tin địa
                   điểm</strong> </h4>
 
@@ -32,42 +34,104 @@
                   placeholder="Địa chỉ" value="{{location.diachi}}" required>
               </div>
               <h4 class="card-header"><i class="bi bi-geo-alt-fill mb-3"></i><strong> Khu vực</strong></h4>
-
-              <div class="mb-3">
+              {{!-- Phường --}}
+              {{!-- <div class="mb-3">
                 <input type="text" class="form-control my-3" name="keyword" id="adress" aria-describedby="helpId"
                   placeholder="Phường" value="Phường {{location.phuongID}}" required>
+              </div> --}}
+
+              <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
+                <button id="quan"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Quận
+                </button>
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+                  {{#each quan}}
+                  <li><a class="dropdown-item overflow-hidden text-truncate" id="selectQ{{quanID}}"  onclick="selectOption('quan','Quận {{quanID}}')">Quận
+                      {{quanID}}</a></li>
+                  {{/each}}
+                  </li>
+                </ul>
               </div>
 
-              <div class="mb-3">
-                <input type="text" class="form-control" name="keyword" id="name" aria-describedby="helpId"
-                  placeholder="Quận" value="Quận {{location.quanID}}" required>
+              <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
+                <button id="phuong"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Phường
+                </button>
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+                  {{#each phuong}}
+                  <li><a class="dropdown-item overflow-hidden text-truncate" href="#" id="selectP{{phuongID}}" onclick="selectOption('phuong','Phường {{phuongID}}')">{{phuongID}}</a></li>
+                  {{/each}}
+                </ul>
               </div>
-              <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại vị trí</strong></h5>
 
-                <div class="mb-3">
-                  <input type="text" class="form-control my-3" name="keyword" id="adress_type" aria-describedby="helpId"
-                    placeholder="Tên địa điểm" value="{{location.loaivitri}}" required>
-                </div>
+              {{!-- Quận --}}
+              <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Loại vị trí</strong></h4>
+              <div class="mb-3 loai-vi-tri-dropdown d-flex position-relative">
+                <button id="lvt"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-sm-auto w-100 overflow-hidden text-truncate" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Loại vị trí
+                </button>
+
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+                  {{#each loaivitri}}
+                  <li><a id="selectLVT{{name}}" class="dropdown-item overflow-hidden text-truncate" href="#" onclick="selectOption('lvt','{{name}}')">{{name}}</a></li>
+                  {{/each}}
+                </ul>
+              </div>
 
 
 
-                <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Hình thức quảng cáo</strong></h5>
 
-                  <div class="mb-3">
-                    <input type="text" class="form-control my-3" name="keyword" id="adress_type"
-                      aria-describedby="helpId" placeholder="Tên địa điểm" value="{{location.hinhthuc}}" required>
-                  </div>
+              {{!-- <div class="mb-3">
+                <input type="text" class="form-control my-3" name="keyword" id="adress_type" aria-describedby="helpId"
+                  placeholder="Tên địa điểm" value="{{location.hinhthuc}}" required>
+              </div> --}}
+              <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Hình thức quảng cáo</strong>
+              </h4>
+              <div class="mb-3 hinh-thuc-quang-cao-dropdown d-flex position-relative">
+                <button id="htqc"
+                  class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100" type="button"
+                  data-bs-toggle="dropdown" aria-expanded="false">
+                  Hình thức quảng cáo
+                </button>
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+                  {{#each hinhThuc}}
+                  <li><a id="selectHTQC{{hinhthuc}}" class="dropdown-item" href="#" onclick="selectOption('htqc',{{hinhthuc}})">{{hinhthuc}}</a></li>
+                  {{/each}}
 
-                  <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Quy Hoạch</strong></h5>
+                </ul>
+              </div>
 
-                    <div class="mb-3">
-                      <input type="text" class="form-control my-3" name="keyword" id="adress_type"
-                        aria-describedby="helpId" placeholder="Tên địa điểm" value="{{location.quyhoach}}" required>
-                    </div>
 
-                    <input type="button" onclick="edit()" value="Edit">
-                    <input type="button" onclick="save()" value="Save">
-                  </h4>
+              <h4 class="card-header"><i class="bi bi-info-square"></i><strong> Quy Hoạch</strong></h4>
+
+              {{!-- <div class="mb-3">
+                <input type="text" class="form-control my-3" name="keyword" id="adress_type" aria-describedby="helpId"
+                  placeholder="Tên địa điểm" value="{{location.quyhoach}}" required>
+              </div> --}}
+
+              <div class="mb-3 quy-hoach-dropdown d-flex position-relative">
+                <button id="qh" class="btn btn-secondary btn-sm btn-light border border-secondary dropdown-toggle w-100"
+                  type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Quy hoạch
+                </button>
+                <ul class="dropdown-menu w-100 position-absolute start-0 dropdown-menu-bottom">
+                  <li><a id="QH" class="dropdown-item" href="#" onclick="selectOption('qh', 'Đã quy hoạch')">Đã quy
+                      hoạch</a></li>
+                  <li><a id="CQH" class="dropdown-item" href="#" onclick="selectOption('qh', 'Chưa quy hoạch')">Chưa quy
+                      hoạch</a></li>
+                </ul>
+              </div>
+              <div class="d-flex justify-content-end mt-3">
+                <input class="btn btn-success mx-3" type="button" onclick="edit()" value="Edit">
+                <input class="btn btn-primary" type="button" onclick="save()" value="Save">
+              </div>
+
             </div>
           </div>
         </div>
@@ -79,10 +143,19 @@
 
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5paKst7kP-INwPaSuqoak2nRGeJOSTQc&callback=initMap"
     async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"></script>
   <script>
+    function toggleLockScreen() {
+      document.body.classList.toggle('locked');
+    }
+    function selectOption(buttonID, selectedText) {
+      let button = document.getElementById(buttonID);
+      button.innerHTML = selectedText;
+    }
     let lat;
     let lng;
-
     function createSubmitButton(map) {
       const controlButton = document.createElement("button");
 
@@ -173,7 +246,6 @@
     }
 
   </script>
-  <script>
 
-  </script>
+
 </body>

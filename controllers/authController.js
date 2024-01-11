@@ -58,10 +58,18 @@ controller.changePass = async (req, res) => {
 controller.editLocation = async (req, res) => {
     const keyword = req.query.keyword;
     let location = await Location.findOne({ locationID: keyword });
+    let quan = await Quan.find({});
+    let phuong = await Phuong.find({});
+    let loaivitri = await Loaivitri.find({});
+    let hinhThuc = await Hinhthuc.find({});
     try {
         res.render('So-DDQC-edit', {
             layout: 'So',
-            location: location
+            location: location,
+            quan: quan,
+            phuong: phuong,
+            loaivitri : loaivitri,
+            hinhThuc : hinhThuc
         });
         // or wherever you want to redirect after saving
     } catch (err) {
