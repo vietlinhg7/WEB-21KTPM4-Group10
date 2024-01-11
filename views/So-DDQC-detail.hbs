@@ -12,76 +12,31 @@
     }
   </style>
   <div class="d-flex align-items-stretch flex-wrap flex-row bd-highlight mx-4">
-    <div
-      class="col-3 bg-body mx-5 my-4 border border-secondary border-1 rounded px-2 py-2 d-flex flex-column ddqc-detail-item">
+    {{#each billboard}}
+    <div class="col-3 bg-body mx-5 my-4 border border-secondary border-1 rounded px-2 py-2 d-flex flex-column ddqc-detail-item">
       <div class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
         <div class="align-self-center fs-7">
-          <h4>Trụ, cụm pano</h4>
+          <h4>{{loai}}</h4>
         </div>
         <button type="button" class="btn btn-primary" aria-label="Close" onclick="toggleOverflow(this)">
           <i class="bi bi-info-circle"></i>
         </button>
       </div>
-      <p class="fs-7 text-secondary">Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1</p>
+      <p class="fs-7 text-secondary">{{@root.location.diachi}}</p>
       <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
         <span class="me-1 align-self-start">Số lượng:</span>
-        <span class="fw-bold truncated-content quantity">1 trụ/bảng</span>
+        <span class="fw-bold truncated-content quantity">{{soluong}} trụ/bảng</span>
       </span>
       <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
         <span class="me-1 align-self-start">Hình thức:</span>
-        <span class="fw-bold truncated-content format">Cổ động chính trị</span>
+        <span class="fw-bold truncated-content format">{{hinhthuc}}</span>
       </span>
       <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
         <span class="me-1 align-self-start">Phân loại:</span>
-        <span class="fw-bold truncated-content classification">Đất công/Công viên/Hành lang an toàn giao thông</span>
+        <span class="fw-bold truncated-content classification">{{@root.location.loaivitri}}</span>
       </span>
     </div>
-    <div class="col-3 bg-body mx-5 my-4 border border-secondary border-1 rounded px-2 py-2 d-flex flex-column ddqc-detail-item">
-        <div class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
-            <div class="align-self-center fs-7">
-                <h4>Trụ, cụm pano</h4>
-            </div>
-            <button type="button" class="btn btn-primary" aria-label="Close" onclick="toggleOverflow(this)">
-                <i class="bi bi-info-circle"></i>
-            </button>
-        </div>
-        <p class="fs-7 text-secondary">Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1</p>
-        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
-            <span class="me-1 align-self-start">Số lượng:</span>
-            <span class="fw-bold truncated-content quantity">1 trụ/bảng</span>
-        </span>
-        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
-            <span class="me-1 align-self-start">Hình thức:</span>
-            <span class="fw-bold truncated-content format">Cổ động chính trị</span>
-        </span>
-        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
-            <span class="me-1 align-self-start">Phân loại:</span>
-            <span class="fw-bold truncated-content classification">Đất công/Công viên/Hành lang an toàn giao thông</span>
-        </span>
-    </div>
-    <div class="col-3 bg-body mx-5 my-4 border border-secondary border-1 rounded px-2 py-2 d-flex flex-column ddqc-detail-item">
-        <div class="d-flex align-items-center justify-content-between flex-nowrap flex-row mb-2">
-            <div class="align-self-center fs-7">
-                <h4>Trụ, cụm pano</h4>
-            </div>
-            <button type="button" class="btn btn-primary" aria-label="Close" onclick="toggleOverflow(this)">
-                <i class="bi bi-info-circle"></i>
-            </button>
-        </div>
-        <p class="fs-7 text-secondary">Đồng Khởi - Nguyễn Du (Sở Văn hóa và Thể thao), Phường Bến Nghé, Quận 1</p>
-        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
-            <span class="me-1 align-self-start">Số lượng:</span>
-            <span class="fw-bold truncated-content quantity">1 trụ/bảng</span>
-        </span>
-        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
-            <span class="me-1 align-self-start">Hình thức:</span>
-            <span class="fw-bold truncated-content format">Cổ động chính trị</span>
-        </span>
-        <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
-            <span class="me-1 align-self-start">Phân loại:</span>
-            <span class="fw-bold truncated-content classification">Đất công/Công viên/Hành lang an toàn giao thông</span>
-        </span>
-    </div>
+    {{/each}}
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script>

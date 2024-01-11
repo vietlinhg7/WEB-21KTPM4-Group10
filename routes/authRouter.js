@@ -49,6 +49,7 @@ router.get('/showTKBaoCao',controller.isLoggedIn, controller.showTKBC);
 router.get('/showTKCXL',controller.isLoggedIn, controller.showTKCXL);
 router.get('/XetDuyetChinhSua',controller.isLoggedIn, controller.xetDuyetChinhSua);
 router.get('/YeuCauCapPhep',controller.isLoggedIn, controller.yeuCauCapPhep);
+router.get('/DDQCdetail',controller.isLoggedIn, controller.DDQCdetail);
 
 
 module.exports = router;

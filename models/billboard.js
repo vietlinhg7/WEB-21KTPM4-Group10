@@ -8,7 +8,8 @@ const billboardSchema = new Schema({
     hinhthuc: String,
     hinhanh: String,
     ngayhethan: Date,
-    locationID: { type: String, required: true }
+    locationID: { type: String, required: true },
+    soluong : Number
 });
 
 const Billboard = mongoose.model('Billboard', billboardSchema);
