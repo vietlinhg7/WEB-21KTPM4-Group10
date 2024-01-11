@@ -11,6 +11,12 @@
       white-space: normal !important;
     }
   </style>
+  <div class="position-fixed bottom-0 end-0 mb-3 me-4">
+    <button id="add-button" type="button" class="border-start-0 border-bottom-0 btn-custom">
+      {{!-- <a class="dropdown-item" href="/DDQCmap"><i class="bi bi-database-add"></i></a> --}}
+      <a href="/showaddBQC?keyword={{location.locationID}}"><i class="bi bi-database-add custom-icon"></i></a>
+    </button>
+  </div>
   <div class="d-flex align-items-stretch flex-wrap flex-row bd-highlight mx-4">
     {{#each billboard}}
     <div
@@ -19,9 +25,10 @@
         <div class="align-self-center fs-7">
           <h4>{{loai}}</h4>
         </div>
-        <button type="button" class="btn btn-primary" aria-label="Close" onclick="toggleOverflow(this)">
+        <a href="/BQCdetail?keyword={{billboardID}}" type="button" class="btn btn-primary" aria-label="Close"
+          onclick="toggleOverflow(this)">
           <i class="bi bi-info-circle"></i>
-        </button>
+        </a>
       </div>
       <p class="fs-7 text-secondary">{{@root.location.diachi}}</p>
       <span class="d-flex justify-content-start align-items-center flex-wrap flex-row mb-1">
@@ -37,13 +44,11 @@
         <span class="fw-bold truncated-content classification">{{@root.location.loaivitri}}</span>
       </span>
       <div id="button-area" class="d-flex align-items-end justify-content-end flex-nowrap flex-row">
-        <a class="col-3 btn btn-danger" href="#" role="button">
+        <a class="col-3 btn btn-danger" href="/deleteBQC?keyword={{billboardID}}" role="button">
           <i class="bi bi-trash3-fill"></i>
         </a>
         </button>
-        <a class="col-3 btn btn-primary mx-2" href="#" role="button">
-          <i class="bi bi-pencil-square"></i>
-        </a>
+
       </div>
     </div>
     {{/each}}
