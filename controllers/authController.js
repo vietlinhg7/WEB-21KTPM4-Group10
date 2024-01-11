@@ -15,7 +15,7 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcrypt');
 const { notify } = require('../routes/authRouter');
 
-controller.saveLocation = async(req, res) => {
+controller.saveLocation = async (req, res) => {
     locationID = req.query.keyword;
     let requestID = '0';
     while (await Request.findOne({ requestID })) {
@@ -44,19 +44,19 @@ controller.saveLocation = async(req, res) => {
     await newRequest.save();
     console.log(req.body);
 }
-controller.showLocationInfo = async(req, res) => {
+controller.showLocationInfo = async (req, res) => {
     locationID = req.query.keyword;
     res.locals.location = await Location.findOne({ locationID });
     let loaivitri = await Loaivitri.find({});
     let hinhThuc = await Hinhthuc.find({});
     res.render('Phuong-DDQC-Info', {
-        layout: 'Phuong', 
+        layout: 'Phuong',
         loaivitri: loaivitri,
         hinhThuc: hinhThuc
     })
 }
 
-controller.showPhuongDDQC = async(req, res) => {
+controller.showPhuongDDQC = async (req, res) => {
     let locations = await Location.find({
         phuongID: req.session.user.phuong,
         quanID: req.session.user.quan
@@ -130,6 +130,7 @@ controller.editLocation = async (req, res) => {
     const pid = req.body.PIDD;
     const address = req.body.address;
     const addressdetail = req.body.address_detail;
+    const imgurl = req.body.imgurl;
     // console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
 
 
@@ -144,7 +145,7 @@ controller.editLocation = async (req, res) => {
         phuongID: pid,
         quanID: qid,
         loaivitri: lvt,
-        hinhanh: 'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
+        hinhanh: imgurl,
         hinhthuc: htqc,
         quyhoach: QHCQH,
         toadoX: lat,
@@ -305,8 +306,10 @@ controller.showProfile = (req, res) => {
 };
 
 controller.DDQCmap = async (req, res) => {
+    const keyword = req.query.keyword;
+
     let quan = await Quan.find({});
-    let phuong = await Phuong.find({});
+    let phuong = await Phuong.find({ quanID: keyword });
     let loaivitri = await Loaivitri.find({});
     let hinhThuc = await Hinhthuc.find({});
     res.render('So-DDQC-map', {
@@ -320,15 +323,15 @@ controller.DDQCmap = async (req, res) => {
 
 }
 controller.showLocation = async (req, res) => {
-    res.render('Phuong-taoCapPhepQuangCao', {
-        layout: 'So'
-    });
-    
-    // let location = await Location.find({});
-    // res.render('So-DDQC', {
-    //     layout: 'So',
-    //     location: location
+    // res.render('Phuong-taoCapPhepQuangCao', {
+    //     layout: 'So'
     // });
+
+    let location = await Location.find({});
+    res.render('So-DDQC', {
+        layout: 'So',
+        location: location
+    });
 }
 controller.themHinhThucQC = async (req, res) => {
 
@@ -742,9 +745,12 @@ controller.showTKBC = async (req, res) => {
         layout: 'so'
     });
 }
+
 controller.showTKCXL = async (req, res) => {
+    let report = Report.find({});
     res.render('So-ThongKeCXL', {
-        layout: 'so'
+        layout: 'so',
+        report: report
     });
 }
 controller.xetDuyetChinhSua = async (req, res) => {
@@ -777,6 +783,7 @@ controller.addLocation = async (req, res) => {
     const pid = req.body.PIDD;
     const address = req.body.address;
     const addressdetail = req.body.address_detail;
+    const imgurl = req.body.imgrul;
     console.log(lat, lng, htqc, QHCQH, lvt, qid, pid, address, addressdetail);
 
     const temp = await Location.findOne({ toadoX: lat, toadoY: lng });
@@ -792,7 +799,7 @@ controller.addLocation = async (req, res) => {
             phuongID: pid,
             quanID: qid,
             loaivitri: lvt,
-            hinhanh: 'https://lh5.googleusercontent.com/p/AF1QipMclCpI1Ksxue8H_vB566QeSpmA1USCh4CFprFc=w408-h306-k-no',
+            hinhanh: imgurl,
             hinhthuc: htqc,
             quyhoach: QHCQH,
             toadoX: lat,
@@ -855,11 +862,111 @@ controller.register = async (req, res) => {
     }
 }
 
+controller.BQCdetail = async (req, res) => {
+    const keyword = req.query.keyword;
+    const loai = await Loai.find({});
+    let billboard = await Billboard.findOne({ billboardID: keyword });
+    let hinhthuc = await Hinhthuc.find({});
+    res.render('So-BQC-info', {
+        layout: 'so',
+        billboard: billboard,
+        loai: loai,
+        hinhthuc : hinhthuc,
+    });
+}
+
+controller.showaddBQC = async (req, res) => {
+    const keyword = req.query.keyword;
+    const loai = await Loai.find({});
+    let billboard = await Billboard.findOne({ billboardID: keyword });
+    let hinhthuc = await Hinhthuc.find({});
+    let location = await Location.findOne({locationID : keyword});
+    res.render('So-addBQC', {
+        layout: 'so',
+        billboard: billboard,
+        loai: loai,
+        hinhthuc : hinhthuc,
+        location:location
+    });
+}
+
+controller.editBQC = async (req, res) => {
+    const keyword = req.query.keyword;
+    const htqc = req.body.HTQC;
+    const lqc = req.body.LQC;
+    const imgurl = req.body.imgurl;
+    const date = req.body.date;
+    const size = req.body.size;
+    const amount = req.body.amount;
+    console.log( htqc, lqc, imgurl ,date, size , amount);
+    //console.log(num.length);
+
+    await Billboard.updateOne({ billboardID: keyword }, {
+        loai: lqc,
+        hinhanh: imgurl,
+        hinhthuc: htqc,
+        ngayhethan: date,
+        soluong: amount,
+        kichthuoc: size,
+    });
+    try {
+        res.redirect('/showLocation'); // or wherever you want to redirect after saving
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
+
+
+controller.addBQC = async (req, res) => {
+    const keyword = req.query.keyword;
+    const htqc = req.body.HTQC;
+    const lqc = req.body.LQC;
+    const imgurl = req.body.imgurl;
+    const date = req.body.date;
+    const size = req.body.size;
+    const amount = req.body.amount;
+    //console.log(num.length);
+    const num = await Billboard.find({}).length;
+    const newBillboard = new Billboard({
+        locationID : keyword,
+        billboardID: 'b' + num,
+        loai: lqc,
+        hinhanh: imgurl,
+        hinhthuc: htqc,
+        ngayhethan: date,
+        soluong: amount,
+        kichthuoc: size,
+    });
+    try {
+        await newBillboard.save();
+        res.send('<script>alert("new billboard is added"); window.location="/DDQCdetail?keyword=' + keyword + '";</script>');
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server Error');
+    }
+}
+
+controller.deleteBQC = async (req, res) => {
+    try {
+        const keyword = req.query.keyword;
+
+        await Billboard.deleteOne({ billboardID: keyword });
+        res.redirect('/showLocation');
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+
+}
+
 controller.getReports = async (req, res) => {
     try {
         // Lấy tất cả các bảng locations
         const arrayReport = await Report.find({});
-        res.json(arrayReport); 
+        res.json(arrayReport);
     } catch (error) {
         console.error('Lỗi khi lấy dữ liệu:', error);
     }

@@ -54,9 +54,16 @@ router.get('/YeuCauCapPhep',controller.isLoggedIn, controller.yeuCauCapPhep);
 router.get('/DDQCdetail',controller.isLoggedIn, controller.DDQCdetail);
 router.post('/addLocation',controller.isLoggedIn, controller.addLocation);
 router.get('/infoReport', controller.getReports);
+router.get('/BQCdetail',controller.isLoggedIn, controller.BQCdetail);
+router.post('/addBQC',controller.isLoggedIn, controller.addBQC);
+router.get('/showaddBQC',controller.isLoggedIn, controller.showaddBQC);
+
+router.get('/deleteBQC',controller.isLoggedIn, controller.deleteBQC);
 
 
 router.post('/editLocation',controller.isLoggedIn, controller.editLocation);
+router.post('/editBQC',controller.isLoggedIn, controller.editBQC);
+
 router.post('/register',controller.isLoggedIn, controller.register);
 
 module.exports = router;
