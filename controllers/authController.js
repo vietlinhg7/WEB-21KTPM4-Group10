@@ -709,9 +709,12 @@ controller.showTKBC = async (req, res) => {
         layout: 'so'
     });
 }
+
 controller.showTKCXL = async (req, res) => {
+    let report = Report.find({});
     res.render('So-ThongKeCXL', {
-        layout: 'so'
+        layout: 'so',
+        report: report
     });
 }
 controller.xetDuyetChinhSua = async (req, res) => {
