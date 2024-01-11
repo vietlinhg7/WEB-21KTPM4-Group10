@@ -62,8 +62,7 @@
         reportTypeCounts[item.reportType] = (reportTypeCounts[item.reportType] || 0) + 1;
 
         // Đếm cho tinhtrang = "Đã xử lý xong"
-        if (item.tinhtrang == "Đã xử lý xong") {
-          console.log(item.tinhtrang);
+        if (item.tinhtrang == "Đã xử lí") {
           tinhtrangCounts[item.reportType] = (tinhtrangCounts[item.reportType] || 0) + 1;
         } else {
           // Nếu không có "Đã xử lý xong", đặt giá trị là 0
@@ -116,7 +115,7 @@
             text: "Thống kê báo cáo"
           },
           axisY: {
-            maximum: 100
+            maximum: 50
           },
           data: [
             {
