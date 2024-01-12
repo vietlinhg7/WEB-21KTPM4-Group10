@@ -407,7 +407,7 @@ controller.showEditLocation = async (req, res) => {
     console.log(keyword);
     try {
         res.render('So-DDQC-edit', {
-            layout: 'So',
+            layout: 'so',
             location: location,
             quan: quan,
             phuong: phuong,
@@ -607,7 +607,7 @@ controller.DDQCmap = async (req, res) => {
     let loaivitri = await Loaivitri.find({});
     let hinhThuc = await Hinhthuc.find({});
     res.render('So-DDQC-map', {
-        layout: 'So',
+        layout: 'so',
         quan: quan,
         phuong: phuong,
         loaivitri: loaivitri,
@@ -621,13 +621,13 @@ controller.showLocation = async (req, res) => {
     
     // let location = await Location.find({});
     // res.render('So-DDQC', {
-    //     layout: 'So',
+    //     layout: 'so',
     //     location: location
     // });
 
     let location = await Location.find({});
     res.render('So-DDQC', {
-        layout: 'So',
+        layout: 'so',
         location: location
     });
 }
@@ -719,7 +719,7 @@ controller.showLoaiQC = async (req, res) => {
     let reportType = await ReportType.find({});
     let loaivitri = await Loaivitri.find({});
     res.render('So-LoaiHinhQC', {
-        layout: 'So',
+        layout: 'so',
         loai: loai,
         hinhThuc: hinhThuc,
         reportType: reportType,
@@ -810,7 +810,7 @@ controller.chiTiet = async (req, res) => {
 
     ;
     res.render('So-QLQuanPhuong', {
-        layout: 'So',
+        layout: 'so',
         quan: quan
     });
 };
@@ -830,7 +830,7 @@ controller.xoaQuan = async (req, res) => {
 controller.showQuan = async (req, res) => {
     res.locals.quan = await Quan.find({});
     res.render('So-Index', {
-        layout: 'So',
+        layout: 'so',
     });
 }
 controller.addQuan = async (req, res) => {
