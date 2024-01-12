@@ -119,7 +119,7 @@ controller.taoCapPhep = async (req, res) => {
     else {
         res.locals.capphep = new Capphep({ });
     }
-    res.render('Phuong-CapPhep', {
+    res.render('Phuong-Capphep', {
         layout: 'Phuong',
     });
 }
