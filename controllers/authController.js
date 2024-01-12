@@ -98,12 +98,12 @@ controller.showChuaPheDuyet = async (req,res) => {
 
 controller.taoCapPhep = async (req, res) => {
     billboardID = req.query.keyword;
-    billboard = await Billboard.findOne({ billboardID });
+    billboard = await Billboard.findOne({ billboardID: billboardID });
     res.locals.billboardID = billboardID;
     res.locals.locationID = billboard.locationID;
-    if (await Capphep.findOne({billboardID}))
+    if (await Capphep.findOne({billboardID: billboardID }))
     {
-        capphep = await Capphep.findOne({billboardID}).lean();
+        capphep = await Capphep.findOne({billboardID: billboardID }).lean();
         let date = new Date(capphep.ngaybatdau);
         let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
         let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
