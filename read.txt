@@ -10,8 +10,7 @@ npm install mongodb
 
 npm install mongoose
 
-Trong file map.js 
-const MONGO_URL = 'mongodb+srv://nhom10:web21ktpm@cluster0.uveminn.mongodb.net/nhom10?retryWrites=true&w=majority'
+
     
 Lấy ảnh xài cloudinary
 npm install cloudinary
