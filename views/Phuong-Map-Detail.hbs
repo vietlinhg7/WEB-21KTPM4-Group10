@@ -8,86 +8,109 @@
       See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
       for more information.
       -->
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5paKst7kP-INwPaSuqoak2nRGeJOSTQc&callback=initAutocomplete&libraries=places&v=weekly"
-      defer
-    ></script>
+    
     <style>
-      var sidebar = document.getElementById("sidebar");
-      var map = document.getElementById("map");
-      map.style.width = "70%";
+      var sidebar=document.getElementById("sidebar");
+      var map=document.getElementById("map");
+      map.style.width="70%";
     </style>
     <div id="sidebar">
-      <button class="close" onclick="window.location.href='/Phuong-Map'">Đóng</button>
       <div id="section1">
-        <img src="assets/img/location.png" width=25px height=25px display=inline-block>
-        <div class="line1" display="float">Thông tin địa điểm</div>
+        <div class="line1 d-flex flex-row justify-content-between align-items-center mx-1">
+          <div class="left-section">
+            <p class="fw-bold"> <i class="bi bi-geo-alt-fill"></i> Thông tin địa điểm
+            <p>
+          </div>
+          <button class="my-1 right-section align-self-start opacity-100 close"
+            onclick="window.location.href='/Phuong-Map'">
+            <i class="bi bi-x-square-fill text-danger"></i>
+          </button>
+        </div>
         <div id="locationInfo">
-          <div class="line2">{{querylocation.name}}</div>
-          <div class="line3">Địa chỉ: {{querylocation.diachi}}</div>
-          <div class="line3">Phường: {{querylocation.phuongID}} Quận: {{querylocation.quanID}}</div>
-          <div class="line3">Loại vị trí: {{querylocation.loaivitri}}</div>
-          <div class="line2">{{querylocation.quyhoach}}</div>
-          <a href="/locationInfo?keyword={{querylocation.locationID}}">
-            <img src="assets/img/infor.png" width=25px height=25px>
-          </a>
+          <div class="line2 mx-2">{{querylocation.name}}</div>
+          <div class="line3 mx-2">Địa chỉ: {{querylocation.diachi}}</div>
+          <div class="line3 mx-2">Phường: {{querylocation.phuongID}} Quận: {{querylocation.quanID}}</div>
+          <div class="line3 mx-2">Loại vị trí: {{querylocation.loaivitri}}</div>
+          <div class="d-flex justify-content-between align-items-start my-2 mx-3 ms-2">
+            <div class="line2">{{querylocation.quyhoach}}</div>
+            <a href="/locationInfo?keyword={{querylocation.locationID}}">
+              <img class="align-self-start" src="assets/img/infor.png" width="25px" height="25px">
+            </a>
+          </div>
           {{#if reports}}
-            <div id="section2b">
-              <img src="assets/img/alert.png" width=25px height=25px display=inline-block>
-              <div class="line1">Báo cáo:</div>
-                {{#each reports}}
-                  <div id="reportInfo">
-                    <div class="line2">{{reportType}}</div>
-                    <div class="line3">Tên người gửi: {{fullName}}</div>
-                    <div class="line3">Email: {{email}}</div>
-                    <div class="line3">Số điện thoại: {{phone}}</div>
-                    <div class="line3">Thời điểm gửi: {{thoidiemgui}}</div>
-                    <a href="/reportInfo?keyword={{reportID}}">
-                      <img src="assets/img/infor.png" width=25px height=25px>
-                    </a>
-                  </div>
-                {{/each}}
+          <div id="section2b">
+            <div class="line1 d-flex flex-row justify-content-start align-items-center mx-1 my-1">
+              <p class="fw-bold"><img class="align-self-start" src="assets/img/alert.png" width="25px" height="25px">
+                Báo cáo:
+              <p>
             </div>
+            {{#each reports}}
+            <div id="reportInfo">
+              <div class="line2">{{reportType}}</div>
+              <div class="line3">Tên người gửi: {{fullName}}</div>
+              <div class="line3">Email: {{email}}</div>
+              <div class="line3">Số điện thoại: {{phone}}</div>
+              <div class="line3">Thời điểm gửi: {{thoidiemgui}}</div>
+              <a href="/reportInfo?keyword={{reportID}}">
+                <img src="assets/img/infor.png" width=25px height=25px>
+              </a>
+            </div>
+            {{/each}}
+          </div>
           {{/if}}
-      </div>
+        </div>
       </div>
       <div id="section2a">
-        <img src="assets/img/ad.png" width=25px height=25px display=inline-block>
-        <div class="line1">Thông tin bảng quảng cáo:</div>
+        <div class="line1 d-flex flex-row justify-content-start align-items-center mx-1">
+
+          <p class="fw-bold"><i class="bi bi-badge-ad-fill"></i> Thông tin quảng cáo:
+          <p>
+        </div>
+
+
         {{#each billboards}}
-          <div id="adInfo">
+        <div id="adInfo">
+          <div class="d-flex justify-content-between align-items-start mx-3 my-3">
             <div class="line2">{{loai}}</div>
-            <div class="line3">Kích thước: {{kichthuoc}}</div>
-            <div class="line3">Hình thức: {{hinhthuc}}</div>
             <a href="/billboardInfo?keyword={{billboardID}}">
-              <img src="assets/img/infor.png" width=25px height=25px>
+              <img src="assets/img/infor.png" width="25px" height="25px">
             </a>
-            {{#if reports}}
-              <div id="section2b">
-                <img src="assets/img/alert.png" width=25px height=25px display=inline-block>
-                <div class="line1">Báo cáo:</div>
-                {{#each reports}}
-                  <div id="reportInfo">
-                    <div class="line2">{{reportType}}</div>
-                    <div class="line3">Tên người gửi: {{fullName}}</div>
-                    <div class="line3">Email: {{email}}</div>
-                    <div class="line3">Số điện thoại: {{phone}}</div>
-                    <div class="line3">Thời điểm gửi: {{thoidiemgui}}</div>
-                    <a href="/reportInfo?keyword={{reportID}}">
-                      <img src="assets/img/infor.png" width=25px height=25px>
-                    </a>
-                  </div>
-                {{/each}}
-              </div>
-            {{/if}}
           </div>
+          <div class="line3 mx-3">Kích thước: {{kichthuoc}}</div>
+          <div class="line3 mx-3">Hình thức: {{hinhthuc}}</div>
+
+          {{#if reports}}
+          <div id="section2b">
+            <div class="line1 d-flex flex-row justify-content-start align-items-center mx-1">
+              <p class="fw-bold align-self-end"><img class="align-self-start" src="assets/img/alert.png" width="25px" height="25px">
+                Báo cáo:
+              <p>
+            </div>
+            {{#each reports}}
+            <div id="reportInfo">
+              <div class="d-flex justify-content-between align-items-start my-3">
+                <div class="line2">{{reportType}}</div>
+                <a href="/reportInfo?keyword={{reportID}}">
+                  <img class="me-1" src="assets/img/infor.png" width="25px" height="25px">
+                </a>
+              </div>
+              <div class="line3">Tên người gửi: {{fullName}}</div>
+              <div class="line3">Email: {{email}}</div>
+              <div class="line3">Số điện thoại: {{phone}}</div>
+              <div class="line3">Thời điểm gửi: {{thoidiemgui}}</div>
+              
+            </div>
+            {{/each}}
+          </div>
+          {{/if}}
+        </div>
         {{/each}}
       </div>
       <style>
         [id^="section"] {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
+          display: flex;
+          flex-direction: column;
+          align-items: stretch;
         }
       </style>
     </div>
@@ -137,4 +160,7 @@
     }
     window.initAutocomplete = initAutocomplete;
   </script>
+  <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5paKst7kP-INwPaSuqoak2nRGeJOSTQc&callback=initAutocomplete&libraries=places&v=weekly"
+      defer></script>
 </body>

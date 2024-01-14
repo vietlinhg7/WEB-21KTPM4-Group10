@@ -13,7 +13,7 @@ const Report = require('../models/report');
 const Request = require('../models/request');
 const Capphep = require('../models/capphep')
 const nodemailer = require('nodemailer');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const { notify } = require('../routes/authRouter');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
@@ -98,12 +98,12 @@ controller.showChuaPheDuyet = async (req,res) => {
 
 controller.taoCapPhep = async (req, res) => {
     billboardID = req.query.keyword;
-    billboard = await Billboard.findOne({ billboardID });
+    billboard = await Billboard.findOne({ billboardID: billboardID });
     res.locals.billboardID = billboardID;
     res.locals.locationID = billboard.locationID;
-    if (await Capphep.findOne({billboardID}))
+    if (await Capphep.findOne({billboardID: billboardID }))
     {
-        capphep = await Capphep.findOne({billboardID}).lean();
+        capphep = await Capphep.findOne({billboardID: billboardID }).lean();
         let date = new Date(capphep.ngaybatdau);
         let day = ("0" + date.getDate()).slice(-2); // Get the day of the month (from 1 to 31)
         let month = ("0" + (date.getMonth() + 1)).slice(-2); // Get the month (from 0 to 11)
@@ -119,7 +119,7 @@ controller.taoCapPhep = async (req, res) => {
     else {
         res.locals.capphep = new Capphep({ });
     }
-    res.render('Phuong-CapPhep', {
+    res.render('Phuong-Capphep', {
         layout: 'Phuong',
     });
 }
@@ -407,7 +407,7 @@ controller.showEditLocation = async (req, res) => {
     console.log(keyword);
     try {
         res.render('So-DDQC-edit', {
-            layout: 'So',
+            layout: 'so',
             location: location,
             quan: quan,
             phuong: phuong,
@@ -607,7 +607,7 @@ controller.DDQCmap = async (req, res) => {
     let loaivitri = await Loaivitri.find({});
     let hinhThuc = await Hinhthuc.find({});
     res.render('So-DDQC-map', {
-        layout: 'So',
+        layout: 'so',
         quan: quan,
         phuong: phuong,
         loaivitri: loaivitri,
@@ -617,13 +617,17 @@ controller.DDQCmap = async (req, res) => {
 
 }
 controller.showLocation = async (req, res) => {
-    // res.render('Phuong-taoCapPhepQuangCao', {
-    //     layout: 'So'
+    
+    
+    // let location = await Location.find({});
+    // res.render('So-DDQC', {
+    //     layout: 'so',
+    //     location: location
     // });
 
     let location = await Location.find({});
     res.render('So-DDQC', {
-        layout: 'So',
+        layout: 'so',
         location: location
     });
 }
@@ -715,7 +719,7 @@ controller.showLoaiQC = async (req, res) => {
     let reportType = await ReportType.find({});
     let loaivitri = await Loaivitri.find({});
     res.render('So-LoaiHinhQC', {
-        layout: 'So',
+        layout: 'so',
         loai: loai,
         hinhThuc: hinhThuc,
         reportType: reportType,
@@ -806,7 +810,7 @@ controller.chiTiet = async (req, res) => {
 
     ;
     res.render('So-QLQuanPhuong', {
-        layout: 'So',
+        layout: 'so',
         quan: quan
     });
 };
@@ -826,7 +830,7 @@ controller.xoaQuan = async (req, res) => {
 controller.showQuan = async (req, res) => {
     res.locals.quan = await Quan.find({});
     res.render('So-Index', {
-        layout: 'So',
+        layout: 'so',
     });
 }
 controller.addQuan = async (req, res) => {
