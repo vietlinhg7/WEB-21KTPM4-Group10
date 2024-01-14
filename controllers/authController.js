@@ -302,7 +302,7 @@ controller.showPhuongBQC = async(req, res) => {
         {
             billboard.tinhtrangcapphep = "Đã cấp phép";
         } else if (await Capphep.findOne({billboardID: billboard.billboardID,})) {
-            billboard.tinhtrangcapphep = "Đã tạo chưa cấp phép";
+            billboard.tinhtrangcapphep = "Đã tạo cấp phép chưa xét duyệt";
         }
         else {
             billboard.tinhtrangcapphep = "Chưa cấp phép";
